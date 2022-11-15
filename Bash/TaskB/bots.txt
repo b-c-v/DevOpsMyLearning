@@ -1,0 +1,36 @@
+﻿Googlebot
+AskJeeves
+Digger
+Lycos
+msnbot
+Inktomi Slurp
+Yahoo
+Nutch
+bingbot
+BingPreview
+Mediapartners-Google
+proximic
+AhrefsBot
+Twitterbot
+AdsBot-Google
+Ezooms
+AddThis.com
+facebookexternalhit
+MetaURI
+Mediatoolkitbot
+MJ12bot
+Feedfetcher-Google
+PaperLiBot
+TweetmemeBot
+Sogou web spider
+GoogleProducer
+RockmeltEmbedder
+ShareThisFetcher
+YandexBot
+rogerbot-crawler
+ShowyouBot
+Baiduspider
+Sosospider
+Exabot
+Mail.RU_Bot
+SentiBot
