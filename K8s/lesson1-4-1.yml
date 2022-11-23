@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod                                  #create Pod
+metadata:
+  name     : metadata-name-lesson1-4-1     #имя пода
+  namespace: namespace-lesson1-4           #указали имя namespace который создали в файле lesson1-4
+  labels   :
+    app: labels-app-lesson1-4-1
+spec:
+  containers:
+    - name : containers-name-lesson1-4-1  #присвоили имя контейнеру в поде
+      image: dqqm/lesson1:v0.2            #указали образ для контейнера web
+      ports:
+        - name: web
+          containerPort: 8080             #открыли у контейнера порт 8080
+          protocol: TCP

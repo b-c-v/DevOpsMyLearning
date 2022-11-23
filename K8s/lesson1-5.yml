@@ -1,0 +1,27 @@
+apiVersion: v1   
+kind: Namespace      #create namespace
+metadata:
+  name: namespace-lesson1-5
+---
+apiVersion: apps/v1
+kind: Deployment          #create deployment with 3 replicas of pods
+metadata:
+  name: deployment-metadata-name
+  namespace: namespace-lesson1-5
+  labels:
+    app: labels-app1-5
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: labels-app1-5
+  template:
+    metadata:
+      labels:
+        app: labels-app1-5
+    spec:
+      containers:
+      - name: web
+        image: dqqm/lesson1:v0.2
+        ports:
+        - containerPort: 8080

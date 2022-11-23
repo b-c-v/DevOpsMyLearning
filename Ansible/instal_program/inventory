@@ -1,0 +1,7 @@
+target1 ansible_host=192.168.0.213 ansible_sudo_pass=4840 
+target2 ansible_host=192.168.0.172 ansible_sudo_pass=4840
+target3 ansible_host=192.168.0.87 ansible_sudo_pass=osboxes.org
+
+[linux]
+target1
+target2

@@ -1,0 +1,17 @@
+-
+ name : Instal and configure nginx
+ hosts: all
+ become: yes
+ tasks:
+  - name: Instal nginx Ubuntu
+    apt :
+      name : nginx
+      state: present
+    when: ansible_os_family=="Debian"
+  - name: Instal nginx Centos
+    yum :
+      name : nginx
+      state: present
+    when: ansible_os_family=="RedHat"
+
+   
