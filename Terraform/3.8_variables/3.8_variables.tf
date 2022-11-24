@@ -7,7 +7,7 @@ provider "aws" {
 
 variable "name_variable_vpc_cidr_block" {              #create variable
     description = "vpc cidr block variable"
-    default = "10.0.0.0/16"                            #will use if falue of variable don't assign in file terraform.tfvars
+    default = "10.0.0.0/16"                            #will use if value of variable don't assign in file terraform.tfvars
     type = string                                      #specifies what value types are accepted
 
 }
@@ -26,7 +26,7 @@ variable "name_variable_subnet_cidr_block" {                     #create variabl
 }
 
 variable "zone_name_subnet" {
-    description = "availabilyty zone&name array of object"       #create variable array of objectc type string 
+    description = "availabilyty zone&name array of object"       #create variable array of object type string 
     type = list(object({
         zone = string
         name = string
