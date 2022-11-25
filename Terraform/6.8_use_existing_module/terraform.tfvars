@@ -1,0 +1,8 @@
+main_vpc_cidr_block    = "10.0.0.0/16"
+main_subnet_cidr_block = "10.0.10.0/24"
+main_avail_zone        = "eu-central-1a"
+main_env_prefix        = "dev"
+main_my_ip             = "0.0.0.0/0"
+main_instance_type     = "t2.micro"
+main_my_publick_key_location = "~/.ssh/aws.pub"
+main_image_name = "amzn2-ami-kernel-*-x86_64-gp2"
