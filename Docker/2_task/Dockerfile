@@ -1,0 +1,6 @@
+FROM centos:7
+RUN yum -y update
+RUN yum -y install httpd
+RUN echo 'Hi there, what is love?' > /var/www/html/index.html
+CMD ["/usr/sbin/httpd", "-DFOREGROUND"]
+EXPOSE 80
