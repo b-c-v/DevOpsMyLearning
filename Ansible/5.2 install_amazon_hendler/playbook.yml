@@ -1,0 +1,28 @@
+- name: Instal and configure Apache
+  hosts: all
+  become: yes
+
+  vars:
+    source: ./site/ #пути откуда и куда копировать указываю в виде переменных (имя любое)
+    destination: /var/www/html/
+
+  tasks:
+    - name: Install Apache
+      yum:
+        name: httpd
+        state: installed
+
+    - name: Copy site files
+      copy: src={{ source }} dest={{ destination }} #ссылки на переменные в блоке vars
+      notify: Restart Apache #уведомляет блок handlers, если были изменения в файлах - надо перезагрузить (должен иметь имя идентичное handlers)
+    - name: Start Apache and enable
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+  handlers: #перезагружает сервер только если были изменения в файлах. Ожидает триггер от notify
+    - name: Restart Apache
+      service:
+        name: httpd
+        state: restarted

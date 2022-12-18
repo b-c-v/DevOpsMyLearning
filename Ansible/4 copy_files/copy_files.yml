@@ -1,0 +1,12 @@
+- name: Copy files to targets
+  hosts: linux
+  tasks:
+    - name: Create folder
+      file:
+        path: ~/test
+        state: directory
+
+    - name: Copy file to remote hosts
+      copy:
+        src: /tmp/testfile.txt
+        dest: ~/test/testfile.txt

@@ -1,5 +1,0 @@
- name  : Test connection to linux
-  hosts : target1
-  tasks :
-    - name: Ping test
-      ping:
