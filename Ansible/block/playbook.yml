@@ -1,0 +1,35 @@
+- name: Install and configure Apache
+  hosts: all
+  become: yes
+
+  vars:
+    source: ./site/
+    destination: /var/www/html/
+
+  tasks:
+    - name: Print OS versions
+      debug:
+        var: ansible_os_family
+
+    - block:                             #block for RedHat
+      - name: Install Apache for RedHat
+        yum:
+          name: httpd
+          state: installed
+
+      - name: Copy site files
+        copy: src={{ source }} dest={{ destination }}
+        notify: Restart Apache
+
+      - name: Start Apache and enable
+        service:
+          name: httpd
+          state: started
+          enabled: yes
+      when: ansible_os_family == "RedHat"
+
+  handlers: #перезагружает сервер только если были изменения в файлах. Ожидает триггер от notify
+    - name: Restart Apache
+      service:
+        name: httpd
+        state: restarted
