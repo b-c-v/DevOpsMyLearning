@@ -1,4 +1,4 @@
-- name: Loops copy only necesarry files
+- name: Loops copy only necessary files
   hosts: all
   become: true
 

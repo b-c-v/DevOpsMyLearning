@@ -9,7 +9,7 @@
     - name: Ping test
       ping:
 
-    - name: Create folder delegate_to #before creating files necessarry create folders
+    - name: Create folder delegate_to #before creating files necessary create folders
       file:
         path: /home/delegate_to/ #if directories (secret, folder1) don't exist - they will be created
         state: directory
@@ -18,17 +18,17 @@
     - name: Create file only on one host
       copy:
         dest: /home/delegate_to/file1.txt
-        content: | #start multiline mode in yaml file
+        content: | #start multi-line mode in yaml file
           Line 1
           Line 2
           Line ...
-          Line {{ mytext }} #link to variabe mytext
+          Line {{ mytext }} #link to variable mytext
       delegate_to: ubuntu #this folder will be created on host with name "ubuntu" (can't use with groups of hosts)
 
     - name: Create file on all hosts
       copy:
         dest: /home/delegate_to/file2.txt
-        content: | # enable multiline mode in yaml file
+        content: | # enable multi-line mode in yaml file
           Text Line1. in file1
           Text Line2. in file1
           Text Line3 {{ mytext }} #print variable mytext

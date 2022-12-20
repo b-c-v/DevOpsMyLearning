@@ -1,7 +1,7 @@
 - name: Create file1
   copy:
     dest: /home/secret/file1.txt
-    content: | # enable multiline mode in yaml file
+    content: | # enable multi-line mode in yaml file
       Text Line1. in file1
       Text Line2. in file1
       Text Line3 {{ mytext }} #link to variable in file playbook.yml

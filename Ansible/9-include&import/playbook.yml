@@ -1,5 +1,5 @@
 #in two separate files yml describe what need to do, and in main playbook call this files to play
-- name: import and iclude. But roles more modern and better solution in this case
+- name: import and include. But roles more modern and better solution in this case
   hosts: all
   become: true
 
@@ -12,9 +12,9 @@
 
     - name: Create folder with include
       include: create_files.yml #play file "create_files.yml" all values read and write in process of playing playbook. More preferable to use.
-    #      include_anyName: create_files.yml mytext="New value" #it's possible to put new value to variable. Here text "Hello world and ..." will be replase to "New value"
+    #      include_anyName: create_files.yml mytext="New value" #it's possible to put new value to variable. Here text "Hello world and ..." will be replace to "New value"
 
     - name: Create folders with import #this code doesn't workd with import
       include: create_folders.yml
-#      import: create_folders.yml #start to play file "create_folders.yml" all values read and write will be asign before starting playbook
+#      import: create_folders.yml #start to play file "create_folders.yml" all values read and write will be assign before starting playbook
 #      import_anyName: create_folders.yml     #it's possible to take any name to import or include
