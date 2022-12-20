@@ -1,0 +1,7 @@
+- name: Project with using Roles (ansible-galaxy init <role_name>)
+  hosts: all
+  become: true
+
+  roles: #links to roles (can be a lot of roles)
+    #   - deploy-apache-web
+    - { role: deploy-apache-web, when: ansible_system == 'Linux' } #run role only if OS is Linux (role with conditionals)

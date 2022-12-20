@@ -1,0 +1,51 @@
+---
+# tasks file for deploy-apache-web
+- name: Check and print Linux version
+  debug: var=ansible_os_family
+- block: #block for RedHat
+    - name: Install Apache for RedHat (AmazonLinux)
+      yum:
+        name: httpd
+        state: latest
+    - name: Start Apache on RedHat
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+  when: ansible_os_family == "RedHat"
+- block: #block for Debian
+    - name: Install Apache for Debian (Ubuntu)
+      apt:
+        name: apache2
+        state: latest
+    - name: Start Apache on Debian
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+  when: ansible_os_family == "Debian"
+
+- name: Generete "index.html" file
+  template: src=index.j2 dest={{destination_folder}}/index.html
+  notify: #trigger for handlers. Would restart if were changes
+    - Restart Apache
+
+- name: Copy files to Web Server
+  #"item" is reserved word and link to files in folder /roles/deploy-apache-web/files/
+  #"destination_folder" is variable with link source wrote in /roles/deploy-apache-web/defaults/main.yml
+  copy: src={{ item }} dest={{ destination_folder }}
+  loop: # loop list of files to be copy
+    - "img1.jpg" #don't download file index.html because it will generate in play "Genereta index.html"
+    - "1.svg"
+    - "2.svg"
+    - "3.svg"
+    - "4.svg"
+    - "5.svg"
+    - "6.svg"
+    - "7.svg"
+    - "8.svg"
+    - "9.svg"
+    - "10.svg"
+    - "logo_white-blue.svg"
+  notify: Restart Apache #уведомляет блок handlers, если были изменения в файлах - надо перезагрузить (должен иметь имя идентичное handlers)
+

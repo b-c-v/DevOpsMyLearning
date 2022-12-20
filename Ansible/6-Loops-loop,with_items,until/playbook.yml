@@ -1,0 +1,26 @@
+- name: Loops - loop, with_items, until
+  hosts: all
+  become: true
+
+  tasks:
+    - name: loop or with_items - Say Hello to all
+      debug: msg="Hello {{ item }}!" #call variable "item" (is reseved word). With loop will print different values
+      #     with_items:                    #this phrase use in ansible 2.4
+      loop: #this word use in ansilbe 2.5 and more
+        - "Sergey"
+        - "Bob"
+        - "Alice"
+        - "Jain"
+    - name: until
+      shell: echo -n C >> myfile.txt && cat myfile.txt #write letter C in file with name myfile.txt without new line (-n) and show (cat) this file in shell
+      register: any_variable #save result of work in variable with name any_variable
+      delay: 2 #set a delay between attempts of work shell
+      retries: 10 #how many time try to do this job. Possible to use without retries. If not asign will try 3 times
+      until: any_variable.stdout.find("CCCC") == false #will work untill in output will print 4 C (CCCC) but no more than 10 times (retries)
+
+    - name: Install many programs
+      yum: name= {{ item }} state=installed
+      with_items: # the same as "loop"
+        - httpd
+        - mysql-client
+        - python

@@ -1,0 +1,38 @@
+---
+- name: Variables
+  hosts: all
+  become: yes
+
+  vars:
+    message1: Hello
+    message2: World
+    secret: "Nobody should know owner"
+
+  tasks:
+    - name: Print variable from file group_vars/amazon
+      debug:
+        var: ansible_user
+
+    - name: Print variable from this playbook
+      debug:
+        msg: "Owner of this host is {{ secret }}. OK, the owner is {{ ansible_user }} "
+
+    - set_fact: full_message="{{ message1 }} {{ message2 }} from {{ ansible_user }} "
+
+    - name: Concatenation two variables
+      debug:
+        var: full_message
+
+    - name: Print OS family (but it's possible print any var showed in "ansible all -m setup"
+      debug:
+        var: ansible_os_family
+
+    - name: Print value of shell command "uptime". Value put in variable "result" and after print with help debut==>var
+      shell: uptime
+      register: result
+
+    - debug:
+        var: result
+    - name: Print only one line with name "end"
+      debug:
+        var: result.end

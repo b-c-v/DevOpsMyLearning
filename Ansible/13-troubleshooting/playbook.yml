@@ -1,0 +1,18 @@
+- name: ingnore_errors, registered
+  hosts: all
+  any_errors_fatal: true #During of work there will be an error on some one host - this will stop the work on all hosts. Normally, Ansible stops running only on the host with the error and does the work for the rest of the hosts.
+  become: true
+
+  tasks:
+    - name: Use ingnore_errors
+      yum: name=treeeee state=latest
+      ignore_errors: true #if in process of installing will be errors - Ansible ignore them
+
+    - name: Use register and failed_when
+      shell: ls -la
+      register: results #save result of shell command (ls -la) in variable with name results
+      #      failed_when: "'ssh' in results.stdout" #if in result of stdout will be word "ssh" - job is failed. Possible to make your own criteria for good/bad job
+      failed_when: result.rc != 0 #check status from value of return code of process
+
+    - debug:
+        var: results #print in console variable "results"

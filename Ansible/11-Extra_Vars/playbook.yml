@@ -1,0 +1,7 @@
+- name: Project with using Extra-variables
+  hosts: "{{MY_HOSTS}}" #link to extra-vars. It's possible to run playbook with this variable (-e, --extra-vars) <ansible-playbook playbook.yml -e "MY_HOSTS=STAGING">
+  become: true
+
+  roles:
+    - { role: deploy-apache-web, when: ansible_system == 'Linux' } #run role only if OS is Linux (role with conditionals)
+

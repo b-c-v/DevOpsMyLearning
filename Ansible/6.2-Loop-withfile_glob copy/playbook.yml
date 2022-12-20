@@ -1,0 +1,55 @@
+- name: Loops copy all files with loop with_fileglob
+  hosts: all
+  become: true
+
+  vars:
+    source_folder: ./site/ #пути откуда и куда копировать указываю в виде переменных (имя любое)
+    destination_folder: /var/www/html/
+
+  tasks:
+    - name: Check and print Linux version
+      debug: var=ansible_os_family
+    - block: #block for RedHat
+        - name: Install Apache for RedHat (AmazonLinux)
+          yum:
+            name: httpd
+            state: latest
+        - name: Start Apache on RedHat
+          service:
+            name: httpd
+            state: started
+            enabled: yes
+      when: ansible_os_family == "RedHat"
+    - block: #block for Debian
+        - name: Install Apache for Debian (Ubuntu)
+          apt:
+            name: apache2
+            state: latest
+        - name: Start Apache on Debian
+          service:
+            name: apache2
+            state: started
+            enabled: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Copy all files to Web Server
+      copy: src= {{ item }} dest={{ destination_folder }} #copy files with loop using link in variables. "item" is reserved word
+      with_fileglob: "{{ source_folder }}/*.*" #copy from source folder (./site/) all files
+
+      notify: Restart Apache #уведомляет блок handlers, если были изменения в файлах - надо перезагрузить (должен иметь имя идентичное handlers)
+    - name: Start Apache and enable
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+  handlers: #перезагружает сервер только если были изменения в файлах. Ожидает триггер от notify
+    - name: Restart Apache
+      service:
+        name: httpd
+        state: restarted
+        when: ansible_os_family == "RedHat"
+    - service:
+        name: apache2
+        state: restarted
+        when: ansible_os_family == "Debian"

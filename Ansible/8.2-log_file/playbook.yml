@@ -1,0 +1,11 @@
+- name: create log file on server where is Ansible master with delegate_to
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Ping test
+      ping:
+
+    - name: name
+      shell: echo "The server {{ inventory_hostname }} has node name {{ ansible_nodename }}" >> /home/logs.txt #run this shell command on each host but results put in log file on localhost (where installed Ansible)
+      delegate_to: 127.0.0.1

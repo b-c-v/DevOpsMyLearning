@@ -1,0 +1,7 @@
+---
+# handlers file for deploy-apache-web (put cod from play handlers)
+- name: Restart Apache
+  service: name=httpd state=restarted
+  when: ansible_os_family == "RedHat"
+- service: name=apache2 state=restarted
+  when: ansible_os_family == "Debian"
