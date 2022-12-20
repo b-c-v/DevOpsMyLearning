@@ -1,0 +1,11 @@
+#ignore all keys
+*.pem
+id_rsa*
+
+#terraform
+.terraform/*
+*.tfstate.
+*.tfstate.*
+*.tfvars
+crash.log
+

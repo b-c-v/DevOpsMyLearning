@@ -32,7 +32,7 @@
             enabled: yes
       when: ansible_os_family == "Debian"
 
-    - name: Generete "index.html" file
+    - name: Generate "index.html" file
       template: src={{source_folder}}/index.j2 dest={{destination_folder}}/index.html #in folder "site" file index.html was renamed to index.j2 and put some variable in it {{}}. Ansible will transform this file into index.html and put values
       notify: #trigger for handlers. Would restart if were changes
         - Restart Apache
@@ -40,7 +40,7 @@
     - name: Copy files to Web Server
       copy: src={{ source_folder }}/{{ item }} dest={{ destination_folder }} #copy files with loop using link in variables. "item" is reserved word
       loop: # loop list of files to be copy
-        - "img1.jpg" #don't download file index.html because it will generate in play "Genereta index.html"
+        - "img1.jpg" #don't download file index.html because it will generate in play "Generate index.html"
         - "1.svg"
         - "2.svg"
         - "3.svg"
