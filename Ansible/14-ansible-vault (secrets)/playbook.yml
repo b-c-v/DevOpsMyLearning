@@ -1,0 +1,34 @@
+# can encrypt separate string (ansible-vault encrypt_string) and file (ansible-vault encrypt <file_name>)
+# commands to run scripts from this folder in shell:
+# ansible-playbook playbook_pass.yml --ask-vault-pass (will ask a password for encrypt file) Password:123
+# ansible-playbook playbook_pass.yml --vault-password-file=mypass.txt (take a password from file mypass.txt) Password:123
+# ansible-playbook playbook_pass123.yml --ask-vault-pass (will ask a password for encrypt file) Password:123
+# ansible-playbook playbook_pass123.yml --vault-password-file=mypass.txt (take a password from file mypass.txt) Password:123
+- name: ansible-vault - collect and save secrets
+  hosts: all
+  become: true
+
+  vars:
+    admin_password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      31333236666532646564306465393033303130643735323561636334636164623131353265623362
+      3963303633666236303031346364643633326238353032350a373236353935653435313938373365
+      39346664343835383964343032643937316563383339393465323832313838373962323062383461
+      3539366632626562310a333738343039393137366364633737396634343863613461666364313435
+      31643939363133613532616232623365333633326538306465636137313031316462656436313732
+      61353439303463306665613366346461336434663939356438343334633233633330353561396432
+      333862656663383438363133663438323363
+
+  tasks:
+    - name: Install package tree
+      yum: name=tree state=latest
+
+    - name: Create config file on remote host
+      copy:
+        dest: "/home/ec2-user/myconfig.conf"
+        content: |
+          port = 9092
+          log = 7days
+          home = /opt/kafka/bin/
+          user = admin
+          password = {{ admin_password }} # this string will be save on remote host in uncripted state
