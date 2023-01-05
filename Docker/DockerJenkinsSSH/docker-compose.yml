@@ -1,0 +1,20 @@
+version: "3"
+services:
+  any_name_jenkins:
+    container_name: any_name_host
+    image: jenkins/jenkins
+    ports:
+      - "8519:8080"
+    volumes:
+      - $PWD/jenkins_home:/var/jenkins_home
+    networks:
+      - net
+  any_name_centos:
+    container_name: any_name_remote_host
+    image: any_name_image
+    build:
+      context: dir_centos7
+    networks:
+      - net
+networks:
+  net:

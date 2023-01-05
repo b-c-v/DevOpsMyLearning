@@ -1,0 +1,28 @@
+// In the Jenkins you need to create a Pipeline project that takes two parameters (This project is parameterized) NUMBERONE and NUMBERTWO
+pipeline {
+    agent any
+    stages {
+        stage('download files from GitHub') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/b-c-v/test.git']])
+            }
+        }
+        stage('run a script that sums two numbers and save result in file log.txt') {
+            steps {
+                sh '''chmod +x ./install.sh
+                      ./install.sh > log.txt'''
+            }
+        }
+//arhive the artifacts allow to view the file log.txt by link directly from Jenkins
+        stage('archive the artifacts - file log.txt') {
+            steps { archiveArtifacts artifacts: 'log.txt', followSymlinks: false
+            }
+        }
+        stage('print work directory and list files') {
+            steps {
+                sh '''pwd
+                       ls -la'''
+            }
+        }
+    }
+}
