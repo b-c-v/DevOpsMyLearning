@@ -1,0 +1,34 @@
+version: "3"
+services:
+  any_name_jenkins:
+    container_name: any_name_remote_jenkins
+    image: jenkins/jenkins
+    ports:
+      - "8519:8080"
+    volumes:
+      - $PWD/jenkins_home:/var/jenkins_home
+    networks:
+      - my_net
+
+  any_name_centos:
+    container_name: any_name_remote_centos
+    image: any_name_image
+    build:
+      context: dir_centos7
+    volumes:
+      - $PWD/backup_sql_s3.sh:/tmp/backup_sql_s3.sh
+    networks:
+      - my_net
+
+  any_name_db:
+    container_name: any_name_remote_db
+    image: mysql:5.7
+    environment:
+      - "MYSQL_ROOT_PASSWORD=1234"
+    volumes:
+      - $PWD/db_data:/var/lib/mysql
+    networks:
+      - my_net
+
+networks:
+  my_net:

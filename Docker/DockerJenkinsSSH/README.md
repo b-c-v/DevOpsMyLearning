@@ -39,7 +39,7 @@ docker container exec -it any_name_host bash
 ssh any_user@any_name_remote_host
 ```
 
-6. Copy private SSH-key to container with Jenkins (public key was downloaded to Centos during creating Docker image)
+5. Copy private SSH-key to container with Jenkins (public key was downloaded to Centos during creating Docker image)
 
 - From local server copy created in p.1 private SSH-key
 
@@ -50,5 +50,6 @@ docker container cp dir_centos7/id_rsa any_name_host:/tmp/id_rsa
 - Connect from Jenkins using copied SSH-key
 
 ```bash
+docker container exec -it any_name_host bash
 ssh -i /tmp/id_rsa any_user@any_name_remote_host
 ```
