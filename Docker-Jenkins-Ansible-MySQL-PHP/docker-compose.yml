@@ -1,0 +1,36 @@
+version: "3"
+services:
+  jenkins:
+    container_name: jenkins_container
+    image: jenkins_image
+    build:
+      context: docker_jenkins
+    ports:
+      - "8519:8080"
+    volumes:
+      - $PWD/jenkins_data:/var/jenkins_data
+    networks:
+      - my_net
+
+  centos:
+    container_name: centos_container
+    image: centos_image
+    build:
+      context: docker_centos7
+    volumes:
+      - $PWD/centos_data:/tmp/backup_sql_s3.sh
+    networks:
+      - my_net
+
+  db:
+    container_name: mysql_container
+    image: mysql:5.7
+    environment:
+      - "MYSQL_ROOT_PASSWORD=1234"
+    volumes:
+      - $PWD/db_data:/var/lib/mysql
+    networks:
+      - my_net
+
+networks:
+  my_net:

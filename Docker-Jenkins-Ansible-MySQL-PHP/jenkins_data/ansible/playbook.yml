@@ -1,0 +1,5 @@
+- name: Test connection to container
+  hosts: test
+  tasks:
+    - name: print Hello world and save in file
+      shell: echo "Hello world" > /tmp/hello.txt
