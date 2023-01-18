@@ -1,0 +1,18 @@
+job ('dsl_ansible_mysql_php') {
+    description('This job made in dsl. Update the table based on the input')
+    parameters {
+        choiceParam('AGE_CHOICE', ['20', '21', '22', '23', '24', '25'])
+    }
+    steps {
+         wrappers { colorizeOutput(colorMap = 'xterm')
+
+    }
+        ansiblePlaybook('/var/jenkins_data/ansible/playbook.yml'){
+            inventoryPath('/var/jenkins_data/ansible/hosts.ini')
+            colorizedOutput(true)
+            extraVars {
+                extraVar("PEOPLE_AGE", '${AGE_CHOICE}', false)
+            }
+        }
+    }
+}

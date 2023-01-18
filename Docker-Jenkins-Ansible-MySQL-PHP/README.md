@@ -1,4 +1,5 @@
 **_Description:_**
+Create Job in Jenkins with DSL API.
 In Jenkins, select the age of the people, after that the Ansible playbook will be launched. Using Ansible, the data will be entered into index.php, and a selection of people with the specified age will be made from the database. Their names will be displayed on the web page http://ip_of_nginx_server:port/index.php
 ![](images/2.png)
 
@@ -60,7 +61,15 @@ ssh -i /var/jenkins_data/ansible/id_rsa centos_user@centos_container
   docker logs -f jenkins_container
   ```
 
-- Install plugins: Ansible, AnsiColor
+- Install plugins: Ansible, AnsiColor, Job DSL
 
-- Create new Freestyle project
-  ![](images/1.png)
+- Copy code from [this file](dsl_job.j2) and create new Freestyle project
+  ![](images/dsl_1.png)
+
+  - after first start can show error:
+
+  ![Alt text](images/dsl_2.png)
+
+  it can be fixed if approve run this script (Manage Jenkins ==> In-process Script Approval)
+
+  ![Alt text](images/dsl_3.png)
