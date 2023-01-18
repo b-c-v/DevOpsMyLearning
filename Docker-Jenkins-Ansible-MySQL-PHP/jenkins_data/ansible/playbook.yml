@@ -1,5 +1,6 @@
-- name: Test connection to container
-  hosts: test
+- name: Transfer file index.php to PHP-server
+  hosts: web
   tasks:
-    - name: print Hello world and save in file
-      shell: echo "Hello world" > /tmp/hello.txt
+    - template: 
+       src: index.j2
+       dest: /var/www/html/index.php

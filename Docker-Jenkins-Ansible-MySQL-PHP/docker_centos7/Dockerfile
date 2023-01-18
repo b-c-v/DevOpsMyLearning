@@ -14,12 +14,5 @@ RUN chown centos_user:centos_user   -R /home/centos_user && \
 
 RUN /usr/sbin/sshd-keygen > /dev/null 2>&1
 
-RUN yum -y install mysql
-
-RUN yum -y install wget && \
-    yum -y install epel-release && \
-    yum -y install python3-pip
-
-
 CMD /usr/sbin/sshd -D
 

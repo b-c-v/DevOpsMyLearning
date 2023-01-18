@@ -1,6 +1,6 @@
 version: "3"
 services:
-  jenkins:
+  jenkins_docker:
     container_name: jenkins_container
     image: jenkins_image
     build:
@@ -9,28 +9,40 @@ services:
       - "8519:8080"
     volumes:
       - $PWD/jenkins_data:/var/jenkins_data
-    networks:
-      - my_net
+      - $PWD/jenkins_home:/var/jenkins_home
 
-  centos:
+  nginx_docker:
+    container_name: nginx_container
+    image: nginx:latest
+    volumes:
+      # - ./src:/var/www/html
+      - $PWD/nginx:/etc/nginx/conf.d
+    ports:
+      - "8520:80"
+      - "443:443"
+
+  php_docker:
+    container_name: php_container
+    image: php_image
+    build:
+      context: docker_php
+    volumes:
+      - $PWD/src:/var/www/html
+
+  mysql_docker:
+    container_name: mysql_container
+    image: mysql:8
+    volumes:
+      - $PWD/db_data:/var/lib/mysql
+    ports:
+      - "8521:3306"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=1234"
+
+  centos_docker:
     container_name: centos_container
     image: centos_image
     build:
       context: docker_centos7
     volumes:
-      - $PWD/centos_data:/tmp/backup_sql_s3.sh
-    networks:
-      - my_net
-
-  db:
-    container_name: mysql_container
-    image: mysql:5.7
-    environment:
-      - "MYSQL_ROOT_PASSWORD=1234"
-    volumes:
-      - $PWD/db_data:/var/lib/mysql
-    networks:
-      - my_net
-
-networks:
-  my_net:
+      - $PWD/src:/var/www/html

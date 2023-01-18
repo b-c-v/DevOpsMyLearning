@@ -1,9 +1,9 @@
-#Description: install Docker and Docke-compose on AmazonLinux
+#Description: install Docker and Docker-compose on AmazonLinux
 
 #!/bin/bash
-
+set -euxo pipefail #stop working of script if be error
 #install Docker
-sudo yum update
+sudo yum update -y
 sudo yum install docker -y
 
 #Enable docker service at boot time
