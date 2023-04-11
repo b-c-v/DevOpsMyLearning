@@ -68,8 +68,8 @@ ssh -i /var/jenkins_data/ansible/id_rsa centos_user@centos_container
 
   - after first start can show error:
 
-  ![Alt text](images/dsl_2.png)
+  ![](images/dsl_2.png)
 
   it can be fixed if approve run this script (Manage Jenkins ==> In-process Script Approval)
 
-  ![Alt text](images/dsl_3.png)
+  ![](images/dsl_3.png)

@@ -13,7 +13,7 @@ pipeline {
                       ./install.sh > log.txt'''
             }
         }
-//arhive the artifacts allow to view the file log.txt by link directly from Jenkins
+//archive the artifacts allow to view the file log.txt by link directly from Jenkins
         stage('archive the artifacts - file log.txt') {
             steps { archiveArtifacts artifacts: 'log.txt', followSymlinks: false
             }
