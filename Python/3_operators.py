@@ -17,9 +17,23 @@ Python divides the operators in the following groups:
    *     Multiplication     x * y
    /     Division           x / y
    %     Modulus            x % y
-   **    Exponentiation     x ** y
+   **    Exponentiation     x ** y   # Возведение в степень
    //    Floor division     x // y
 """
+print(15/4)          # 3.75
+print(3/5)           # 0.6
+print(15 % 4)        # 3
+print(3 % 5)         # 3
+print(-15 % 4)         # 1
+print(3 % -5)          # -2
+print(-4 % 5)          # 1
+
+# Floor division operator will divide the first argument by the second and round the result down to the nearest whole number.
+# The result of regular division (using the / operator) is 15/4=3.75, but using // has floored down to 3
+print(15//4)       # 3
+# When an operand is negative, floor division will return the largest integer less than or equal to the result of regular division.
+print(-15 // 4)    # -4
+
 
 # Assignment operators are used to assign values to variables:
 """
@@ -40,8 +54,7 @@ Python divides the operators in the following groups:
 """
 
 # Comparison operators are used to compare two values:
-"""
-   ==     Equal                        x == y
+"""   ==     Equal                        x == y
    !=     Not equal                    x != y
    >      Greater than                 x > y
    <      Less than                    x < y
