@@ -18,7 +18,7 @@ Python divides the operators in the following groups:
    /     Division           x / y
    %     Modulus            x % y
    **    Exponentiation     x ** y   # Возведение в степень
-   //    Floor division     x // y
+   //    Floor division     x // y   # Целочисленное деление
 """
 print(15/4)          # 3.75
 print(3/5)           # 0.6
@@ -54,19 +54,53 @@ print(-15 // 4)    # -4
 """
 
 # Comparison operators are used to compare two values:
-"""   ==     Equal                        x == y
+""" 
+   ==     Equal                        x == y
    !=     Not equal                    x != y
    >      Greater than                 x > y
    <      Less than                    x < y
    >=     Greater than or equal to     x >= y
    <=     Less than or equal to        x <= y
 """
+"""
+Операторы сравнения в Python можно объединять в цепочки.
+Например, a == b == c или 1 <= x <= 10
+"""
 
 # Logical operators are used to combine conditional statements:
 """
-   and   Returns True if both statements are true                  x < 5 and  x < 10
-   or    Returns True if one of the statements is true             x < 5 or x < 4
-   not   Reverse the result, returns False if the result is true   not(x < 5 and x < 10)
+and   Returns True if both statements are true                  x < 5 and  x < 10
+    
+    a        b       a and b
+    False    False   False
+    False    True    False
+    True     False   False
+    True     True    True
+
+or    Returns True if one of the statements is true             x < 5 or x < 4
+    
+    a       b       a or b
+    False   False   False
+    False   True    True
+    True    False   True
+    True    True    True
+
+not   Reverse the result, returns False if the result is true   not(x < 5 and x < 10)
+
+    a       not a
+    False   True
+    True    False
+
+Приоритет выполнения следующий:
+
+    в первую очередь выполняется логическое отрицание not;
+    далее выполняется логическое умножение and;
+    далее выполняется логическое сложение or.
+
+Операторы, and и or, вычисляются по укороченной схеме.
+    Если условие слева от оператора and является ложным, то условие справа от него не проверяется.
+    Если условие слева от оператора or истинное, то условие справа от него не проверяется.
+
 """
 
 # Identity operators are used to compare the objects, not if they are equal, but if they are actually the same object, with the same memory location:
