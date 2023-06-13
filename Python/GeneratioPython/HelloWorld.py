@@ -142,9 +142,31 @@ print(len(s))
 for i in range(len(s) - 1, 0, -1):
     print(s[i])
 """
+"""
+# печать букв в диапазоне n 
+n = int(input())
 
-s = 'In {0}, someone paid {1} {2} for two pizzas.'
-year = 2010
-sum = '10k'
-money = 'Bitcoin'
-print(s.format(2010, '10k', 'Bitcoin'))
+s = ""
+for i in range(n):
+    s += chr(ord("a") + i)
+    
+print(list(s))
+"""
+"""
+# среднее арифметическое массива
+evens = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+average = sum(evens)/len(evens)
+print(sum(evens), len(evens), average)
+"""
+
+# numbers1 = [1, 2, 3]
+# numbers2 = [6]
+# numbers3 = [7, 8, 9, 10, 11, 12, 13]
+
+# print(numbers1 * 2 + numbers2 * 9 + numbers3 )
+
+s = list()
+for i in range(26):
+    s.append(chr(i + 97) * (i + 1))
+
+print(s)

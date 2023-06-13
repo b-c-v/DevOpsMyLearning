@@ -70,7 +70,7 @@ print(n[::-1])   # 09876543210
 # the first is greater than the second:
 print('when the first is greater than the second:', n[7:2])
 
-# Другое пояснение обратного индекса: сначала считываем строку в обратном порядке - gfedcba, индекс начинается с 0 и с шагом 3 выбираем буковки.
+# Другое пояснение обратного индекса: сначала считываем строку в обратном порядке - gfedcba, индекс начинается с 0 и с шагом 3 выбираем буквки.
 s = 'abcdefg'
 print(s[::-3])  # gda
 
@@ -170,12 +170,6 @@ print(b.replace("H", "J"))  # Jello, World!
 # The split() method returns a list where the text between the specified separator becomes the list items.
 print('===split()===')
 print(b.split(","))  # ['Hello', ' World!']
-
-
-# The strip() method removes any whitespace from the beginning or the end the actual text:
-print('===strip()===')
-a = "strip method"
-print(a.strip())  # strip method
 
 
 # count(<sub>, <start>, <end>) считает количество непересекающихся вхождений подстроки <sub> в исходную строку s.

@@ -10,7 +10,10 @@
    Changeable, meaning that we can change, add, and remove items in a list after it has been created.
    Allow Duplicates. Since lists are indexed, lists can have items with the same value
 """
-
+"""
+Списки в Python аналогичны массивам в других языках программирования. Однако разница между списками и массивами все же существует. Элементы массива всегда имеют одинаковый тип данных и располагаются в памяти компьютера непрерывным блоком, а элементы списка могут быть разбросаны по памяти как угодно и могут иметь разный тип данных.
+При выводе содержимого списка с помощью функции print() слова выводятся в кавычках, цифры без кавычек, но всё будет в  квадратных скобках.
+"""
 # From Python's perspective, lists are defined as objects with the data type 'list': <class 'list'>
 thislist = ["apple", "banana", "cherry", "orange", "kiwi", "melon", "mango"]
 print(type(thislist))  # <class 'list'>
@@ -20,6 +23,14 @@ print(type(thislist))  # <class 'list'>
 mylist = list(("apple", "banana", "cherry"))
 print('use the list()', mylist)  # ['apple', 'banana', 'cherry']
 
+"""
+Создать пустой список можно двумя способами:
+- Использовать пустые квадратные скобки [];
+- Использовать встроенную функцию, которая называется list.
+"""
+mylist = []       # пустой список
+mylist = list()   # пустой список
+
 # List items can be of any data type:
 # String, int and boolean data types:
 list1 = ["apple", "banana", "cherry"]
@@ -28,6 +39,10 @@ list3 = [True, False, False]
 
 # A list can contain different data types:
 list1 = ["abc", 34, True, 40, "male"]
+
+# Преобразование строки в список:
+s = 'abcde'
+chars = list(s)  # список содержит символы 'a', 'b', 'c', 'd', 'e'
 
 # To determine how many items a list has, use the len() function:
 print('len() is ', len(thislist))   # 7
@@ -56,6 +71,11 @@ print('leaving out the start value -', thislist[:4])
 # By leaving out the end value, the range will go on to the end of the list:
 # ["cherry", "orange", "kiwi", "melon", "mango"]
 print('leaving out the end value -', thislist[2:])
+
+# Изменение целого диапазона элементов списка.
+fruits = ['apple', 'apricot', 'banana', 'cherry', 'kiwi', 'lemon', 'mango']
+fruits[2:5] = ['банан', 'вишня', 'киви']
+print(fruits)  # ['apple', 'apricot', 'банан', 'вишня', 'киви', 'lemon', 'mango']
 
 # Specify negative indexes if you want to start the search from the end of the list:
 # ['orange', 'kiwi', 'melon']
@@ -88,8 +108,7 @@ print('insert more items than you replace -', thislist)
 # If you insert less items than you replace, the new items will be inserted where you specified, and the remaining items will move accordingly:
 # Change the second and 8 value by replacing it with one value:
 thislist[1:8] = ["watermelon"]
-# ['blackcurrant', 'watermelon']
-print('insert less items than you replace -', thislist)
+print('insert less items than you replace -', thislist)  # ['blackcurrant', 'watermelon']
 
 """
 List Methods
@@ -123,22 +142,22 @@ thislist = ["apple", "banana", "cherry"]
 thislist.append("orange")
 print('append() method -', thislist)  # ['apple', 'banana', 'cherry', 'orange']
 
-# Insert Items
-# To insert a list item at a specified index, use the insert() method.
-# Insert an item as the second position:
-thislist = ["apple", "banana", "cherry"]
-thislist.insert(1, "orange")
-print('insert() method -', thislist)  # ['apple', 'orange', 'banana', 'cherry']
-# Note: As a result of the examples above, the lists will now contain 4 items.
+"""
+Нельзя использовать индексаторы для установки значений элементов списка, если список пустой. 
+numbers = []  # создаем пустой список
+numbers[0] = 1
+numbers[1] = 2
+numbers[2] = 3
+print(numbers) # IndexError: list assignment index out of range
+"""
 
 # Extend List
 # To append elements from another list to the current list, use the extend() method.
-# Add the elements of tropical to thislist. The elements will be added to the end of the list.:
+# Add the elements of tropical to thislist. The elements will be added to the end of the list:
 thislist = ["apple", "banana", "cherry"]
 tropical = ["mango", "pineapple", "papaya"]
 thislist.extend(tropical)
-# ['apple', 'banana', 'cherry', 'mango', 'pineapple', 'papaya']
-print('extend() method -', thislist)
+print('extend() method -', thislist) # ['apple', 'banana', 'cherry', 'mango', 'pineapple', 'papaya']
 
 # Add Any Iterable
 # The extend() method does not have to append lists, you can add any iterable object(tuples, sets, dictionaries etc.).
@@ -149,6 +168,24 @@ thislist.extend(thistuple)
 # ['apple', 'banana', 'cherry', 'kiwi', 'orange']
 print('extend() method add any iterable object -', thislist)
 
+
+# Отличие между методами append() и extend() проявляется при добавлении строки к списку.
+# Метод append() добавляет строку 'python' целиком к списку, а метод extend() разбивает строку 'python' на  символы 'p', 'y', 't', 'h', 'o', 'n' и их добавляет в качестве элементов списка. 
+words1 = ['be', 'happy', 'learn']
+words2 = ['be', 'happy', 'learn']
+words1.append('python')
+words2.extend('python')
+print(words1)   # ['be', 'happy', 'learn', 'python']
+print(words2)   # ['be', 'happy', 'learn', 'p', 'y', 't', 'h', 'o', 'n']
+
+
+# Insert Items
+# To insert a list item at a specified index, use the insert() method.
+# Insert an item as the second position:
+thislist = ["apple", "banana", "cherry"]
+thislist.insert(1, "orange")
+print('insert() method -', thislist)  # ['apple', 'orange', 'banana', 'cherry']
+# Note: As a result of the examples above, the lists will now contain 4 items.
 
 # ***Remove List Items***
 # Remove Specified Item. The remove() method removes the specified item.
@@ -171,6 +208,16 @@ print('do not specify the index, the pop() -', thislist)  # ['apple', 'banana']
 thislist = ["apple", "banana", "cherry"]
 del thislist[0]  # Remove the first item:
 print('del keyword -', thislist)  # ['banana', 'cherry']
+
+# Оператор del работает и со срезами: мы можем удалить целый диапазон элементов списка.
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+del numbers[2:7]    # удаляем элементы с 2 по 6 включительно
+print('del -', numbers) # del - [1, 2, 8, 9]
+
+# удалить все элементы на четных позициях (0, 2, 4, ...) исходного списка.
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+del numbers[::2]
+print('del -', numbers)   # del - [2, 4, 6, 8]
 
 # The del keyword can also delete the list completely.
 thislist = ["apple", "banana", "cherry"]
@@ -333,6 +380,18 @@ list2 = [1, 2, 3]
 list3 = list1 + list2
 print('using the + operator -', list3)  # ['a', 'b', 'c', 1, 2, 3]
 
+# Для генерации списков, состоящих строго из повторяющихся элементов, умножение на число — самый короткий и правильный метод.
+print([1, 2, 3, 4] + [5, 6, 7, 8]) # [1, 2, 3, 4, 5, 6, 7, 8]
+print([7, 8] * 3) # [7, 8, 7, 8, 7, 8]
+
+# Можно использовать расширенные операторы += и *= при работе со списками.
+a = [1, 2, 3, 4]
+b = [7, 8]
+a += b
+b *= 5 
+print(a)  # [1, 2, 3, 4, 7, 8]
+print(b)  # [7, 8, 7, 8, 7, 8, 7, 8, 7, 8]
+
 # by appending all the items from list2 into list1, one by one:
 list1 = ["a", "b", "c"]
 list2 = [1, 2, 3]
@@ -345,3 +404,24 @@ list1 = ["a", "b", "c"]
 list2 = [1, 2, 3]
 list1.extend(list2)
 print('the extend() method -', list1)  # ['a', 'b', 'c', 1, 2, 3]
+
+# Встроенная функция sum() принимает в качестве параметра список чисел и вычисляет сумму его элементов.
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print('Сумма всех элементов списка =', sum(numbers)) # Сумма всех элементов списка = 55
+
+# Встроенные функции min() и max() принимают в качестве параметра список и находят минимальный и максимальный элементы соответственно.
+numbers = [3, 4, 10, 3333, 12, -7, -5, 4]
+print('Минимальный элемент =', min(numbers))   # Минимальный элемент = -7
+print('Максимальный элемент =', max(numbers))  # Максимальный элемент = 3333
+
+# Отличие списков от строк: строки — неизменяемые объекты, а списки – изменяемые.
+# строка
+# s = 'abcdefg'
+# s[1] = 'x'    # пытаемся изменить 2 символ (по индексу 1) строки 
+# приводит к ошибке: object does not support item assignment
+
+# список
+# изменять отдельные символы строк нельзя, однако можно изменять отдельные элементы списков. Для этого используем индексатор и оператор присваивания.
+numbers = [1, 2, 3, 4, 5, 6, 7]
+numbers[1] = 101     # изменяем 2 элемент (по индексу 1) списка
+print(numbers) # [1, 101, 3, 4, 5, 6, 7]
