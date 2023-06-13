@@ -143,15 +143,8 @@ for i in range(len(s) - 1, 0, -1):
     print(s[i])
 """
 
-text = 'jehfkjshfkjsdk90909090'
-cnt = 0
-
-for i in range(10):
-    print('str', str(i))
-    print(text.count(str(i)))
-    cnt += text.count(str(i))
-
-
-print(cnt)
-
-
+s = 'In {0}, someone paid {1} {2} for two pizzas.'
+year = 2010
+sum = '10k'
+money = 'Bitcoin'
+print(s.format(2010, '10k', 'Bitcoin'))
