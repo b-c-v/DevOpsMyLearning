@@ -142,16 +142,31 @@ print(len(s))
 for i in range(len(s) - 1, 0, -1):
     print(s[i])
 """
+"""
+# печать букв в диапазоне n 
+n = int(input())
 
-text = 'jehfkjshfkjsdk90909090'
-cnt = 0
+s = ""
+for i in range(n):
+    s += chr(ord("a") + i)
+    
+print(list(s))
+"""
+"""
+# среднее арифметическое массива
+evens = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+average = sum(evens)/len(evens)
+print(sum(evens), len(evens), average)
+"""
 
-for i in range(10):
-    print('str', str(i))
-    print(text.count(str(i)))
-    cnt += text.count(str(i))
+# numbers1 = [1, 2, 3]
+# numbers2 = [6]
+# numbers3 = [7, 8, 9, 10, 11, 12, 13]
 
+# print(numbers1 * 2 + numbers2 * 9 + numbers3 )
 
-print(cnt)
+s = list()
+for i in range(26):
+    s.append(chr(i + 97) * (i + 1))
 
-
+print(s)
