@@ -165,8 +165,9 @@ print(sum(evens), len(evens), average)
 
 # print(numbers1 * 2 + numbers2 * 9 + numbers3 )
 
-s = list()
-for i in range(26):
-    s.append(chr(i + 97) * (i + 1))
 
-print(s)
+numbers = [1, 2, 3]
+sum = 0
+for n in numbers:
+    sum += pow(n,2)
+print(sum)
