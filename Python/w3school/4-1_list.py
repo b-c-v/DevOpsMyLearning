@@ -47,6 +47,16 @@ chars = list(s)  # список содержит символы 'a', 'b', 'c', '
 # To determine how many items a list has, use the len() function:
 print('len() is ', len(thislist))   # 7
 
+# проверить есть ли элемент в массиве not in
+s = 'not in'
+if s not in list1:
+    list1.append(s)
+print('not in', list1) # not in ['abc', 34, True, 40, 'male', 'not in']
+
+# проверить есть ли элемент в массиве in
+if s in list1:
+    list1.remove(s)
+print('in', list1) # in ['abc', 34, True, 40, 'male']
 
 # ***Access List Items***
 # List items are indexed and you can access them by referring to the index number:
@@ -141,6 +151,18 @@ print('Insert Items insert() method -', thislist)
 thislist = ["apple", "banana", "cherry"]
 thislist.append("orange")
 print('append() method -', thislist)  # ['apple', 'banana', 'cherry', 'orange']
+
+# Отличие списков от строк: строки — неизменяемые объекты, а списки – изменяемые.
+# строка
+# s = 'abcdefg'
+# s[1] = 'x'    # пытаемся изменить 2 символ (по индексу 1) строки 
+# приводит к ошибке: object does not support item assignment
+
+# список
+# изменять отдельные символы строк нельзя, однако можно изменять отдельные элементы списков. Для этого используем индексатор и оператор присваивания.
+numbers = [1, 2, 3, 4, 5, 6, 7]
+numbers[1] = 101     # изменяем 2 элемент (по индексу 1) списка
+print(numbers) # [1, 101, 3, 4, 5, 6, 7]
 
 """
 Нельзя использовать индексаторы для установки значений элементов списка, если список пустой. 
@@ -241,11 +263,14 @@ for x in thislist:  # Print all items in the list, one by one:
 thislist = ["apple", "banana", "cherry"]
 for i in range(len(thislist)):
     print('Loop Through the Index Numbers -', thislist[i])
+    
+    
+# способ вывода элементов списка без использования цикла for.
+print(*thislist)
 
 # Using a While Loop. You can loop through the list items by using a while loop.
 # Use the len() function to determine the length of the list, then start at 0 and loop your way through the list items by referring to their indexes.
 # Print all items, using a while loop to go through all the index numbers
-thislist = ["apple", "banana", "cherry"]
 i = 0
 while i < len(thislist):
     print('using a while loop -', thislist[i])
@@ -254,7 +279,6 @@ while i < len(thislist):
 # ***List Comprehension***
 # Looping Using List Comprehension. List Comprehension offers the shortest syntax for looping through lists:
 # A short hand for loop that will print all items in a list:
-thislist = ["apple", "banana", "cherry"]
 [print('List Comprehension -', x) for x in thislist]
 
 # List comprehension offers a shorter syntax when you want to create a new list based on the values of an existing list.
@@ -269,7 +293,6 @@ for x in fruits:
 print('Without list comprehension', newlist)
 
 # With list comprehension you can do all that with only one line of code:
-fruits = ["apple", "banana", "cherry", "kiwi", "mango"]
 newlist = [x for x in fruits if "a" in x]
 print('With list comprehension', newlist)
 
@@ -414,14 +437,3 @@ numbers = [3, 4, 10, 3333, 12, -7, -5, 4]
 print('Минимальный элемент =', min(numbers))   # Минимальный элемент = -7
 print('Максимальный элемент =', max(numbers))  # Максимальный элемент = 3333
 
-# Отличие списков от строк: строки — неизменяемые объекты, а списки – изменяемые.
-# строка
-# s = 'abcdefg'
-# s[1] = 'x'    # пытаемся изменить 2 символ (по индексу 1) строки 
-# приводит к ошибке: object does not support item assignment
-
-# список
-# изменять отдельные символы строк нельзя, однако можно изменять отдельные элементы списков. Для этого используем индексатор и оператор присваивания.
-numbers = [1, 2, 3, 4, 5, 6, 7]
-numbers[1] = 101     # изменяем 2 элемент (по индексу 1) списка
-print(numbers) # [1, 101, 3, 4, 5, 6, 7]
