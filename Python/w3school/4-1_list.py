@@ -51,12 +51,12 @@ print('len() is ', len(thislist))   # 7
 s = 'not in'
 if s not in list1:
     list1.append(s)
-print('not in', list1) # not in ['abc', 34, True, 40, 'male', 'not in']
+print('not in', list1)  # not in ['abc', 34, True, 40, 'male', 'not in']
 
 # проверить есть ли элемент в массиве in
 if s in list1:
     list1.remove(s)
-print('in', list1) # in ['abc', 34, True, 40, 'male']
+print('in', list1)  # in ['abc', 34, True, 40, 'male']
 
 # ***Access List Items***
 # List items are indexed and you can access them by referring to the index number:
@@ -85,7 +85,8 @@ print('leaving out the end value -', thislist[2:])
 # Изменение целого диапазона элементов списка.
 fruits = ['apple', 'apricot', 'banana', 'cherry', 'kiwi', 'lemon', 'mango']
 fruits[2:5] = ['банан', 'вишня', 'киви']
-print(fruits)  # ['apple', 'apricot', 'банан', 'вишня', 'киви', 'lemon', 'mango']
+# ['apple', 'apricot', 'банан', 'вишня', 'киви', 'lemon', 'mango']
+print(fruits)
 
 # Specify negative indexes if you want to start the search from the end of the list:
 # ['orange', 'kiwi', 'melon']
@@ -118,7 +119,8 @@ print('insert more items than you replace -', thislist)
 # If you insert less items than you replace, the new items will be inserted where you specified, and the remaining items will move accordingly:
 # Change the second and 8 value by replacing it with one value:
 thislist[1:8] = ["watermelon"]
-print('insert less items than you replace -', thislist)  # ['blackcurrant', 'watermelon']
+# ['blackcurrant', 'watermelon']
+print('insert less items than you replace -', thislist)
 
 """
 List Methods
@@ -135,11 +137,18 @@ pop()          Removes the element at the specified position
 remove()       Removes the item with the specified value
 reverse()      Reverses the order of the list
 sort()         Sorts the list
+min()          Calculates the minimum of all the elements of the List
+max()          Calculates the maximum of all the elements of the List
 """
-
+# В string есть строковый метод split() служит для преобразования строки в список, а метод join() — для преобразования списка в строку
+# Строковые методы не изменяют содержимого объекта к которому они применяются, а возвращают новое значение.
+# Списочные методы, напротив, меняют содержимое объекта к которому применяются.
 
 # To insert a new list item, without replacing any of the existing values, we can use the insert() method.
-# The insert() method inserts an item at the specified index:
+# The insert() method inserts an item at the specified index.
+# Если указан недопустимый индекс, то во время выполнения программы не происходит ошибки.
+# Если задан индекс за пределами конца списка, то значение будет добавлено в конец списка.
+# сли применен отрицательный индекс, который указывает на недопустимую позицию, то значение будет вставлено в начало списка.
 # Insert "watermelon" as the third item:
 thislist.insert(2, "watermelon")
 # ['blackcurrant', 'watermelon', 'watermelon'] Note: As a result, the list will now contain 3 items.
@@ -155,14 +164,14 @@ print('append() method -', thislist)  # ['apple', 'banana', 'cherry', 'orange']
 # Отличие списков от строк: строки — неизменяемые объекты, а списки – изменяемые.
 # строка
 # s = 'abcdefg'
-# s[1] = 'x'    # пытаемся изменить 2 символ (по индексу 1) строки 
+# s[1] = 'x'    # пытаемся изменить 2 символ (по индексу 1) строки
 # приводит к ошибке: object does not support item assignment
 
 # список
 # изменять отдельные символы строк нельзя, однако можно изменять отдельные элементы списков. Для этого используем индексатор и оператор присваивания.
 numbers = [1, 2, 3, 4, 5, 6, 7]
 numbers[1] = 101     # изменяем 2 элемент (по индексу 1) списка
-print(numbers) # [1, 101, 3, 4, 5, 6, 7]
+print(numbers)  # [1, 101, 3, 4, 5, 6, 7]
 
 """
 Нельзя использовать индексаторы для установки значений элементов списка, если список пустой. 
@@ -173,13 +182,39 @@ numbers[2] = 3
 print(numbers) # IndexError: list assignment index out of range
 """
 
-# Extend List
+# index() method
+position = thislist.index("orange")
+print('index() method -', position)  # index() method - 3
+
+"""
+# Если элемент в списке не найден, то во время выполнения происходит ошибка.
+position = thislist.index('Sergii')
+print(position) # ValueError: 'Sergii' is not in list
+"""
+
+# count() возвращает количество элементов в списке, значения которых равны переданному в метод значению.
+# Если значение в списке не найдено, то метод возвращает 0.
+
+cnt = thislist.count('orange')
+print('count() method -', cnt)  # count() method - 1
+
+# Чтобы избежать таких ошибок, можно использовать метод index() вместе с оператором принадлежности in:
+
+if 'Sergii' in thislist:
+    position = thislist.index('Sergii')
+    print(position)
+else:
+    print('Такого значения нет в списке')  # Такого значения нет в списке
+
+
+# ***Extend List***
 # To append elements from another list to the current list, use the extend() method.
 # Add the elements of tropical to thislist. The elements will be added to the end of the list:
 thislist = ["apple", "banana", "cherry"]
 tropical = ["mango", "pineapple", "papaya"]
 thislist.extend(tropical)
-print('extend() method -', thislist) # ['apple', 'banana', 'cherry', 'mango', 'pineapple', 'papaya']
+# ['apple', 'banana', 'cherry', 'mango', 'pineapple', 'papaya']
+print('extend() method -', thislist)
 
 # Add Any Iterable
 # The extend() method does not have to append lists, you can add any iterable object(tuples, sets, dictionaries etc.).
@@ -192,7 +227,7 @@ print('extend() method add any iterable object -', thislist)
 
 
 # Отличие между методами append() и extend() проявляется при добавлении строки к списку.
-# Метод append() добавляет строку 'python' целиком к списку, а метод extend() разбивает строку 'python' на  символы 'p', 'y', 't', 'h', 'o', 'n' и их добавляет в качестве элементов списка. 
+# Метод append() добавляет строку 'python' целиком к списку, а метод extend() разбивает строку 'python' на  символы 'p', 'y', 't', 'h', 'o', 'n' и их добавляет в качестве элементов списка.
 words1 = ['be', 'happy', 'learn']
 words2 = ['be', 'happy', 'learn']
 words1.append('python')
@@ -201,7 +236,7 @@ print(words1)   # ['be', 'happy', 'learn', 'python']
 print(words2)   # ['be', 'happy', 'learn', 'p', 'y', 't', 'h', 'o', 'n']
 
 
-# Insert Items
+# ****Insert Items***
 # To insert a list item at a specified index, use the insert() method.
 # Insert an item as the second position:
 thislist = ["apple", "banana", "cherry"]
@@ -209,8 +244,11 @@ thislist.insert(1, "orange")
 print('insert() method -', thislist)  # ['apple', 'orange', 'banana', 'cherry']
 # Note: As a result of the examples above, the lists will now contain 4 items.
 
+
 # ***Remove List Items***
 # Remove Specified Item. The remove() method removes the specified item.
+# remove() удаляет только первый элемент с указанным значением. Все последующие его вхождения остаются в списке.
+# Чтобы удалить все вхождения нужно использовать цикл while в связке с оператором принадлежности in и методом remove
 thislist = ["apple", "banana", "cherry"]
 thislist.remove("banana")
 print('remove() method -', thislist)  # ['apple', 'cherry']
@@ -234,7 +272,7 @@ print('del keyword -', thislist)  # ['banana', 'cherry']
 # Оператор del работает и со срезами: мы можем удалить целый диапазон элементов списка.
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 del numbers[2:7]    # удаляем элементы с 2 по 6 включительно
-print('del -', numbers) # del - [1, 2, 8, 9]
+print('del -', numbers)  # del - [1, 2, 8, 9]
 
 # удалить все элементы на четных позициях (0, 2, 4, ...) исходного списка.
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -245,11 +283,12 @@ print('del -', numbers)   # del - [2, 4, 6, 8]
 thislist = ["apple", "banana", "cherry"]
 del thislist  # Delete the entire list:
 
-# Clear the List
+# ***Clear the List***
 # The clear() method empties the list. The list still remains, but it has no content.
 thislist = ["apple", "banana", "cherry"]
 thislist.clear()
-print('clear() method -', thislist)
+print('clear() method -', thislist)  # clear() method - []
+
 
 # ***Loop Lists***
 # Loop Through a List. You can loop through the list items by using a for loop:
@@ -263,8 +302,8 @@ for x in thislist:  # Print all items in the list, one by one:
 thislist = ["apple", "banana", "cherry"]
 for i in range(len(thislist)):
     print('Loop Through the Index Numbers -', thislist[i])
-    
-    
+
+
 # способ вывода элементов списка без использования цикла for.
 print(*thislist)
 
@@ -276,8 +315,16 @@ while i < len(thislist):
     print('using a while loop -', thislist[i])
     i = i + 1  # Remember to increase the index by 1 after each iteration.
 
+
 # ***List Comprehension***
 # Looping Using List Comprehension. List Comprehension offers the shortest syntax for looping through lists:
+"""
+Общий вид списочного выражения следующий:
+[выражение for переменная in последовательность]
+переменная — имя некоторой переменной
+последовательность — последовательность значений, которые она принимает (список, строка или объект, полученный при помощи функции range)
+выражение — некоторое выражение, как правило, зависящее от использованной в списочном выражении переменной, которым будут заполнены элементы списка.
+"""
 # A short hand for loop that will print all items in a list:
 [print('List Comprehension -', x) for x in thislist]
 
@@ -317,6 +364,19 @@ newlist = [x for x in range(10)]
 # Accept only numbers lower than 5:
 newlist = [x for x in range(10) if x < 5]
 
+
+# В списочном выражении можно использовать вложенные циклы.
+numbers = [i * j for i in range(1, 5) for j in range(2)]
+print(numbers)  # [0, 1, 0, 2, 0, 3, 0, 4]
+"""
+Такой код равнозначен следующему:
+numbers = []
+for i in range(1, 5):
+    for j in range(2):
+        numbers.append(i * j)
+print(numbers)
+"""
+
 # Expression. The expression is the current item in the iteration, but it is also the outcome, which you can manipulate before it ends up like a list item in the new list:
 # Set the values in the new list to upper case:
 newlist = [x.upper() for x in fruits]
@@ -328,6 +388,19 @@ newlist = ['hello' for x in fruits]
 # The expression can also contain conditions, not like a filter, but as a way to manipulate the outcome:
 # Return "orange" instead of "banana". "Return the item if it is not banana, if it is banana return orange":
 newlist = [x if x != "banana" else "orange" for x in fruits]
+
+
+[0 for i in range(10)] 	# [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+[i ** 2 for i in range(1, 8)] 	# [1, 4, 9, 16, 25, 36, 49]
+numbers = [1, 14, 5, 9, 12]
+[i * 10 for i in numbers] 	# [10, 140, 50, 90, 120]
+[i for i in numbers if i < 10] 	# [1, 5, 9]
+text = 'Hello'
+[c * 2 for c in text] 	# ['HH', 'ee', 'll', 'll', 'oo']
+words = ['one', 'two', 'three', 'four', 'five', 'six']
+[m[0] for m in words] 	# ['o', 't', 't', 'f', 'f', 's']
+[m[0] for m in words if len(m) == 3] 	# ['o', 't', 's']
+
 
 # ***Sort Lists***
 # Sort List Alphanumerically
@@ -379,21 +452,40 @@ thislist.sort(key=str.lower)
 print('use str.lower -', thislist)  # ['banana', 'cherry', 'Kiwi', 'Orange']
 
 # Reverse Order. The reverse() method reverses the current sorting order of the elements.
+# Метод reverse() меняет порядок элементов на обратный в текущем списке, а срез [::-1] создает копию списка, в котором элементы следуют в обратном порядке.
 thislist = ["banana", "Orange", "Kiwi", "cherry"]
 thislist.reverse()
 print('reverse() method -', thislist)  # ['cherry', 'Kiwi', 'Orange', 'banana']
 
 # ***Copy Lists***
 # You cannot copy a list simply by typing list2 = list1, because: list2 will only be a reference to list1, and changes made in list1 will automatically also be made in list2.
-# Make a copy of a list with the copy() method:
+"""
+Метод copy() создает поверхностную (также называемую "мелкую") копию списка.
+Это означает, что копирование происходит только на один уровень глубины, и если исходный список содержит объекты (например, другие списки или словари),
+то они будут скопированы только по ссылке, а не созданы новые копии этих объектов.
+Это отличается от глубокого копирования (deep copy), при котором создаются полные копии всех объектов, включая вложенные списки, словари и т.д.
+В отличие от поверхностной копии, глубокое копирование может потребовать значительно больших затрат памяти и времени.
+Например, если есть список a = [[1, 2], [3, 4]], то поверхностная копия списка
+b = a.copy() будет содержать ссылки на те же самые вложенные списки [1, 2] и [3, 4], а не их копии.
+Поэтому, если вы измените какой-либо элемент в b, это также повлияет на соответствующий элемент в a и наоборот.
+Например, b[0][0] = 5 приведет к тому, что a тоже будет изменен: [[5, 2], [3, 4]].
+Если бы мы использовали глубокое копирование (например, b = copy.deepcopy(a)), то изменения в b не затронули бы a.
+"""
+# Сделать поверхностную копию с помощью метода copy():
 thislist = ["apple", "banana", "cherry"]
 mylist = thislist.copy()
 print('copy() method -', mylist)
 
-# Make a copy of a list with the list() method:
+# Make a copy of a list with the list() method and with range [:]:
 thislist = ["apple", "banana", "cherry"]
+# создать поверхностную копию с помощью метода list():
 mylist = list(thislist)
+# list() method - ['apple', 'banana', 'cherry']
 print('list() method -', mylist)
+# создаем поверхностную копию с помощью среза от начала до конца
+mylist2 = thislist[:]
+print('range[:] -', mylist2)  # range[:] - ['apple', 'banana', 'cherry']
+
 
 # ***Join Lists***
 # There are several ways to join, or concatenate, two or more lists.
@@ -404,14 +496,14 @@ list3 = list1 + list2
 print('using the + operator -', list3)  # ['a', 'b', 'c', 1, 2, 3]
 
 # Для генерации списков, состоящих строго из повторяющихся элементов, умножение на число — самый короткий и правильный метод.
-print([1, 2, 3, 4] + [5, 6, 7, 8]) # [1, 2, 3, 4, 5, 6, 7, 8]
-print([7, 8] * 3) # [7, 8, 7, 8, 7, 8]
+print([1, 2, 3, 4] + [5, 6, 7, 8])  # [1, 2, 3, 4, 5, 6, 7, 8]
+print([7, 8] * 3)  # [7, 8, 7, 8, 7, 8]
 
 # Можно использовать расширенные операторы += и *= при работе со списками.
 a = [1, 2, 3, 4]
 b = [7, 8]
 a += b
-b *= 5 
+b *= 5
 print(a)  # [1, 2, 3, 4, 7, 8]
 print(b)  # [7, 8, 7, 8, 7, 8, 7, 8, 7, 8]
 
@@ -430,10 +522,10 @@ print('the extend() method -', list1)  # ['a', 'b', 'c', 1, 2, 3]
 
 # Встроенная функция sum() принимает в качестве параметра список чисел и вычисляет сумму его элементов.
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-print('Сумма всех элементов списка =', sum(numbers)) # Сумма всех элементов списка = 55
+# Сумма всех элементов списка = 55
+print('Сумма всех элементов списка =', sum(numbers))
 
 # Встроенные функции min() и max() принимают в качестве параметра список и находят минимальный и максимальный элементы соответственно.
 numbers = [3, 4, 10, 3333, 12, -7, -5, 4]
 print('Минимальный элемент =', min(numbers))   # Минимальный элемент = -7
 print('Максимальный элемент =', max(numbers))  # Максимальный элемент = 3333
-

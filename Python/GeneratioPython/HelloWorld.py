@@ -166,8 +166,38 @@ print(sum(evens), len(evens), average)
 # print(numbers1 * 2 + numbers2 * 9 + numbers3 )
 
 
-numbers = [1, 2, 3]
-sum = 0
-for n in numbers:
-    sum += pow(n,2)
-print(sum)
+# numbers = [1, 2, 3]
+# sum = 0
+# for n in numbers:
+#     sum += pow(n,2)
+# print(sum)
+
+
+# numbers = [8, 9, 10, 11]
+# numbers.insert(2, 17)
+# y = [4, 5 ,6]
+# numbers.extend(y)
+# numbers.pop(0)
+# numbers.extend(numbers)
+# numbers.insert(3, 25)
+# print(numbers)
+
+
+a = [-97, 97, -87, -77, 77, -67, 67, -57, 57, -47, 47, -37, 37, -27, 27, -17, 17, -7, 7, 0 ]
+
+n = len(a)
+ind = 0
+count = 0
+
+while count < len(a)-2:
+    dmin = a[count]
+    i = count
+    while i < len(a):        
+        if a[i] < dmin:
+            dmin = a[i]
+            ind = i
+        i += 1
+    a[ind] = a[count]
+    a[count] = dmin
+    count += 1
+print(a)

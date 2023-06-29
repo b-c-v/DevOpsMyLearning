@@ -171,6 +171,43 @@ print(b.replace("H", "J"))  # Jello, World!
 print('===split()===')
 print(b.split(","))  # ['Hello', ' World!']
 
+# split() есть параметр, который определяет, какой набор символов будет использоваться в качестве разделителя между элементами списка.
+ip = '192.168.1.24'
+numbers = ip.split('.')    # указываем явно разделитель
+# split with parameter ['192', '168', '1', '24']
+print('split with parameter', numbers)
+
+# Разница в поведении методов s.split() и s.split(' ') проявляется когда строка содержит несколько пробелов между словами.
+s = 'Python    is   the  most  powerful  language'
+# ['Python', 'is', 'the', 'most', 'powerful', 'language']
+words1 = s.split()
+# ['Python', '', '', '', 'is', '', '', 'the', '', 'most', '', 'powerful', '', 'language']
+words2 = s.split(' ')
+print(words1)
+print(words2)
+
+
+# join() собирает строку из элементов списка, используя в качестве разделителя строку, к которой применяется метод.
+words = ['Python', 'is', 'the', 'most', 'powerful', 'language']
+s = ' '.join(words)
+# все слова разделены одним пробелом, поскольку метод join() вызывался на строке состоящей из одного символа пробела ' '
+print(s)  # Python is the most powerful language
+
+
+# Методы split() и join() являются строковыми методами.
+"""
+# код приводит к ошибке: 'list' object has no attribute 'split'
+print([1, 2].split())
+print([1, 2].join([3, 4, 5]))
+"""
+
+# Строковый метод join() работает только со списком строк.
+"""
+# код приводит к ошибке: TypeError: sequence item 0: expected str instance, int found
+numbers = [1, 2, 3, 4]
+s = '*'.join(numbers)
+print(s)
+"""
 
 # count(<sub>, <start>, <end>) считает количество непересекающихся вхождений подстроки <sub> в исходную строку s.
 print('===count()===')
