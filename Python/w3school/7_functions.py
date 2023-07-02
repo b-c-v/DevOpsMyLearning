@@ -6,6 +6,23 @@
 def my_function():
     print("Hello from a function")
 
+
+"""
+def имя_функции():
+    блок кода
+"""
+# Первая строка объявления функции называется заголовком функции.
+# Со следующей строки идет блок кода – тело функции. Это набор инструкций, составляющих одно целое и выполняющихся каждый раз, когда вызывается функция.
+# каждая строка в теле функции выделена отступом.
+
+# При объявлении функции следует убедиться, что каждая строка тела функции начинается с одинакового количества пробелов, иначе произойдет ошибка: IndentationError: unexpected indent
+"""
+def print_greeting():
+    рrint('Доброе утро!')
+
+рrint('Сегодня мы будем изучать функции.')
+    рrint('Это очень важная тема!')
+"""
 # Calling a Function. To call a function, use the function name followed by parenthesis:
 
 
@@ -14,8 +31,18 @@ def my_function():
 
 
 my_function()
+# Объявление функции должно предшествовать ее вызову.
 
-# Arguments. Information can be passed into functions as arguments.
+# правила именования функций:
+# в имени функции используются только латинские буквы a-z, A-Z, цифры и символ нижнего подчеркивания (_);
+# имя функции не может начинаться с цифры;
+# имя функции по возможности должно отражать ее назначение;
+# символы верхнего и нижнего регистра различаются.
+# Для именования переменных и функций принято использовать стиль lower_case_with_underscores (слова из маленьких букв с подчеркиваниями).
+# Поскольку функции выполняют действия, большинство программистов предпочитает в именах функций использовать глаголы.
+
+# ***Arguments***
+# Information can be passed into functions as arguments.
 # Arguments are specified after the function name, inside the parentheses. You can add as many arguments as you want, just separate them with a comma.
 # Arguments are often shortened to args in Python documentations.
 
@@ -35,7 +62,39 @@ my_function("Linus")
 # A parameter is the variable listed inside the parentheses in the function definition.
 # An argument is the value that is sent to the function when it is called.
 
-# Number of Arguments. By default, a function must be called with the correct number of arguments. Meaning that if your function expects 2 arguments, you have to call the function with 2 arguments, not more, and not less.
+
+def draw_box(height, width):
+    for i in range(height):
+        print('*' * width)
+
+# параметрами являются переменные height и width.
+# В момент вызова функции draw_box(height, width) аргументами являются height и 9.
+
+
+height = 1
+draw_box(height, 9)  # *********
+
+# Когда аргумент передается в функцию, параметрическая переменная функции будет ссылаться на значение этого аргумента.
+# Однако любые изменения, которые вносятся в параметрическую переменную, не будут влиять на аргумент. (также см. 1_variables.py)
+
+
+def draw_box(height, width):
+    height = 1
+    width = 5
+    for i in range(height):
+        print('!' * width)
+
+
+n = 5
+m = 7
+draw_box(n, m)  # !!!!!
+print(n, m)  # 5 7
+
+# В теле функции вносятся изменения в значения параметрических переменных height и width, однако это никак не повлияло на значение переменных n и m из основной программы, которые передавались в качестве аргументов в функцию draw_box().
+
+
+# ***Number of Arguments***
+# By default, a function must be called with the correct number of arguments. Meaning that if your function expects 2 arguments, you have to call the function with 2 arguments, not more, and not less.
 # This function expects 2 arguments, and gets 2 arguments:
 
 
@@ -44,6 +103,7 @@ def my_function(fname, lname):
 
 
 my_function("Emil", "Refsnes")
+
 
 # If you try to call the function with 1 or 3 arguments, you will get an error:
 # This function expects 2 arguments, but gets only 1:
@@ -115,7 +175,9 @@ fruits = ["apple", "banana", "cherry"]
 
 my_function(fruits)  # apple banana cherry
 
-# Return Values. To let a function return a value, use the return statement:
+# ***Return Values***
+# To let a function return a value, use the return statement:
+# после выполнения инструкции return функция прекращает свою работу
 
 
 def my_function(x):
@@ -126,14 +188,53 @@ print(my_function(3))
 print(my_function(5))
 print(my_function(9))  # 15 25 45
 
-# The pass Statement
+# В одной функции может быть сколько угодно инструкций return. Рассмотрим функцию convert_grade(), которая переводит стобалльную оценку в пятибалльную:
+
+
+def convert_grade_many(grade):
+    if grade >= 90:
+        return 5
+    elif grade >= 80:
+        return 4
+    elif grade >= 70:
+        return 3
+    elif grade >= 60:
+        return 2
+    else:
+        return 1
+
+
+# Функцию convert_grade() можно переписать с помощью одной инструкции return:
+
+def convert_grade_one(grade):
+    if grade >= 90:
+        result = 5
+    elif grade >= 80:
+        result = 4
+    elif grade >= 70:
+        result = 3
+    elif grade >= 60:
+        result = 2
+    else:
+        result = 1
+
+    return result
+
+
+print('many returns -', convert_grade_many(86))  # many returns - 4
+print('one return -', convert_grade_one(11))  # one return - 1
+
+
+# ***The pass Statement***
 # function definitions cannot be empty, but if you for some reason have a function definition with no content, put in the pass statement to avoid getting an error.
+# Пока нет кода, но планируется,
 
 
 def myfunction():
     pass
 
-# Recursion.
+
+# ***Recursion***
 # Python also accepts function recursion, which means a defined function can call itself.
 # Recursion is a common mathematical and programming concept. It means that a function calls itself. This has the benefit of meaning that you can loop through data to reach a result.
 # The developer should be very careful with recursion as it can be quite easy to slip into writing a function which never terminates, or one that uses excess amounts of memory or processor power. However, when written correctly recursion can be a very efficient and mathematically-elegant approach to programming.
