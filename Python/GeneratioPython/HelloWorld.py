@@ -182,3 +182,42 @@ print(sum(evens), len(evens), average)
 # numbers.insert(3, 25)
 # print(numbers)
 
+
+"""
+# объединить и отсортировать 2 списка
+numbers1 = [1, 2, 3, 5, 6, 7, 8]
+numbers2 = [5, 6, 13, 20]
+
+def merge(list1, list2):
+    tmp = (list1 + list2)
+    tmp.sort() # если написать (list1 + list2).sort сортирует исходный список на месте, изменяет индексы списка и возвращает None
+    return tmp
+print(merge(numbers1, numbers2))
+
+def merge_sorted(list1, list2):
+    return sorted(list1 + list2) # sorted() возвращает новый отсортированный список, оставляя исходный список без изменений
+print(merge_sorted(numbers1, numbers2))
+"""
+"""
+# слияние двух отсортированных списков в один
+def quick_merge(list1, list2):
+    result = []
+    p1 = 0  # указатель на первый элемент списка list1
+    p2 = 0  # указатель на первый элемент списка list2
+    while p1 < len(list1) and p2 < len(list2):  # пока не закончился хотя бы один список
+        if list1[p1] <= list2[p2]:
+            result.append(list1[p1])
+            p1 += 1
+        else:
+            result.append(list2[p2])
+            p2 += 1
+    if p1 < len(list1):   # прицепление остатка
+        result += list1[p1:]
+    else:                 # иначе прицепляем остаток другого списка
+        result += list2[p2:]    
+    return result
+list1 = [3, 10, 11, 12, 47, 57, 58, 63, 77, 79, 80, 95]
+list2 = [0, 11, 12, 20, 24, 26, 47, 48, 53, 65, 70, 81, 84, 84, 90]
+list3 = quick_merge(list1, list2)
+print(list3)
+"""
