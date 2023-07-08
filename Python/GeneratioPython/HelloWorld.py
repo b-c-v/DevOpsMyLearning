@@ -221,3 +221,22 @@ list2 = [0, 11, 12, 20, 24, 26, 47, 48, 53, 65, 70, 81, 84, 84, 90]
 list3 = quick_merge(list1, list2)
 print(list3)
 """
+"""
+def draw_triangle():
+    l = 1
+    c = 7
+    while l <= 15:
+        print(' ' * c + '*' * l)
+        l += 2
+        c -= 1
+draw_triangle()  # вызов функции
+"""
+
+# объявление функции
+def is_pangram(text):
+    if len(set(text.replace(' ', '').lower())) == 26:
+        return True
+    else:
+        return False
+
+print(is_pangram('Jackdaws love my big sphinx of quartz'))
