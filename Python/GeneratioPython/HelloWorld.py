@@ -231,7 +231,7 @@ def draw_triangle():
         c -= 1
 draw_triangle()  # вызов функции
 """
-
+"""
 # объявление функции
 def is_pangram(text):
     if len(set(text.replace(' ', '').lower())) == 26:
@@ -240,3 +240,98 @@ def is_pangram(text):
         return False
 
 print(is_pangram('Jackdaws love my big sphinx of quartz'))
+
+"""
+"""
+# первое простое число большее числа n
+def is_prime(num):
+    if num == 1:
+        return False
+    for i in range(2, num):
+        if num % i == 0:
+            return False
+    return True
+
+# объявление функции
+def get_next_prime(num):
+    tmp = num + 1
+    while not is_prime(tmp):
+        tmp += 1
+    return(tmp)
+
+
+# считываем данные
+n = int(input())
+
+# вызываем функцию
+print(get_next_prime(n))
+"""
+"""
+# check is password good
+# объявление функции
+def is_password_good(password):
+    if len(password) < 8:
+        return False
+    dig = False
+    let = False
+    blet = False
+    for i in txt:
+        if i.isupper():
+             dig = True
+        if i.islower():
+             let = True
+        if i.isdigit():
+             blet = True
+    if dig and let and blet:
+        return True
+    else:
+        return False
+# считываем данные
+txt = 'aa13AN'
+# вызываем функцию
+print(is_password_good(txt))
+"""
+
+"""
+# слова имеют одинаковую длину и отличаются ровно в 1 символе
+def is_one_away(word1, word2):
+    if len(word1) == len(word2):
+        counter = 0
+        for i in range(len(word1)):
+            if word1[i] != word2[i]:
+                counter += 1
+        return counter == 1
+    return False
+
+# вызываем функцию
+print(is_one_away('water', 'wafer'))
+"""
+"""
+# принимает в качестве аргумента радиус окружности и возвращает два значения: длину окружности и площадь круга, ограниченного данной окружностью
+import math
+def get_circle(radius):
+    c = 2 * math.pi * radius
+    s = math.pi * pow(radius, 2)
+    return c, s
+
+length, square = get_circle(1)
+print(length, square)
+"""
+"""
+import math
+# объявление функции
+def solve(a, b, c):
+    D = math.pow(b, 2) - 4 * a * c
+    print(D)
+    if D > 0:
+        x1 = (-b - math.sqrt(D)) / (2 * a)
+        x2 = (-b + math.sqrt(D)) / (2 * a)
+        return min(x1, x2), max(x1, x2)
+    elif D == 0:
+        return -b / (2 * a), -b / (2 * a)
+    else:
+        return 'Нет корней'
+
+x1, x2 = solve(1, 2, 1)
+print(x1, x2)
+"""

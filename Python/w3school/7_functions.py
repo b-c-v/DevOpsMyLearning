@@ -225,6 +225,23 @@ print('many returns -', convert_grade_many(86))  # many returns - 4
 print('one return -', convert_grade_one(11))  # one return - 1
 
 
+#***Return boolean***
+# Python позволяет писать булевы функции, возвращающие либо истину (True), либо ложь (False). Булеву функцию можно применять для проверки условия, тогда значения True и False будут сигнализировать о его выполнении.
+def is_even(number):
+    if number % 2 == 0:
+        return True
+    else:
+        return False
+
+#***Return few results
+# функции не ограничены возвратом всего одного значения. После инструкции return можно определить много выражений, разделенных запятыми: return выражение 1, выражение 2, выражение 3 ...
+def solve(a, b, c, d, e, f):
+    x = (d * e - b * f)/(a * d - b * c)
+    y = (a * f - c * e)/(a * d - b * c)
+    return x, y
+xsol, ysol = solve(2, 3, 4, 1, 2, 5)
+print('Решением системы являются числа', 'x =', xsol, 'y =', ysol) # Решением системы являются числа x = 1.3 y = -0.2
+
 # ***The pass Statement***
 # function definitions cannot be empty, but if you for some reason have a function definition with no content, put in the pass statement to avoid getting an error.
 # Пока нет кода, но планируется,
