@@ -1,46 +1,46 @@
-# Bubble sort
-b = [1, 7, -3, 9, 0, -67, 34, 12, 45, 1000, 6, 8, -2, 99]
-n = len(b)
-for i in range(n - 1):
+#bubble sort
+a = [1, 7, -3, 9, 0, -67, 34, 12, 45, 1000, 6,  8, -2, 99]
+n = len(a)
+for i in range(n-1):
     flag = True
-    for j in range(n - i - 1):
-        if b[j] > b[j + 1]:
-            b[j], b[j + 1] = b[j + 1], b[j]
+    for j in range(n-i-1):
+        if a[j] > a[j+1]:
+            a[j], a[j + 1] = a[j + 1], a[j]
             flag = False
-    if flag:
-        break
-print(b)
+        if flag:
+            break
+print('bubble sort -', a)
 
-# Selection sort
-s = [1, 7, -3, 9, 0, -67, 34, 12, 45, 1000, 6, 8, -2, 99]
+
+#selection sort
+a = [1, 7, -3, 9, 0, -67, 34, 12, 45, 1000, 6,  8, -2, 99]
 sort = []
 count = 0
-while count < len(s):
-    dmin = min(s)
-    sort.append(dmin)
-    s.remove(dmin)
+while count < len(a):
+    sort.append(min(a))
+    a.remove(min(a))
 count += 1
-print(sort)
-
-# Selection sort without list functions
-sf = [1, 7, -3, 9, 0, -67, 34, 12, 45, 1000, 6, 8, -2, 99]
-n = len(sf)
+print('selection sort -', sort)
+# selection sort (without functions)
+a = [1, 7, -3, 9, 0, -67, 34, 12, 45, 1000, 6,  8, -2, 99]
+n = len(a)
 for i in range(n):
     mx_ind = n - 1 - i
     for j in range(n - i):
-        if sf[j] > sf[mx_ind]:
+        if a[j] > a[mx_ind]:
             mx_ind = j
-    sf[n - 1 - i], sf[mx_ind] = sf[mx_ind], sf[n - 1 - i]
-print(sf)
+    a[n - 1 - i], a[mx_ind] = a[mx_ind], a[n - 1 - i]
+print('selection sort 2 -', a)
 
-# Insert sort
-insert = [1, 7, -3, 9, 0, -67, 34, 12, 45, 1000, 6, 8, -2, 99]
-n = len(insert)
-for i in range(1, n):
-    elem = insert[i]  # первый элемент из неотсортированной части списка
+
+#Insert sort
+a = [1, 7, -3, 9, 0, -67, 34, 12, 45, 1000, 6,  8, -2, 99]
+n = len(a)
+for i in range(1, n): 
+    elem = a[i]  # первый элемент из неотсортированной части списка
     j = i
-    while j >= 1 and insert[j - 1] > elem:
-        insert[j] = insert[j - 1]
+    while j >= 1 and a[j - 1] > elem: 
+        a[j] = a[j - 1]
         j -= 1
-    insert[j] = elem
-print(insert)
+    a[j] = elem
+print('insert sort', a)

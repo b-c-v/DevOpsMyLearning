@@ -13,4 +13,4 @@ if num == 1:
 elif flag == True:
     print('Число простое')
 else:
-    print('Число составное')1
+    print('Число составное')

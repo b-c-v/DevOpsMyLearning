@@ -221,8 +221,27 @@ list2 = [0, 11, 12, 20, 24, 26, 47, 48, 53, 65, 70, 81, 84, 84, 90]
 list3 = quick_merge(list1, list2)
 print(list3)
 """
+"""
+def draw_triangle():
+    l = 1
+    c = 7
+    while l <= 15:
+        print(' ' * c + '*' * l)
+        l += 2
+        c -= 1
+draw_triangle()  # вызов функции
+"""
+"""
+# объявление функции
+def is_pangram(text):
+    if len(set(text.replace(' ', '').lower())) == 26:
+        return True
+    else:
+        return False
 
+print(is_pangram('Jackdaws love my big sphinx of quartz'))
 
+"""
 """
 # первое простое число большее числа n
 def is_prime(num):
@@ -287,11 +306,9 @@ def is_one_away(word1, word2):
 # вызываем функцию
 print(is_one_away('water', 'wafer'))
 """
-
+"""
 # принимает в качестве аргумента радиус окружности и возвращает два значения: длину окружности и площадь круга, ограниченного данной окружностью
 import math
-
-"""
 def get_circle(radius):
     c = 2 * math.pi * radius
     s = math.pi * pow(radius, 2)
@@ -300,7 +317,7 @@ def get_circle(radius):
 length, square = get_circle(1)
 print(length, square)
 """
-
+"""
 import math
 # объявление функции
 def solve(a, b, c):
@@ -317,3 +334,4 @@ def solve(a, b, c):
 
 x1, x2 = solve(1, 2, 1)
 print(x1, x2)
+"""
