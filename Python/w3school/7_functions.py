@@ -29,7 +29,6 @@ def print_greeting():
 def my_function():
     print("Hello from a function")
 
-
 my_function()
 # Объявление функции должно предшествовать ее вызову.
 
