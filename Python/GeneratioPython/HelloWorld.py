@@ -335,3 +335,5 @@ def solve(a, b, c):
 x1, x2 = solve(1, 2, 1)
 print(x1, x2)
 """
+
+print(int('1000', 16))

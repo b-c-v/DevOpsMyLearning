@@ -7,24 +7,37 @@
 # Примечание 2. Неалфавитные символы — знаки препинания, пробелы, цифры — не меняются.
 # Примечание 3. Сохраните регистр символов. Например, текст: "Умом Россию не понять" при сдвиге на одну позицию вправо будет преобразован в: "Фнпн Спттйя ож рпоауэ".
 
-# latin_lower = [97, 122]
-# latin_upper = [65, 90]
-# cyrillic_upper = [1040, 1071]
-# cyrillic_lower = [1072, 1103]
-for i in range(65, 122):
-    print(chr(i), end=' ')
+"""
+Математическая модель
+Если сопоставить каждый символ алфавита с его порядковым номером (нумеруя с 0), то шифрование и дешифрование можно выразить формулами модульной арифметики:
+ y=(x+k) mod   n
+ x=(y−k) mod n
+x — символ открытого текста
+y — символ шифрованного текста
+n — мощность алфавита (количество символов)
+k — ключ
+Под операцией mod подразумевается операция нахождения остатка. В языке Python для нахождения остатка от деления двух чисел, мы используем оператор %.
+"""
 
-# print('Please, enter a sentence to transform')
-# s = input()
-# print('Please enter step of cipher')
-# step = int(input())
-
-# s = 'АаБбВвя'
-# step = 1
-# print(ord('Z'))
-# for i in s:
-
-#     if (ord(i) + step) < 1103:
-#         print(*chr(ord(i) + step), end = '')
-#     else:
-#         print('***')
+k = int(input('Введите шаг сдвига для шифровки ( >0 ) или дешифровки ( <0 ): '))
+en_alphabet = [chr(i) for i in range(65,91)] + [chr(j) for j in range(97,123)]
+ru_alphabet = [chr(i) for i in range(1040,1104)]
+def caesar(text):
+    if txt[0] in en_alphabet:
+        alphabet = en_alphabet
+        n = 26
+    else:
+        alphabet = ru_alphabet
+        n = 32
+    for i in range(len(text)):
+        if text[i].isalpha():
+            x = alphabet.index(text[i])
+            if text[i].isupper():
+                print(alphabet[(x + k) % n], end = '')
+            else:
+                print(alphabet[(x + k) % n + n], end='')
+        else:
+            print(text[i], end = '')
+    print()
+txt = input('Введите текст: ')
+caesar(txt)
