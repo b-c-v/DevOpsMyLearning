@@ -96,8 +96,6 @@ f = open("myfile.txt", "w")
 
 # ***Delete a File***
 # To delete a file, you must import the OS module, and run its os.remove() function:
-
-# Remove the file "demofile.txt":
 import os
 os.remove("demofile.txt")
 os.remove("demofile2.txt")
@@ -117,4 +115,3 @@ else:
 # To delete an entire folder, use the os.rmdir() method:
 import os
 os.rmdir("myfolder")
-
