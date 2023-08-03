@@ -19,3 +19,12 @@ print("Username is: " + username)
 print("Username is:", username)
 
 print("Username is:", input())
+
+# Ввести сразу несколько значений в одной строке и разбить их на разные переменные
+v1, v2, v3 = input('Enter integer, string and float: ').split()
+n1 = int(v1)
+s1 = str(v2)
+f1 = float(v3)
+print('float -', f1)
+print('string -', s1)
+print('integer -', n1)
