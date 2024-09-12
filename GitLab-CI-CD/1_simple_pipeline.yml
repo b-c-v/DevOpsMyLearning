@@ -1,0 +1,18 @@
+# simple 3 steps pipeline
+run_test:
+  before_script:
+    - echo "(job keyword) Commands that should run before script command..."
+  script:
+    - echo "Shell script that is executed by a runner..."
+  after_script:
+    - echo "(job keyword) Define commands that run after each job, including failed jobs"
+
+build_image:
+  script:
+    - echo "Build the docker image..."
+    - echo "Tagging the docker image..."
+
+push_image:
+  script:
+    - echo "Logging into docker registry..."
+    - echo "Pushing docker image to registry..."
