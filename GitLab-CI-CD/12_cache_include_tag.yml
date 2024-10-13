@@ -1,0 +1,119 @@
+default:
+  image: docker
+
+variables:
+  IMAGE_NAME: "$CI_REGISTRY_IMAGE/microservice"
+  # use global variable CI_PIPELINE_IID the project-level IID (internal ID) of the current pipeline
+  IMAGE_TAG: "1.0.$CI_PIPELINE_IID"
+  SERVER_HOST: "sandbox.eu"
+  SERVER_PORT: 3000
+  CONTAINER_NAME: "any_name"
+
+# use predefined template provided by GitLab https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST.gitlab-ci.yml
+# automatically sets up a job that will run static analysis tools, producing reports that can be viewed in the GitLab UI. The SAST template will automatically define the necessary jobs and don't require any additional step for creating specials steps or jobs for it.
+include:
+  - template: Jobs/SAST.gitlab-ci.yml
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH !="main" && $CI_PIPELINE_SOURCE != "merge_request_event"
+      when: never
+    - when: always
+
+# group jobs that run in a particular step of the pipeline
+stages:
+  - test
+  - build
+  - deploy
+
+run_unit_tests:
+  # for this job use node.js image but for other jobs will use default image docker
+  image: node:hydrogen-alpine3.20
+  stage: test
+  # specify which GitLab Runner should pick up this job
+  # since this is a Docker runner, in the /etc/gitlab-runner/config.toml file, need to add the 'cache_dir' line to specify the path where the cache will be saved on the host machine and the 'volumes' directive ensures the Docker container can access this cache during job execution.
+  tags:
+    - arc-backend-test
+  # save in cache the app/node_modules directory, which contains installed Node.js dependencies
+  cache:
+    key: "$CI_COMMIT_REF_NAME" # cache will be created for each branch
+    # cache this directory after the first pipeline execution and reuse it in future pipeline runs
+    paths:
+      - app/node_modules
+    # download the cache when the job starts and uploads changes to the cache when the job ends
+    policy: pull-push # unnecessary because this policy is default
+  before_script:
+    - cd app
+    - npm install
+  script:
+    - npm test
+  artifacts:
+    reports: #different reports like test, code quality, security etc.
+      junit: app/junit.xml # Tell GitLab this is a JUnit report
+    paths:
+      - app/junit.xml # store the raw report for download
+    when: always # Always save artifacts, regardless of job success
+  when: manual
+
+# Linter is a static code analysis tool for checking programming and stylistics errors
+# this job uses for test cache
+run_lint_checks:
+  # use the same parameters like in run_unit_tests job
+  image: node:hydrogen-alpine3.20
+  stage: test
+  tags:
+    - arc-backend-test
+  before_script:
+    - cd app
+    - npm install
+  script:
+    - echo "Test cache"
+  # use the same cache like in run_unit_tests job
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - app/node_modules
+    # this job use the same cache and runs in parallel with run_unit_test which use pull-push policy (download the cache when start the job and save it when finish the job) if both of them try to push changes simultaneously it will resolve a problem
+    policy: pull # this job can only download the cache but never upload changes to it
+
+# build and push docker image
+build_image:
+  stage: build
+  tags:
+    - arc-backend-test
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.2-debug
+    entrypoint: [""]
+  script:
+    - /kaniko/executor
+      --context "$CI_PROJECT_DIR"
+      --dockerfile "$CI_PROJECT_DIR/Dockerfile"
+      --destination "$IMAGE_NAME:$IMAGE_TAG"
+  when: manual
+
+# deploy
+deploy_on_server:
+  stage: deploy
+  tags:
+    - arc-backend-test
+  # save in Settings ==> CI/CD ==> Variables variable type File with name SSH_PRIVATE_KEY
+  # because variable is a type File change permissions to this file
+  before_script:
+    - chmod 600 "$SSH_PRIVATE_KEY"
+    - scp -o StrictHostKeyChecking=no -i "$SSH_PRIVATE_KEY" ./docker-compose.yaml ubuntu@"$SERVER_HOST":/home/ubuntu/
+  # connect by ssh to the deployment server
+  # run inside deploy server all this command to run a container with the app
+  # DC_IMAGE_NAME and DC_IMAGE_TAG and DC_SERVER_PORT are using in docker-compose.yaml that is why need to export them
+  script:
+    - ssh -o StrictHostKeyChecking=no -i "$SSH_PRIVATE_KEY" ubuntu@"$SERVER_HOST" \
+      " docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+      export DC_IMAGE_NAME=$IMAGE_NAME
+      export DC_IMAGE_TAG=$IMAGE_TAG
+      export DC_SERVER_PORT=$SERVER_PORT
+      docker compose down &&
+      docker compose up -d"
+  dependencies: [] # don't download any artifacts from previous jobs
+  environment:
+    name: development
+    url: http://$SERVER_HOST:$SERVER_PORT
+  when: manual
