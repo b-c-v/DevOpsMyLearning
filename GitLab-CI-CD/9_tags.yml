@@ -1,3 +1,4 @@
+# tags are used to select a runner
 default:
   image: node:hydrogen-alpine3.20
 

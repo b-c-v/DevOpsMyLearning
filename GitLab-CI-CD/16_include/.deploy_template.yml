@@ -1,0 +1,37 @@
+.deploy_service:
+  stage: deploy
+  # variables:
+  #   TEMPLATE_IMAGE_NAME: ""
+  #   TEMPLATE_IMAGE_TAG: ""
+  #   TEMPLATE_SSH_PRIVATE_KEY: ""
+  #   TEMPLATE_SERVER_HOST: ""
+  #   TEMPLATE_SERVER_ENDPOINT: ""
+  #   TEMPLATE_MICRO_SERVICE_NAME: ""
+  #   TEMPLATE_APP_PORT: ""
+  # because variable is a type File change permissions to this file
+  before_script:
+    # - chmod 400 "$TEMPLATE_SSH_PRIVATE_KEY"
+    - scp -o StrictHostKeyChecking=no -i "$TEMPLATE_SSH_PRIVATE_KEY" ./docker-compose.yaml ubuntu@"$TEMPLATE_SERVER_HOST":/home/ubuntu/
+    # connect by ssh to the server
+  # run inside deploy server all this commands to start a container with the app
+  # DC_IMAGE_NAME, DC_IMAGE_TAG, and DC_SERVER_PORT are used in the docker-compose.yaml file, which is why they need to be exported.
+  # COMPOSE_PROJECT_NAME is predefined docker variable that changes name of the project.  Container names created by docker compose using the following pattern: <project_name>_<service_name>_<index> (dev-app-1):
+  # project_name - COMPOSE_PROJECT_NAME
+  # service_name - look in docker-compose.yaml (here name is app)
+  # Without changing the name deploy_to_staging job will stop container that created in deploy_to_dev job because they will have the same name
+  # docker network create the network that will use by each service in docker compose
+  script:
+    - ssh -o StrictHostKeyChecking=no -i "$TEMPLATE_SSH_PRIVATE_KEY" ubuntu@"$TEMPLATE_SERVER_HOST" \
+      " docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+      export COMPOSE_PROJECT_NAME=$TEMPLATE_MICRO_SERVICE_NAME &&
+      export DC_IMAGE_NAME=$TEMPLATE_IMAGE_NAME &&
+      export DC_IMAGE_TAG=$TEMPLATE_IMAGE_TAG &&
+      export DC_SERVER_PORT=$TEMPLATE_APP_PORT &&
+      docker network create micro_service || true &&
+      docker compose down &&
+      docker compose up -d &&
+      docker image prune -a " # delete all unused images"
+  dependencies: [] # don't download any artifacts from previous jobs
+  environment:
+    name: development
+    url: http://$TEMPLATE_SERVER_ENDPOINT:$TEMPLATE_APP_PORT

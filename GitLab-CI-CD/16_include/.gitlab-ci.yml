@@ -1,0 +1,125 @@
+# includes files from the same repository
+include:
+  - local: ".build_template.yml"
+  - local: ".deploy_template.yml"
+
+variables:
+  FRONTEND_IMAGE_NAME: "$CI_REGISTRY_IMAGE/monorepo/frontend"
+  FRONTEND_IMAGE_TAG: "1.0"
+  FRONTEND_DIR: "frontend"
+  FRONTEND_SERVER_HOST: "57.128.41.185"
+  FRONTEND_SERVER_ENDPOINT: "sandbox.odoo.henesis.eu"
+  FRONTEND_PORT: 3019
+
+  # variables for products deploy
+  PRODUCTS_IMAGE_NAME: "$CI_REGISTRY_IMAGE/monorepo/products"
+  PRODUCTS_IMAGE_TAG: "5.1"
+  PRODUCTS_DIR: "products"
+  PRODUCTS_SERVER_HOST: "57.128.41.185"
+  PRODUCTS_SERVER_ENDPOINT: "sandbox.odoo.henesis.eu"
+  PRODUCTS_PORT: 3020
+
+  # variables for shopping cart deploy
+  CARTS_IMAGE_NAME: "$CI_REGISTRY_IMAGE/monorepo/carts"
+  CARTS_IMAGE_TAG: "3.2"
+  CARTS_DIR: "shopping-cart"
+  CARTS_SERVER_HOST: "57.128.41.185"
+  CARTS_SERVER_ENDPOINT: "sandbox.odoo.henesis.eu"
+  CARTS_PORT: 3021
+
+# run pipeline only on main branch or during merge request
+workflow:
+  rules:
+    # don't use {} in variables definition because it resolves a syntax error
+    - if: $CI_COMMIT_BRANCH !="main" && $CI_PIPELINE_SOURCE != "merge_request_event"
+      when: never
+    - when: always
+
+stages:
+  - build
+  - deploy
+
+# build image for frontend
+build_frontend_image:
+  # use .build_image template job from the included file
+  extends: .build_image
+  variables:
+    TEMPLATE_SERVICE_DIR: "$FRONTEND_DIR"
+    TEMPLATE_IMAGE_NAME: "$FRONTEND_IMAGE_NAME"
+    TEMPLATE_IMAGE_TAG: "$FRONTEND_IMAGE_TAG"
+  #  "GitLab CI does not support variable interpolation in the rules: changes section. That’s why it’s necessary to repeat the changes block in each job. If you use it only in the .build_image job, it will cause an error.>
+  rules:
+    # run job only when code changed in related directory
+    # doesn't work if use $TEMPLATE_SERVICE_DIR/**/* variable instead and doesn't work if use rules in template job (need to add to each job manually )
+    - changes:
+        - "frontend/**/*"
+
+# build image for products
+build_products_image:
+  extends: .build_image
+  variables:
+    TEMPLATE_SERVICE_DIR: "$PRODUCTS_DIR"
+    TEMPLATE_IMAGE_NAME: "$PRODUCTS_IMAGE_NAME"
+    TEMPLATE_IMAGE_TAG: "$PRODUCTS_IMAGE_TAG"
+  rules:
+    - changes:
+        - "products/**/*"
+
+# build image for shopping carts
+build_carts_image:
+  extends: .build_image
+  variables:
+    TEMPLATE_SERVICE_DIR: "$CARTS_DIR"
+    TEMPLATE_IMAGE_NAME: "$CARTS_IMAGE_NAME"
+    TEMPLATE_IMAGE_TAG: "$CARTS_IMAGE_TAG"
+  rules:
+    - changes:
+        - "shopping-cart/**/*"
+
+deploy_frontend_image:
+  extends: .deploy_service
+  variables:
+    TEMPLATE_IMAGE_NAME: "$FRONTEND_IMAGE_NAME"
+    TEMPLATE_IMAGE_TAG: "$FRONTEND_IMAGE_TAG"
+    TEMPLATE_SERVICE_DIR: "$FRONTEND_DIR"
+    # save in Settings ==> CI/CD ==> Variables variable type File with name SSH_PRIVATE_KEY
+    TEMPLATE_SSH_PRIVATE_KEY: "$SSH_PRIVATE_KEY"
+    TEMPLATE_SERVER_HOST: "$FRONTEND_SERVER_HOST"
+    TEMPLATE_SERVER_ENDPOINT: "$FRONTEND_SERVER_ENDPOINT"
+    TEMPLATE_MICRO_SERVICE_NAME: "frontend"
+    TEMPLATE_APP_PORT: "$FRONTEND_PORT"
+  rules:
+    - changes:
+        - "frontend/**/*"
+
+deploy_products_image:
+  extends: .deploy_service
+  variables:
+    TEMPLATE_IMAGE_NAME: "$PRODUCTS_IMAGE_NAME"
+    TEMPLATE_IMAGE_TAG: "$PRODUCTS_IMAGE_TAG"
+    TEMPLATE_SERVICE_DIR: "$PRODUCTS_DIR"
+    # save in Settings ==> CI/CD ==> Variables variable type File with name SSH_PRIVATE_KEY
+    TEMPLATE_SSH_PRIVATE_KEY: "$SSH_PRIVATE_KEY"
+    TEMPLATE_SERVER_HOST: "$PRODUCTS_SERVER_HOST"
+    TEMPLATE_SERVER_ENDPOINT: "$PRODUCTS_SERVER_ENDPOINT"
+    TEMPLATE_MICRO_SERVICE_NAME: "products"
+    TEMPLATE_APP_PORT: "$PRODUCTS_PORT"
+  rules:
+    - changes:
+        - "products/**/*"
+
+deploy_carts_image:
+  extends: .deploy_service
+  variables:
+    TEMPLATE_IMAGE_NAME: "$CARTS_IMAGE_NAME"
+    TEMPLATE_IMAGE_TAG: "$CARTS_IMAGE_TAG"
+    TEMPLATE_SERVICE_DIR: "$CARTS_DIR"
+    # save in Settings ==> CI/CD ==> Variables variable type File with name SSH_PRIVATE_KEY
+    TEMPLATE_SSH_PRIVATE_KEY: "$SSH_PRIVATE_KEY"
+    TEMPLATE_SERVER_HOST: "$CARTS_SERVER_HOST"
+    TEMPLATE_SERVER_ENDPOINT: "$CARTS_SERVER_ENDPOINT"
+    TEMPLATE_MICRO_SERVICE_NAME: "carts"
+    TEMPLATE_APP_PORT: "$CARTS_PORT"
+  rules:
+    - changes:
+        - "shopping-cart/**/*"
