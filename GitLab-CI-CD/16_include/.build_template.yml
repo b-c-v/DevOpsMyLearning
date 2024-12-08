@@ -1,0 +1,14 @@
+.build_image:
+  stage: build
+  variables:
+    TEMPLATE_SERVICE_DIR: ""
+    TEMPLATE_IMAGE_NAME: ""
+    TEMPLATE_IMAGE_TAG: ""
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.2-debug
+    entrypoint: [""]
+  script:
+    - /kaniko/executor
+      --context "$CI_PROJECT_DIR/$TEMPLATE_SERVICE_DIR"
+      --dockerfile "$TEMPLATE_SERVICE_DIR/Dockerfile"
+      --destination "$TEMPLATE_IMAGE_NAME:$TEMPLATE_IMAGE_TAG"
