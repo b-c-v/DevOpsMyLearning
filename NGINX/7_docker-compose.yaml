@@ -1,0 +1,15 @@
+services:
+  nginx:
+    image: nginx:1.27.0
+    ports:
+      - '80:80'
+    volumes:
+      - ./bloggingtemplate:/var/www/html/
+      - ./7_index_PHP.conf:/etc/nginx/nginx.conf
+    links:
+      - php-fpm
+  php-fpm:
+    image: php:8-fpm
+    volumes:
+    # the mount path should match the one used by nginx container because nginx.conf assigns the root to this directory
+      - ./bloggingtemplate:/var/www/html/
