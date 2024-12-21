@@ -1,0 +1,21 @@
+name: test
+services:
+  nginx:
+    image: nginx:1.27.0
+    ports:
+      - '80:80'
+    volumes:
+      - ./bloggingtemplate:/var/www/html/
+      - ./12_fastcgi_cache.conf:/etc/nginx/nginx.conf
+    links:
+      - php-fpm
+  php-fpm:
+    image: php:8-fpm
+    volumes:
+    # the mount path should match the one used by nginx container because nginx.conf assigns the root to this directory
+      - ./bloggingtemplate:/var/www/html/
+  apache2-tools:
+    image: elswork/apache2-utils
+    command:
+      - sleep
+      - "3600"
