@@ -1,6 +1,8 @@
 #ignore all keys
 *.pem
 id_rsa*
+*.key
+*.cert
 
 #terraform
 .terraform/*
