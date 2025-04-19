@@ -1,0 +1,9 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../base
+  - namespace.yaml
+buildMetadata:
+  - managedByLabel # Adds a label indicating the tool managing these resources (kustomize)
+  - originAnnotations  # Includes annotations that indicate the origin of the resources
