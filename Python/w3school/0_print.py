@@ -34,3 +34,7 @@ print(x + y + z)  # applebananacherry
 int1 = 4
 string1 = "What is your experience?"
 print(string1, int1)
+
+# * это оператор распаковки (unpacking operator) в Python. Он распаковывает элементы и передаёт их как отдельные аргументы в print()
+print(*['a', 'b', 'c']) # a b c
+print(['a', 'b', 'c'])  # ['a', 'b', 'c']
