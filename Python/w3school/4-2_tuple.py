@@ -130,7 +130,8 @@ print("Unpack Tuples -", green)
 print("Unpack Tuples -", yellow)
 print("Unpack Tuples -", red)
 
-# Using Asterisk* If the number of variables is less than the number of values, you can add an * to the variable name and the values will be assigned to the variable as a list:
+# Using Asterisk *
+# If the number of variables is less than the number of values, you can add an * to the variable name and the values will be assigned to the variable as a list:
 # Assign the rest of the values as a list called "red":
 fruits = ("apple", "banana", "cherry", "strawberry", "raspberry")
 (green, yellow, *red) = fruits
@@ -169,7 +170,7 @@ while i < len(thistuple):
     i = i + 1
 
 # Join Tuples
-# To join two or more tuples you can use the + operator:
+# To join (concatenate) two or more tuples you can use the + operator:
 tuple1 = ("a", "b", "c")
 tuple2 = (1, 2, 3)
 tuple3 = tuple1 + tuple2

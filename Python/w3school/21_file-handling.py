@@ -80,7 +80,7 @@ f = open("demofile.txt", "w")
 f.write("Woops! I have deleted the content!")
 f.close()
 
-#open and read the file after the overwriting:
+# open and read the file after the overwriting:
 f = open("demofile.txt", "r")
 print(f.read())
 
@@ -99,7 +99,6 @@ f = open("myfile.txt", "w")
 import os
 os.remove("demofile.txt")
 os.remove("demofile2.txt")
-os.remove("myfile.txt")
 
 # Check if File exist:
 # To avoid getting an error, you might want to check if the file exists before you try to delete it:
@@ -109,9 +108,21 @@ if os.path.exists("demofile.txt"):
 else:
   print("The file does not exist")
 
+# Rename file
+import os
+os.rename("myfile.txt", "renamed_file.txt")
+
+# Create folder
+import os
+os.mkdir("any_name_dir")
+
+# Show files in directory
+import os
+entries = os.listdir("any_name_dir")
+print("directory contents: ", entries)
 
 # Delete Folder
 # Note: You can only remove empty folders.
 # To delete an entire folder, use the os.rmdir() method:
 import os
-os.rmdir("myfolder")
+os.rmdir("any_name_dir")

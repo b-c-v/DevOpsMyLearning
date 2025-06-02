@@ -2,10 +2,10 @@
 
 # There are four collection data types in the Python programming language:
 """
-    List is a collection which is ordered and changeable. Allows duplicate members.
-    Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
-    Set is a collection which is unordered, unchangeable*, and unindexed. No duplicate members.
-    Dictionary is a collection which is ordered** and changeable. No duplicate members.
+List is a collection which is ordered and changeable. Allows duplicate members.
+Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
+Set is a collection which is unordered, unchangeable*, and unindexed. No duplicate members.
+Dictionary is a collection which is ordered** and changeable. No duplicate members.
 """
 
 # Note: Python does not have built-in support for Arrays, but Python Lists can be used instead.
@@ -14,6 +14,7 @@
 
 # Create an array containing car names:
 cars = ["Ford", "Volvo", "BMW"]
+
 
 # What is an Array?
 # An array is a special variable, which can hold more than one value at a time.
@@ -37,13 +38,13 @@ cars[0] = "Toyota"
 # Note: The length of an array is always one more than the highest array index.
 
 x = len(cars)
-print('len() -', x)  # 3
+print("len() -", x)  # 3
 
 # Looping Array Elements. You can use the for in loop to loop through all the elements of an array.
 # Print each item in the cars array:
 cars = ["Ford", "Volvo", "BMW"]
 for x in cars:
-    print(' Looping Array -', x)
+    print(" Looping Array -", x)
 
 """
 Array Methods
@@ -65,16 +66,16 @@ sort()      Sorts the list
 # Adding Array Elements. You can use the append() method to add an element to an array.
 # Add one more element to the cars array:
 cars.append("Honda")
-print('append() method -', cars)  # ['Ford', 'Volvo', 'BMW', 'Honda']
+print("append() method -", cars)  # ['Ford', 'Volvo', 'BMW', 'Honda']
 
 # Removing Array Elements. You can use the pop() method to remove an element from the array.
 # Delete the second element of the cars array:
 cars.pop(1)
-print('pop() method -', cars)  # ['Ford', 'BMW', 'Honda']
+print("pop() method -", cars)  # ['Ford', 'BMW', 'Honda']
 
 
 # You can also use the remove() method to remove an element from the array.
 # Note: The list's remove() method only removes the first occurrence of the specified value.
 
 cars.remove("Honda")
-print('remove() -', cars)  # ['Ford', 'BMW']
+print("remove() -", cars)  # ['Ford', 'BMW']

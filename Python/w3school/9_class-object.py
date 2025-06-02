@@ -2,6 +2,7 @@
 # Almost everything in Python is an object, with its properties and methods.
 # A Class is like an object constructor, or a "blueprint" for creating objects.
 
+
 # Create a Class. To create a class, use the keyword class:
 class MyClass:
     x = 5
@@ -26,7 +27,7 @@ class Person:
 
 p1 = Person("John", 36)
 
-print('__init__() function -', p1.name, p1.age)  # John 36
+print("__init__() function -", p1.name, p1.age)  # John 36
 
 # The __str__() Function
 # The __str__() function controls what should be returned when the class object is represented as a string.
@@ -44,7 +45,7 @@ class Person:
 
 p1 = Person("John", 36)
 
-print('__str__() function -', p1)  # John(36)
+print("__str__() function -", p1)  # John(36)
 
 # Object Methods. Objects can also contain methods. Methods in objects are functions that belong to the object.
 # Insert a function that prints a greeting, and execute it on the p1 object:
@@ -74,7 +75,7 @@ class Person:
 
     def myfunc(abc):
         # Hello my name is  John I'm 36
-        print("Hello my name is ", abc.name, 'I\'m', abc.age)
+        print("Hello my name is ", abc.name, "I'm", abc.age)
 
 
 p1 = Person("John", 36)

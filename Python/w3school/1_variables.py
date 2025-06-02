@@ -1,13 +1,3 @@
-# https://www.w3schools.com/python/default.asp
-# Comments start with #
-# Comments can be placed at the end of a line, and Python will ignore the rest of the line
-
-"""
-Python does not really have a syntax for multiline comments.
-You can use a multiline string.
-Add a multiline string (triple quotes) in your code, and place your comment inside it
-"""
-
 # Python uses indentation to indicate a block of code. Python will give you an error if you skip the indentation
 # The number of spaces is up to you as a programmer, the most common use is four, but it has to be at least one.
 if 5 > 2:
@@ -73,14 +63,21 @@ y = temp
 """
 # You can convert from one type to another with the int(), float(), and complex() methods
 x = 1    # int
+print("The value of x is -", x, ". The type is:", type(x))
+print(f"The value of x is - {x}", ". The type is:", type(x))
 y = 2.8  # float
+print("The value of y is -", y, ". The type is:", type(y))
 z = 1j   # complex
+print("The value of z is -", z, ". The type is:", type(z))
 # convert from int to float:
 a = float(x)        # 1.0
+print("The value of a is -", a, ". The type is:", type(a))
 # convert from float to int:
 b = int(y)          # 2
+print("The value of b is -", b, ". The type is:", type(b))
 # convert from int to complex:
 c = complex(x)      # (1+0j)
+print("The value of c is -", c, ". The type is:", type(c))
 
 # Float can also be scientific numbers with an "e" to indicate the power of 10
 x = 35e3

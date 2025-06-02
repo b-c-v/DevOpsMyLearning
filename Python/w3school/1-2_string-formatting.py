@@ -27,12 +27,12 @@ print(myorder.format(quantity, itemno, price))
 # Для наглядности и гибкости форматирования можно использовать порядковый номер в заполнителе: {0}, {1}, {2},....
 # Такой номер определяет позицию параметра, переданного методу format (нумерация начинается с нуля):
 age = 27
-name = 'Sergii'
-profession = 'math teacher'
-txt = 'My name is {0}, I am {1}, I work as a {2}'.format(name, age, profession)
-print(txt)   # My name is Sergii, I am 27, I work as a math teacher
+name = "Sergii"
+profession = "math teacher"
+txt = "My name is {0}, I am {1}, I work as a {2}".format(name, age, profession)
+print(txt)  # My name is Sergii, I am 27, I work as a math teacher
 
-print('My name is {0}-{0}-{0}'.format(name))  # My name is Sergii-Sergii-Sergii
+print("My name is {0}-{0}-{0}".format(name))  # My name is Sergii-Sergii-Sergii
 
 # Index Numbers. You can use index numbers (a number inside the curly brackets {0}) to be sure the values are placed in the correct placeholders:
 quantity = 3
@@ -53,13 +53,25 @@ myorder = "I have a {carname}, it is a {model}."
 # I have a Ford, it is a Mustang.
 print(myorder.format(carname="Ford", model="Mustang"))
 
+# %-formatting called "old style" formatting. It uses the % operator to format strings.
+# %s - string
+# %i - integer
+# %f - floating point decimal
+# %x - hexadecimal integer
+# %o - octal integer
+# %% - literal percent sign
+print("My name is %s and this is my age %i" % ("Sergii", 19))
+# My name is Sergii and this is my age 19
+
 # В Python 3.6 появилась новая разновидность строк — f-строки.
 # Если поставить перед строкой префикс f, в заполнители можно будет включить код, например имя переменной.
 
-first_name = 'Sergii'
-father_name = 'Victorovich'
+first_name = "Sergii"
+father_name = "Victorovich"
 age = 27
-profession = 'math teacher'
-affiliation = 'GitHub'
-print(f'Hello, {first_name} {father_name}. You are {age}. You are a {profession}. You were a member of {affiliation}')
+profession = "math teacher"
+affiliation = "GitHub"
+print(
+    f"Hello, {first_name} {father_name}. You are {age}. You are a {profession}. You were a member of {affiliation}"
+)
 # Hello, Sergii Victorovich. You are 27. You are a math teacher. You were a member of GitHub

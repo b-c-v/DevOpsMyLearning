@@ -1,3 +1,13 @@
+# https://www.w3schools.com/python/default.asp
+# Comments start with #
+# Comments can be placed at the end of a line, and Python will ignore the rest of the line
+
+"""
+Python does not really have a syntax for multiline comments.
+You can use a multiline string.
+Add a multiline string (triple quotes) in your code, and place your comment inside it
+"""
+
 # То, что мы пишем в круглых скобках у команды print(), называется аргументами или параметрами команды.
 # Команда print() позволяет указывать несколько аргументов, в таком случае их надо отделять запятыми.
 print('Скоро я', 'буду программировать', 'на языке', 'Python!')
