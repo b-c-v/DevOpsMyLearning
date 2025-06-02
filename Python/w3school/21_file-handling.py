@@ -36,7 +36,7 @@ print(f.read())"""
 # By default the read() method returns the whole text, but you can also specify how many characters you want to return:
 # Return the 5 first characters of the file:
 f = open("0_print.py", "r")
-print('return only 5 first characters -', f.read(5))
+print("return only 5 first characters -", f.read(5))
 
 # ***Read Lines***
 # You can return one line by using the readline() method:
@@ -46,13 +46,13 @@ print(f.readline())
 
 # By calling readline() two times, you can read the two first lines:
 f = open("0_print.py", "r")
-print('calling two times -', f.readline())
-print('calling two times -', f.readline())
+print("calling two times -", f.readline())
+print("calling two times -", f.readline())
 
 # By looping through the lines of the file, you can read the whole file, line by line:
 f = open("0_print.py", "r")
 for x in f:
-  print('loop -', x)
+    print("loop -", x)
 
 
 # ***Close Files***
@@ -70,7 +70,7 @@ f = open("demofile2.txt", "a")
 f.write("Now the file has more content!")
 f.close()
 
-#open and read the file after the appending:
+# open and read the file after the appending:
 f = open("demofile2.txt", "r")
 print(f.read())
 
@@ -93,36 +93,10 @@ f = open("myfile.txt", "x")
 # Create a new file if it does not exist:
 f = open("myfile.txt", "w")
 
-
 # ***Delete a File***
 # To delete a file, you must import the OS module, and run its os.remove() function:
 import os
+
 os.remove("demofile.txt")
 os.remove("demofile2.txt")
-
-# Check if File exist:
-# To avoid getting an error, you might want to check if the file exists before you try to delete it:
-import os
-if os.path.exists("demofile.txt"):
-  os.remove("demofile.txt")
-else:
-  print("The file does not exist")
-
-# Rename file
-import os
-os.rename("myfile.txt", "renamed_file.txt")
-
-# Create folder
-import os
-os.mkdir("any_name_dir")
-
-# Show files in directory
-import os
-entries = os.listdir("any_name_dir")
-print("directory contents: ", entries)
-
-# Delete Folder
-# Note: You can only remove empty folders.
-# To delete an entire folder, use the os.rmdir() method:
-import os
-os.rmdir("any_name_dir")
+os.remove("myfile.txt")
