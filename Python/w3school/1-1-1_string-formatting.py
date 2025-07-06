@@ -3,9 +3,106 @@
 # The format() method takes the passed arguments, formats them, and places them in the string where the placeholders {} are
 # To control such values, add placeholders (curly brackets {}) in the text, and run the values through the format() method
 
+# F-String was introduced in Python 3.6, and is now the preferred way of formatting strings.
+# Если поставить перед строкой префикс f, в заполнители можно будет включить код, например имя переменной.
+age = 36
+txt = f"My name is John, and I am {age}"
+print(txt)  # My name is John, and I am 36
+
+first_name = "Sergii"
+father_name = "Victorovich"
+age = 27
+profession = "math teacher"
+affiliation = "GitHub"
+print(
+    f"Hello, {first_name} {father_name}. You are {age}. You are a {profession}. You were a member of {affiliation}"
+)
+# Hello, Sergii Victorovich. You are 27. You are a math teacher. You were a member of GitHub
+
+# A placeholder can also include a modifier to format the value.
+# A modifier is included by adding a colon : followed by a legal formatting type, like .2f which means fixed point number with 2 decimals
+# Display the price with 2 decimals:
+price = 59
+txt = f"The price is {price:.2f} dollars"
+print(txt)  # The price is 59.00 dollars
+
+# You can also format a value directly without keeping it in a variable:
+# Display the value 95 with 2 decimals:
+txt = f"The price is {95:.2f} dollars"
+print(txt)  # The price is 95.00 dollars
+
+# Use a comma as a thousand separator:
+price = 59000
+txt = f"The price is {price:,} dollars"
+print(txt)  # The price is 59,000 dollars
+
+"""
+Formatting    Types
+:<            left aligns the result (within the available space)
+:>            right aligns the result (within the available space)
+:^            center aligns the result (within the available space)
+:=            places the sign to the left most position
+:+            use a plus sign to indicate if the result is positive or negative
+:-            use a minus sign for negative values only
+:             use a space to insert an extra space before positive numbers (and a minus sign before negative numbers)
+:,            use a comma as a thousand separator
+:_            use a underscore as a thousand separator
+:b            binary format
+:c            converts the value into the corresponding unicode character
+:d            decimal format
+:e            scientific format, with a lower case e
+:E            scientific format, with an upper case E
+:f            fix point number format
+:F            fix point number format, in uppercase format (show inf and nan as INF and NAN)
+:g            general format
+:G            general format (using a upper case E for scientific notations)
+:o            octal format
+:x            hex format, lower case
+:X            hex format, upper case
+:n            number format
+:%            percentage format
+"""
+
+# ***Perform operations in F-Strings***
+# You can perform Python operations inside the placeholders.
+# Perform a math operation in the placeholder, and return the result:
+txt = f"The price is {20 * 59} dollars"
+print(txt)  # The price is 1180 dollars
+
+# Perform math operations on variables. Add taxes before displaying the price:
+price = 59
+tax = 0.25
+txt = f"The price is {price + (price * tax)} dollars"
+print(txt)  # The price is 73.75 dollars
+
+# You can perform if...else statements inside the placeholders:
+# Return "Expensive" if the price is over 50, otherwise return "Cheap":
+price = 49
+txt = f"It is very {'Expensive' if price>50 else 'Cheap'}"
+print(txt)  # It is very Cheap
+
+# ***Execute functions in F-Strings***
+# You can execute functions inside the placeholder.
+# Use the string method upper()to convert a value into upper case letters:
+fruit = "apples"
+txt = f"I love {fruit.upper()}"
+print(txt)  # I love APPLES
+
+
+# The function does not have to be a built-in Python method, you can create your own functions and use them.
+# Create a function that converts feet into meters:
+def myconverter(x):
+    return x * 0.3048
+
+
+txt = f"The plane is flying at a {myconverter(30000)} meter altitude"
+print(txt)  # The plane is flying at a 9144.0 meter altitude
+
+
+# Before Python 3.6 we had to use the format() method.
 # Add a placeholder where you want to display the price:
 price = 49
-print("The program costs {} dollars".format(price))
+print("The program costs {} dollars".format(price))  # The program costs 49 dollars
 txt = "The price is {} dollars"
 print(txt.format(price))  # The price is 49 dollars
 
@@ -64,16 +161,3 @@ print(my_order.format(carname="Ford", model="Mustang"))
 # %% - literal percent sign
 print("My name is %s and this is my age %i" % ("Sergii", 19))
 # My name is Sergii and this is my age 19
-
-# В Python 3.6 появилась новая разновидность строк — f-строки.
-# Если поставить перед строкой префикс f, в заполнители можно будет включить код, например имя переменной.
-
-first_name = "Sergii"
-father_name = "Victorovich"
-age = 27
-profession = "math teacher"
-affiliation = "GitHub"
-print(
-    f"Hello, {first_name} {father_name}. You are {age}. You are a {profession}. You were a member of {affiliation}"
-)
-# Hello, Sergii Victorovich. You are 27. You are a math teacher. You were a member of GitHub

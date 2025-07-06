@@ -143,7 +143,7 @@ rstrip()           Returns a right trim version of the string
 split()            Splits the string at the specified separator, and returns a list
 splitlines()       Splits the string at line breaks and returns a list
 startswith()       Returns true if the string starts with the specified value
-strip()            Returns a trimmed version of the string
+strip()            Удаление начальных и конечных пробелов (а также символов перевода строки, табуляции и других "невидимых" символов) из строки
 swapcase()         Swaps cases, lower case becomes upper case and vice versa
 title()            Converts the first character of each word to upper case
 translate()        Returns a translated string

@@ -142,7 +142,7 @@ copy()                             Returns a copy of the set
 difference()                       Returns a set containing the difference between two or more sets
 difference_update()                Removes the items in this set that are also included in another, specified set
 discard()                          Remove the specified item
-intersection()                     Returns a set, that is the intersection of two other sets
+intersection()                     Returns a set, that is the intersection of two other sets (keeps ONLY the duplicates)
 intersection_update()              Removes the items in this set that are not present in other, specified set(s)
 isdisjoint()                       Returns whether two sets have a intersection or not
 issubset()                         Returns whether another set contains this set or not
@@ -163,6 +163,10 @@ set1 = {"a", "b", "c"}
 set2 = {1, 2, 3}
 set3 = set1.union(set2)
 print("union() method -", set3)  # {1, 2, 3, 'b', 'a', 'c'}
+
+# joining multiple sets into one new set called set4
+set4 = set1 | set2 | set3
+print("Joining set: ", set4)
 
 # The update() method inserts the items in set2 into set1:
 set1.update(set2)

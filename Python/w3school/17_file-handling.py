@@ -66,23 +66,21 @@ f.close()
 # ***Write to an Existing File***
 # To write to an existing file, you must add a parameter ("a" or "w") to the open() function:
 # Open the file "demofile2.txt" and append content to the file:
-f = open("demofile2.txt", "a")
-f.write("Now the file has more content!")
-f.close()
+with open("demofile.txt", "a") as f:
+  f.write("Now the file has more content!")
 
-# open and read the file after the appending:
-f = open("demofile2.txt", "r")
-print(f.read())
+#open and read the file after the appending:
+with open("demofile.txt") as f:
+  print(f.read()) 
 
 # Open the file "demofile.txt" and overwrite the content:
 # Note: the "w" method will overwrite the entire file.
-f = open("demofile.txt", "w")
-f.write("Woops! I have deleted the content!")
-f.close()
+with open("demofile.txt", "w") as f:
+  f.write("Woops! I have deleted the content!")
 
-# open and read the file after the overwriting:
-f = open("demofile.txt", "r")
-print(f.read())
+#open and read the file after the overwriting:
+with open("demofile.txt") as f:
+  print(f.read()) 
 
 
 # ***Create a New File***

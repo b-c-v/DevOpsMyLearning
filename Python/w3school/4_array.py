@@ -79,3 +79,8 @@ print("pop() method -", cars)  # ['Ford', 'BMW', 'Honda']
 
 cars.remove("Honda")
 print("remove() -", cars)  # ['Ford', 'BMW']
+
+# Use the insert method to add "lemon" as the second item in the fruits list.
+fruits = ["apple", "banana", "cherry"]
+fruits.insert(1, "lemon")
+print("insert() -", fruits)  # ['apple', 'lemon', 'banana', 'cherry']

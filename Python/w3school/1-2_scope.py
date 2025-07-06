@@ -1,5 +1,6 @@
 # Scope is a variable is only available from inside the region it is created.
 
+
 # Local Scope. A variable created inside a function belongs to the local scope of that function, and can only be used inside that function.
 # A variable created inside a function is available inside that function:
 def myfunc():
@@ -18,6 +19,7 @@ def myfunc():
 
     def myinnerfunc():
         print(x)
+
     myinnerfunc()
 
 
@@ -43,12 +45,12 @@ x = 300
 
 def myfunc():
     x = 200
-    print('local -', x)
+    print("local -", x)
 
 
 myfunc()
 
-print('global -', x)  # 200 300
+print("global -", x)  # 200 300
 
 # Global Keyword. If you need to create a global variable, but are stuck in the local scope, you can use the global keyword.
 # The global keyword makes the variable global.
@@ -76,3 +78,21 @@ def myfunc():
 myfunc()
 
 print(x)  # 200
+
+# ***Nonlocal Keyword***
+# The nonlocal keyword is used to work with variables inside nested functions.
+
+
+# If you use the nonlocal keyword, the variable will belong to the outer function:
+def myfunc1():
+    x = "Jane"
+
+    def myfunc2():
+        nonlocal x # указываем, что мы хотим использовать переменную x из внешней функции (myfunc1)
+        x = "hello" # Меняем значение x
+
+    myfunc2()
+    return x # Вызываем вложенную функцию, которая меняет значение переменной x
+
+
+print(myfunc1()) # hello

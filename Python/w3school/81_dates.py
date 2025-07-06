@@ -3,7 +3,7 @@
 import datetime
 
 x = datetime.datetime.now()
-print(x)
+print(x) # display the current date
 
 # Date Output. When we execute the code from the example above the result will be:
 # 2023-04-14 17:08:39.201288

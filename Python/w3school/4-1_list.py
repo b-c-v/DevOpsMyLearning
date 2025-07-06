@@ -335,11 +335,24 @@ while i < len(thislist):
 # A short hand for loop that will print all items in a list:
 [print("List Comprehension -", x) for x in thislist]
 
+# Создаём новый список, копируя каждый элемент x из списка thislist. Эквивалентно: newlist = thislist.copy()
+newlist = [x for x in thislist]
+print("Copy of the list: ", newlist)  # ['apple', 'banana', 'cherry']
+
+# Создаём новый список, в котором каждый элемент — это строка "apple". Количество элементов такое же, как в списке fruits
+# Значение переменной x игнорируется, оно нужно только для перебора
+newlist = ["apple" for x in thislist]
+print("Apple list: ", newlist)  # ['apple', 'apple', 'apple']
+
 # List comprehension offers a shorter syntax when you want to create a new list based on the values of an existing list.
+# The Syntax
+"""
+newlist = [expression for item in iterable if condition == True]
+"""
+# The return value is a new list, leaving the old list unchanged.
 # Based on a list of fruits, you want a new list, containing only the fruits with the letter "a" in the name.
 # Without list comprehension you will have to write a for statement with a conditional test inside:
 fruits = ["apple", "banana", "cherry", "kiwi", "mango"]
-newlist = []
 
 for x in fruits:
     if "a" in x:
@@ -348,28 +361,28 @@ print("Without list comprehension", newlist)
 
 # With list comprehension you can do all that with only one line of code:
 newlist = [x for x in fruits if "a" in x]
-print("With list comprehension", newlist)
+print("With list comprehension", newlist)  #  ['apple', 'banana', 'mango']
 
-# The Syntax
-# newlist = [expression for item in iterable if condition == True]
-# The return value is a new list, leaving the old list unchanged.
 
 # Condition. The condition is like a filter that only accepts the items that valuate to True.
 # Only accept items that are not "apple". The condition if x != "apple"  will return True for all elements other than "apple", making the new list contain all fruits except "apple".:
 newlist = [x for x in fruits if x != "apple"]
-
+print("Condition !=apple: ", newlist)  # ['banana', 'cherry', 'kiwi', 'mango']
 
 # The condition is optional and can be omitted:
 # With no if statement:
 newlist = [x for x in fruits]
+print("Omitted condition: ", newlist)  # ['apple', 'banana', 'cherry', 'kiwi', 'mango']
 
 # Iterable. The iterable can be any iterable object, like a list, tuple, set etc.
 # You can use the range() function to create an iterable:
 newlist = [x for x in range(10)]
+print("Iterable: ", newlist)  # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 # Same example, but with a condition:
 # Accept only numbers lower than 5:
 newlist = [x for x in range(10) if x < 5]
+print("Numbers lower than 5: ", newlist)  # [0, 1, 2, 3, 4]
 
 
 # В списочном выражении можно использовать вложенные циклы.
@@ -468,8 +481,7 @@ print("reverse() method -", thislist)  # ['cherry', 'Kiwi', 'Orange', 'banana']
 # You cannot copy a list simply by typing list2 = list1, because: list2 will only be a reference to list1, and changes made in list1 will automatically also be made in list2.
 """
 Метод copy() создает поверхностную (также называемую "мелкую") копию списка.
-Это означает, что копирование происходит только на один уровень глубины, и если исходный список содержит объекты (например, другие списки или словари),
-то они будут скопированы только по ссылке, а не созданы новые копии этих объектов.
+Это означает, что копирование происходит только на один уровень глубины, и если исходный список содержит объекты (например, другие списки или словари), то они будут скопированы только по ссылке, а не созданы новые копии этих объектов.
 Это отличается от глубокого копирования (deep copy), при котором создаются полные копии всех объектов, включая вложенные списки, словари и т.д.
 В отличие от поверхностной копии, глубокое копирование может потребовать значительно больших затрат памяти и времени.
 Например, если есть список a = [[1, 2], [3, 4]], то поверхностная копия списка

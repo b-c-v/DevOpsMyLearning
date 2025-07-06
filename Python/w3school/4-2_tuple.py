@@ -146,7 +146,7 @@ fruits = ("apple", "mango", "papaya", "pineapple", "cherry")
 (green, *tropic, red) = fruits
 print("asterisk is added to another variable -", green)  # apple
 # ['mango', 'papaya', 'pineapple']
-print("asterisk is added to another variable -", tropic)
+print("asterisk is added to another variable -", tropic) # ['mango', 'papaya', 'pineapple']
 print("asterisk is added to another variable -", red)  # cherry
 
 # ***Loop Tuples***

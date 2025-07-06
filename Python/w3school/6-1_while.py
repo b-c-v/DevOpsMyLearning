@@ -13,7 +13,7 @@ while i < 6:
 # Exit the loop when i is 3:
 i = 1
 while i < 6:
-    print('break -', i)  # 1 2 3
+    print("break -", i)  # 1 2 3
     if i == 3:
         break
     i += 1
@@ -25,7 +25,7 @@ while i < 6:
     i += 1
     if i == 3:
         continue
-    print('continue -', i)  # 1 2 3 4 5 6
+    print("continue -", i)  # 1 2 3 4 5 6
 
 # The else Statement.With the else statement we can run a block of code once when the condition no longer is true:
 # Print a message once the condition is false:
@@ -42,17 +42,17 @@ else:
 # цикл будет работать до тех пор, пока пользователь не введет слово хватит или конец
 word = input()
 while (word != "хватит") and (word != "конец"):
-    print('and -', word)
+    print("and -", word)
     word = input()
 
 # цикл будет работать до тех пор, пока пользователь не введет слово хватит или конец
 word = input()
-while not (word == 'хватит' or word == 'конец'):
-    print('not -', word)
+while not (word == "хватит" or word == "конец"):
+    print("not -", word)
     word = input()
 
 # Цикл будет работать бесконечно, поскольку блок кода выполняется в том случае если слева или справа от  or появляется значение True.
 # Если первое значение от or истинно (True) то второе даже не проверяется и условие считается выполненным.
 while (word != "хватит") or (word != "конец"):
-    print('or -', word)
+    print("or -", word)
     word = input()
