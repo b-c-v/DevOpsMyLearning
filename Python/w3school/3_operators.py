@@ -20,38 +20,97 @@ Python divides the operators in the following groups:
    **    Exponentiation     x ** y   # Возведение в степень
    //    Floor division     x // y   # Целочисленное деление
 """
-print(15/4)          # 3.75
-print(3/5)           # 0.6
-print(15 % 4)        # 3
-print(3 % 5)         # 3
-print(-15 % 4)         # 1
-print(3 % -5)          # -2
-print(-4 % 5)          # 1
+print(15 / 4)  # 3.75
 
-# Floor division operator will divide the first argument by the second and round the result down to the nearest whole number.
-# The result of regular division (using the / operator) is 15/4=3.75, but using // has floored down to 3
-print(15//4)       # 3
-# When an operand is negative, floor division will return the largest integer less than or equal to the result of regular division.
-print(-15 // 4)    # -4
+# // (целочисленное деление) всегда округляет результат в сторону минус бесконечности (вниз по числовой прямой), а не просто отбрасывает дробную часть.
+# a // b == floor(a/b)
+# floor() — это округление вниз до ближайшего целого числа.
+# 15 / 4 = 3.75, целочисленное деление 15 // 4 = 3 так как 3.75 округляется вниз до 3 — в этом случае округление совпадает с отбрасыванием дробной части, потому что число положительное
+print("a // b =", 15 // 4)  # 3
+
+# -15 / 4 = -3.75 округление вниз (в сторону минус бесконечности): -4
+print("a // -b =", 15 // -4)  # -4
+
+print("-a // b =", -15 // 4)  # -4
+
+
+# % возвращает остаток от деления первого числа на второе
+# a % b = a - (b * floor(a / b)) формула, по которой вычисляется результат
+# 15 % 4 == 15 - (4 * floor(3.75))
+# 15 % 4 == 15 - 12
+print("a % b =", 15 % 4)  # 3
+
+# 15%-4 == 15 - (-4 * floor(-3.75))
+# 15%-4 == 15 - 16
+print("a % -b", 15 % -4)  # -1
+
+# результат оператора % всегда имеет тот же знак, что и делитель
+print("-a % b =", -15 % 4)  # 1
 
 
 # Assignment operators are used to assign values to variables:
 """
-   Operator      Example   Same As
-   =             x = 5     x = 5
-   +=            x += 3    x = x + 3
-   -=            x -= 3    x = x - 3
-   *=            x *= 3    x = x * 3
-   /=            x /= 3    x = x / 3
-   %=            x %= 3    x = x % 3
-   //=           x //= 3   x = x // 3
-   **=           x **= 3   x = x ** 3
-   &=            x &= 3    x = x & 3
-   |=            x |= 3    x = x | 3
-   ^=            x ^= 3    x = x ^ 3
-   >>=           x >>= 3   x = x >> 3
-   <<=           x <<= 3   x = x << 3
+   Operator      Example   Same As       Name
+   =             x = 5     x = 5         Assignment
+   +=            x += 3    x = x + 3     Addition assignment
+   -=            x -= 3    x = x - 3     Subtraction assignment
+   *=            x *= 3    x = x * 3     Multiplication assignment
+   /=            x /= 3    x = x / 3     Division assignment
+   %=            x %= 3    x = x % 3     Modulus assignment
+   //=           x //= 3   x = x // 3    Floor division assignment
+   **=           x **= 3   x = x ** 3    Exponentiation assignment
+   &=            x &= 3    x = x & 3     Bitwise AND assignment
+   |=            x |= 3    x = x | 3     Bitwise OR assignment
+   ^=            x ^= 3    x = x ^ 3     Bitwise XOR assignment
+   >>=           x >>= 3   x = x >> 3    Right shift assignment
+   <<=           x <<= 3   x = x << 3    Left shift assignment
 """
+x = 5
+x &= 3
+# 5 в двоичной системе → 0101
+# 3 в двоичной системе → 0011
+# Операция & возвращает 1 только если оба бита равны 1, иначе 0
+"""
+  0101 (5)
+& 0011 (3)
+  ----
+  0001 (1)
+"""
+print("&=", x)  # 1
+
+# Операция | возвращает 1, если хотя бы один бит равен 1:
+x = 5
+x |= 3
+"""
+  0101 (5)
+| 0011 (3)
+  ----
+  0111 (7)
+"""
+print("|=", x)  # 7
+
+# Операция ^ возвращает 1, если биты разные, и 0, если одинаковые:
+x = 5
+x ^= 3
+"""
+  0101 (5)
+^ 0011 (3)
+  ----
+  0110 (6)
+  """
+print("^=", x)  # 6
+
+# >>= (Сдвиг вправо) — эквивалентно целочисленному делению на 2ⁿ (где n — количество сдвигов).
+# Операция >> сдвигает биты вправо, отбрасывая младшие биты:
+x = 8  # 1000
+x >>= 2  # 0010 два нуля добавляются слева, два бита справа отбрасываются
+print(">>=", x)  # 2
+
+# <<= (Сдвиг влево) — эквивалентно умножению на 2ⁿ (где n — количество сдвигов).
+# Операция << сдвигает биты влево, добавляя нули справа
+x = 2  # 0010
+x <<= 3  # 10000 сдвигаем биты влево на 3 (три нуля добавлены справа)
+print("<<=", x)  # 16
 
 # Comparison operators are used to compare two values:
 """ 
