@@ -11,4 +11,3 @@ for i in range(5):
     number = int(input("Enter any number: "))
     my_array.append(number)
 print("Summary of numbers: ", sum(my_array))
-print("Maximum number: ", max(my_array))
