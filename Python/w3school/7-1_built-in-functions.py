@@ -31,7 +31,7 @@ help()             Executes the built-in help system
 hex()              Converts a number into a hexadecimal value
 id()               Returns the id of an object
 input()            Allowing user input
-int()              Returns an integer number
+int()              Returns an integer (decimal) number
 isinstance()       Returns True if a specified object is an instance of a specified object
 issubclass()       Returns True if a specified class is a subclass of a specified object
 iter()             Returns an iterator object
