@@ -168,7 +168,17 @@ print(b.replace("H", "J"))  # Jello, World!
 
 
 # The split() method returns a list where the text between the specified separator becomes the list items.
+"""
+When called without arguments, .split():
+- splits on any whitespace (spaces, tabs, newlines).
+- collapses multiple spaces into a single split.
+- strips leading/trailing whitespace.
+"""
 print('===split()===')
+print(b.split()) # ['Hello,', 'World!']
+
+
+print('===split(",")===')
 print(b.split(","))  # ['Hello', ' World!']
 
 # split() есть параметр, который определяет, какой набор символов будет использоваться в качестве разделителя между элементами списка.
