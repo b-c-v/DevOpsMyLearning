@@ -70,6 +70,7 @@ zip()              Returns an iterator, from two or more iterators
 
 # ***sorted()***
 # function returns a sorted list of the specified iterable object.
+# sorted() не меняет оригинальный список, а просто делает отсортированную копию  в отличии от sort()
 # You can specify ascending or descending order. Strings are sorted alphabetically, and numbers are sorted numerically.
 # Note: You cannot sort a list that contains BOTH string values AND numeric values.
 """
