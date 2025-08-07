@@ -6,4 +6,4 @@ print(f"The last character is: {user_string[-1]}")
 if len(user_string) <= 2:
     print("Sorry, this sentence can't be shortened!")
 else:
-    print(f"String with deleted first and last character: {user_string[1:-1]}")
+    print(f"The string with the first and last characters removed: {user_string[1:-1]}")
