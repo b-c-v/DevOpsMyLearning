@@ -18,18 +18,6 @@ Allow Duplicates. Since lists are indexed, lists can have items with the same va
 thislist = ["apple", "banana", "cherry", "orange", "kiwi", "melon", "mango"]
 print(type(thislist))  # <class 'list'>
 
-# It is also possible to use the list() constructor when creating a new list.
-# note the double round-brackets
-mylist = list(("apple", "banana", "cherry"))
-print("use the list()", mylist)  # ['apple', 'banana', 'cherry']
-
-# A list can contain elements of different data types
-person = ["Andrea", "Rossi", 28, 49.5]
-
-# A list can also contain other lists (nested lists) and other types
-couple = "A couple"  # Example definition for the 'couple' variable
-people = [["Andrea", "Rossi", 28, 49.5], ["Anna", "Ivanova", 38, 0], "2 people", couple]
-
 """
 Создать пустой список можно двумя способами:
 - Использовать пустые квадратные скобки [];
@@ -38,14 +26,23 @@ people = [["Andrea", "Rossi", 28, 49.5], ["Anna", "Ivanova", 38, 0], "2 people",
 mylist = []  # пустой список
 mylist = list()  # пустой список
 
+# It is also possible to use the list() constructor when creating a new list.
+# note the double round-brackets
+mylist = list(("apple", "banana", "cherry"))
+print("use the list()", mylist)  # ['apple', 'banana', 'cherry']
+
 # List items can be of any data type:
 # String, int and boolean data types:
 list1 = ["apple", "banana", "cherry"]
 list2 = [1, 5, 7, 9, 3]
 list3 = [True, False, False]
 
-# A list can contain different data types:
-list1 = ["abc", 34, True, 40, "male"]
+# A list can contain elements of different data types
+person = ["Andrea", "Rossi", 28, 49.5]
+
+# A list can also contain other lists (nested lists) and other types
+couple = "A couple"  # Example definition for the 'couple' variable
+people = [["Andrea", "Rossi", 28, 49.5], ["Anna", "Ivanova", 38, 0], "2 people", couple]
 
 # Преобразование строки в список:
 s = "abcde"
