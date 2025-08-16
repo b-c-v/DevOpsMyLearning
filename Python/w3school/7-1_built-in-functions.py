@@ -74,15 +74,13 @@ zip()              Returns an iterator, from two or more iterators
 # You can specify ascending or descending order. Strings are sorted alphabetically, and numbers are sorted numerically.
 # Note: You cannot sort a list that contains BOTH string values AND numeric values.
 """
-sorted(iterable, key=key, reverse=reverse
+sorted(iterable, key=key, reverse=reverse)
 iterable - Required. The sequence to sort, list, dictionary, tuple etc.
-key      - Optional. A Function to execute to decide the order. Default is None.
-             key задаёт  функцию, которая будет применена к  каждому  элементу  перед  попарным  сравнением (большинство видов сортировок,
-             включая  timsort, основано на попарном  сравнении элементов),  например, key=str задаёт в  качестве ключа  функцию str которая
-             будет переводить числа в строки перед  сравнением. Это может  быть не  только встроенная функция, но и функция объявленная пользователем,
-             включая лямбда-функции. Важно только, чтобы это была функция одного параметра, соответствующего типу элемента, например,
-             key=len  выдаст ошибку для спика чисел,  но сработает  для  списка  строк и вернёт  новый список строк,  отсортированных по их  длине!
-reverse  - Optional. A Boolean. False will sort ascending, True will sort descending. Default is False
+key - Optional. A Function to execute to decide the order. Default is None.
+ key задаёт функцию, которая будет применена к каждому элементу перед попарным сравнением (большинство видов сортировок,
+ включая timsort, основано на попарном сравнении элементов), например, key=str задаёт в качестве ключа функцию str которая
+ будет переводить числа в строки перед сравнением. Это может быть не только встроенная функция, но и функция объявленная пользователем, включая лямбда-функции. Важно только, чтобы это была функция одного параметра, соответствующего типу элемента, например, key=len выдаст ошибку для спика чисел, но сработает для списка строк и вернёт новый список строк, отсортированных по их длине!
+reverse - Optional. A Boolean. False will sort ascending, True will sort descending. Default is False
 """
 
 a = ("b", "g", "a", "d", "f", "c", "h", "e")
