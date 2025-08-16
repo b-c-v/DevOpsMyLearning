@@ -5,7 +5,7 @@ def add_user_info():
     my_dict["name"] = input("Enter your name: ")
     my_dict["address"] = input("Enter your email: ")
     my_dict["contact"] = input("Enter your phone: ")
-    my_dict["contact"] = input("Enter year of birth: ")
+    my_dict["birth"] = input("Enter year of birth: ")
     print("Your current data: ", my_dict)
 
 
