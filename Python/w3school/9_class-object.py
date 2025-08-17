@@ -21,7 +21,7 @@ print(p1.x)  # 5
 
 
 class Person:
-    # self is a conventional name used in Python to refer to the current instance of a class. It allows access to instance attributes and methods from within the class. Every instance method must include self as the first parameter, so Python knows which object the method is operating on.
+    # self - see the explanation below
     def __init__(self, name, age):
         self.name = name  # assign to instance attribute
         self.age = age
@@ -75,6 +75,20 @@ p1 = Person("John", 36)
 
 print("__str__() method -", p1)  # John(36)
 
+
+# __del__ method is used to define the actions that should be performed before an object is destroyed. This can include releasing external resources such as files or database connections associated with the object.
+# If a class does not implement __del__, Python relies solely on its automatic garbage collector to reclaim memory.
+class SimpleObject:
+    def __init__(self, name):
+        self.name = name
+
+    def __del__(self):
+        print(f"SimpleObject '{self.name}' is being destroyed.")
+
+
+obj = SimpleObject("A")
+del obj  # SimpleObject 'A' is being destroyed
+
 # Object Methods. Objects can also contain methods. Methods in objects are methods that belong to the object.
 # Insert a method that prints a greeting, and execute it on the p1 object:
 # Note: The self parameter is a reference to the current instance of the class, and is used to access variables that belong to the class.
@@ -93,7 +107,7 @@ p1 = Person("John", 36)
 p1.myfunc()  # Hello my name is John
 
 
-# The self Parameter. The self parameter is a reference to the current instance of the class, and is used to access variables that belongs to the class.
+# self Parameter. The self parameter is a reference to the current instance of the class, and is used to access variables that belongs to the class.
 # It does not have to be named self , you can call it whatever you like, but it has to be the first parameter of any method in the class:
 # Use the words mysillyobject and abc instead of self:
 class Person:
