@@ -70,7 +70,7 @@ print(n[::-1])   # 09876543210
 # the first is greater than the second:
 print('when the first is greater than the second:', n[7:2])
 
-# Другое пояснение обратного индекса: сначала считываем строку в обратном порядке - gfedcba, индекс начинается с 0 и с шагом 3 выбираем буквки.
+# Другое пояснение обратного индекса: сначала считываем строку в обратном порядке - gfedcba, индекс начинается с 0 и с шагом 3 выбираем буквы.
 s = 'abcdefg'
 print(s[::-3])  # gda
 
@@ -120,7 +120,7 @@ isalnum()          Returns True if all characters in the string are alphanumeric
 isalpha()          Returns True if all characters in the string are in the alphabet
 isdecimal()        Returns True if all characters in the string are decimals
 isdigit()          Returns True if all characters in the string are digits
-isidentifier()     Returns True if the string is an identifier
+isidentifier()     Returns True if the string is an identifier - то есть именем переменной, функции, класса и т. д., по правилам языка Python
 islower()          Returns True if all characters in the string are lower case
 isnumeric()        Returns True if all characters in the string are numeric
 isprintable()      Returns True if all characters in the string are printable
@@ -143,7 +143,7 @@ rstrip()           Returns a right trim version of the string
 split()            Splits the string at the specified separator, and returns a list
 splitlines()       Splits the string at line breaks and returns a list
 startswith()       Returns true if the string starts with the specified value
-strip()            Returns a trimmed version of the string
+strip()            Удаление начальных и конечных пробелов (а также символов перевода строки, табуляции и других "невидимых" символов) из строки
 swapcase()         Swaps cases, lower case becomes upper case and vice versa
 title()            Converts the first character of each word to upper case
 translate()        Returns a translated string
@@ -168,7 +168,17 @@ print(b.replace("H", "J"))  # Jello, World!
 
 
 # The split() method returns a list where the text between the specified separator becomes the list items.
+"""
+When called without arguments, .split():
+- splits on any whitespace (spaces, tabs, newlines).
+- collapses multiple spaces into a single split.
+- strips leading/trailing whitespace.
+"""
 print('===split()===')
+print(b.split()) # ['Hello,', 'World!']
+
+
+print('===split(",")===')
 print(b.split(","))  # ['Hello', ' World!']
 
 # split() есть параметр, который определяет, какой набор символов будет использоваться в качестве разделителя между элементами списка.
@@ -308,7 +318,7 @@ b = "World"
 c = a + " " + b
 print(c)  # Hello World
 
-# Можно умножать строку на число. Такой оператор повторяет строку указанное количество раз.
+# String repetition. Можно умножать строку на число. Такой оператор повторяет строку указанное количество раз.
 print('===умножать строку на число===')
 s = 'Hi' * 4
 print(s)  # HiHiHiHi

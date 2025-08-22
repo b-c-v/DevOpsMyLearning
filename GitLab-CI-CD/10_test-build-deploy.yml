@@ -1,0 +1,78 @@
+# PREDEFINED VARIABLES USE IN JOBS WITHOUT {}, they are automatically expanded by GitLab CI/CD.
+# For instance, $CI_REGISTRY, $CI_COMMIT_REF_NAME, etc. Do not wrap these in curly braces {}.
+# Variables defined in the 'variables' section should use $VARIABLE_NAME without {}.
+
+# For all jobs in this pipeline, a Docker image will be used by default unless overridden in specific jobs.
+default:
+  image: docker
+
+variables:
+  IMAGE_NAME: "$CI_REGISTRY_IMAGE/microservice"  # Docker image name using GitLab's built-in CI variable for the registry
+  IMAGE_TAG: "1.0.0"  # Tag for the Docker image
+  SERVER_HOST: "sandbox.weldering.com"  # The server where the app will be deployed
+  CONTAINER_NAME: "any_name"  # Name of the container to be run on the deployment server
+
+# Define when the pipeline should be triggered (only on the main branch or during merge requests)
+workflow:
+  rules:
+    # Avoid using {} in variable references in conditions, as it leads to syntax errors.
+    - if: $CI_COMMIT_BRANCH != "main" && $CI_PIPELINE_SOURCE != "merge_request_event"
+      when: never  # Do not run the pipeline if the branch is not 'main' and it's not a merge request
+    - when: always  # Always run the pipeline otherwise
+
+# Define pipeline stages that run sequentially
+stages:
+  - test   # First, run tests
+  - build  # Then, build the Docker image
+  - deploy # Finally, deploy the app
+
+# Define the job that will run unit tests
+run_unit_tests:
+  # Use a specific image for this job. It overrides the default 'docker' image.
+  image: node:hydrogen-alpine3.20
+  stage: test  # This job runs in the 'test' stage
+  tags:
+    - arc-backend-test  # Tags specify which GitLab Runner should pick up this job
+  before_script:
+    - cd app  # Navigate to the app directory
+    - npm install  # Install dependencies before running the test
+  script:
+    - npm test  # Run the unit tests using npm
+  artifacts:
+    reports:  # Artifacts section is used to store job outputs (in this case, test reports)
+      junit: app/junit.xml  # Specify that this is a JUnit test report, which can be viewed in the GitLab UI under the test reports tab
+    paths:
+      - app/junit.xml  # Store the raw JUnit report so it can be downloaded later from the GitLab UI
+    when: always  # Always save artifacts regardless of the job’s success or failure
+  when: manual  # This job must be triggered manually (not automatically)
+
+# Define the job to build and push a Docker image using Kaniko
+build_image:
+  stage: build  # This job runs in the 'build' stage
+  tags:
+    - arc-backend-test
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.2-debug  # Use Kaniko to build Docker images in environments without Docker Daemon
+    entrypoint: [""]  # Override the default entrypoint of the Kaniko image to run custom commands
+  script:
+    # Kaniko command to build and push the Docker image
+    - /kaniko/executor
+      --context "$CI_PROJECT_DIR"  # The build context (where the Dockerfile and app files are located)
+      --dockerfile "$CI_PROJECT_DIR/Dockerfile"  # Path to the Dockerfile
+      --destination "$IMAGE_NAME:$IMAGE_TAG"  # Push the built image to the GitLab registry
+  when: manual  # This job must be triggered manually
+
+# Define the deployment job that will deploy the Docker container to the remote server
+deploy_on_server:
+  stage: deploy
+  tags:
+    - arc-backend-test
+  # Use SSH to connect to the server and run deployment commands
+  before_script: # save in Settings ==> CI/CD ==> Variables variable type File with name SSH_PRIVATE_KEY
+    - chmod 600 "$SSH_PRIVATE_KEY"  # Set permissions for the SSH private key stored in GitLab CI/CD settings as a file variable
+  script:
+    - ssh -o StrictHostKeyChecking=no -i "$SSH_PRIVATE_KEY" ubuntu@"$SERVER_HOST" \
+      "docker container rm -f $CONTAINER_NAME || true &&  # Remove any existing container with the same name (ignore errors if it doesn't exist)
+      docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&  # Log in to the GitLab Docker registry
+      docker container run --name $CONTAINER_NAME -d -p 3000:3000 $IMAGE_NAME:$IMAGE_TAG"  # Run the Docker container with the specified image and expose it on port 3000
+  when: manual  # This job must be triggered manually

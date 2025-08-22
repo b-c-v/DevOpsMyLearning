@@ -1,0 +1,37 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../base
+  - namespace.yaml
+buildMetadata:
+  - managedByLabel
+namespace: dev
+labels:
+  - pairs:
+      app.kubernetes.io/env: dev
+images:
+  - name: ghcr.io/username/todo
+    newTag: dev
+configMapGenerator:
+  - name: db
+    literals:
+      - SQLITE_DB_LOCATION=/tmp/db/todo.db
+# Define patches to modify existing resources
+patches:
+# Patch file modifies the todo Deployment to inject environment variables from the db ConfigMap into the todo container
+  - path: deployment.env.patch.yaml # Apply patch from an external file
+  # Inline JSON patch to remove the entire securityContext field from the Pod template spec in the Deployment
+  - patch: |-
+      - op: remove 
+        path: /spec/template/spec/securityContext
+    # op (operation) defines what type of change want to apply to the Kubernetes resource. It must be one of the JSON Patch operations:
+    # add → Insert a new field
+    # remove → Delete an existing field
+    # replace → Modify an existing field
+    # move → Relocate a field
+    # copy → Duplicate a field
+    # test → Check if a value matches
+    target:
+      kind: Deployment
+      name: todo

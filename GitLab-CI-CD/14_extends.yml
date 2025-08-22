@@ -1,0 +1,181 @@
+# deploy the app in different environments (dev, staging) on the same server but with different ports
+# For all jobs in this pipeline, a Docker image will be used by default unless overridden in specific jobs.
+default:
+  image: docker
+
+variables:
+  IMAGE_NAME: "$CI_REGISTRY_IMAGE/microservice"
+  # use global variable CI_PIPELINE_IID the project-level IID (internal ID) of the current pipeline
+  IMAGE_TAG: "1.0.$CI_PIPELINE_IID"
+
+  # variables for dev deployment
+  DEV_SERVER_HOST: "57.128.41.19"
+  DEV_SERVER_ENDPOINT: "sandbox.eu"
+  DEV_PORT: 3000
+
+  # variables for staging deployment. Uset the same server but app runs on different ports
+  STAGING_SERVER_HOST: "57.128.41.19"
+  STAGING_SERVER_ENDPOINT: "sandbox.eu"
+  STAGING_PORT: 4000
+
+# use predefined template provided by GitLab https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST.gitlab-ci.yml
+# automatically sets up a job that will run static analysis tools, producing reports that can be viewed in the GitLab UI. The SAST template will automatically define the necessary jobs and don't require any additional step for creating specials steps or jobs for it.
+include:
+  - template: Jobs/SAST.gitlab-ci.yml
+
+# run pipeline only on main branch or during merge request
+workflow:
+  rules:
+    # don't use {} in variables definition because it resolves a syntax error
+    - if: $CI_COMMIT_BRANCH !="main" && $CI_PIPELINE_SOURCE != "merge_request_event"
+      when: never
+    - when: always
+
+# group jobs that run in a particular step of the pipeline
+stages:
+  - test
+  - build
+  - deploy_dev # first deploy on dev, run functional tests before deploy to staging
+  - deploy_staging
+
+# define the job that will run unit tests
+run_unit_tests:
+  # for this job use node.js image but for other jobs will use default image docker
+  image: node:hydrogen-alpine3.20
+  stage: test
+  # specify which GitLab Runner should pick up this job
+  # since this is a Docker runner, in the /etc/gitlab-runner/config.toml file, need to add the 'cache_dir' line to specify the path where the cache will be saved on the host machine and the 'volumes' directive ensures the Docker container can access this cache during job execution.
+  tags:
+    - arc-backend-test
+  # save in cache the app/node_modules directory, which contains installed Node.js dependencies
+  cache:
+    key: "$CI_COMMIT_REF_NAME" # cache will be created for each branch
+    # cache this directory after the first pipeline execution and reuse it in future pipeline runs
+    paths:
+      - app/node_modules
+    # download the cache when the job starts and uploads changes to the cache when the job ends
+    policy: pull-push # unnecessary because this policy is default
+  before_script:
+    - cd app
+    - npm install
+  script:
+    - npm test
+  artifacts:
+    reports: #different reports like test, code quality, security etc.
+      junit: app/junit.xml # Tell GitLab this is a JUnit report
+    paths:
+      - app/junit.xml # store the raw report for download
+    when: always # Always save artifacts, regardless of job success
+  when: manual
+
+# Linter is a static code analysis tool for checking programming and stylistics errors
+# this job uses for test cache
+run_lint_checks:
+  # use the same parameters like in run_unit_tests job
+  image: node:hydrogen-alpine3.20
+  stage: test
+  tags:
+    - arc-backend-test
+  before_script:
+    - cd app
+    - npm install
+  script:
+    - echo "Test cache"
+  # use the same cache like in run_unit_tests job
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - app/node_modules
+    # this job use the same cache and runs in parallel with run_unit_test which use pull-push policy (download the cache when start the job and save it when finish the job) if both of them try to push changes simultaneously it will resolve a problem
+    policy: pull # this job can only download the cache but never upload changes to it
+
+# build and push docker image
+build_image:
+  stage: build
+  tags:
+    - arc-backend-test
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.2-debug
+    entrypoint: [""]
+  script:
+    - /kaniko/executor
+      --context "$CI_PROJECT_DIR"
+      --dockerfile "$CI_PROJECT_DIR/Dockerfile"
+      --destination "$IMAGE_NAME:$IMAGE_TAG"
+  when: manual
+
+# extract duplicate logic into and generic hidden (template) job instead duplicate code for each type of deployment (e.g. dev, staging)
+.deploy_template:
+  # Variables used by this job
+  variables:
+    TEMPLATE_SSH_PRIVATE_KEY: ""
+    TEMPLATE_SERVER_HOST: ""
+    TEMPLATE_SERVER_ENDPOINT: ""
+    TEMPLATE_DEPLOY_ENV: ""
+    TEMPLATE_APP_PORT: ""
+  tags:
+    - arc-backend-test
+  # because variable is a type File change permissions to this file
+  before_script:
+    - chmod 400 "$TEMPLATE_SSH_PRIVATE_KEY"
+    - scp -o StrictHostKeyChecking=no -i "$TEMPLATE_SSH_PRIVATE_KEY" ./docker-compose.yaml ubuntu@"$TEMPLATE_SERVER_HOST":/home/ubuntu/
+    # connect by ssh to the server
+  # run inside deploy server all this commands to start a container with the app
+  # DC_IMAGE_NAME, DC_IMAGE_TAG, and DC_SERVER_PORT are used in the docker-compose.yaml file, which is why they need to be exported.
+  # COMPOSE_PROJECT_NAME is predefined docker variable that changes name of the project.  Container names created by docker compose using the following pattern: <project_name>_<service_name>_<index> (dev-app-1):
+  # project_name - COMPOSE_PROJECT_NAME
+  # service_name - look in docker-compose.yaml (here name is app)
+  # Without changing the name deploy_to_staging job will stop container that created in deploy_to_dev job because they will have the same name
+  script:
+    - ssh -o StrictHostKeyChecking=no -i "$TEMPLATE_SSH_PRIVATE_KEY" ubuntu@"$TEMPLATE_SERVER_HOST" \
+      " docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY &&
+      export COMPOSE_PROJECT_NAME=$TEMPLATE_DEPLOY_ENV
+      export DC_IMAGE_NAME=$IMAGE_NAME
+      export DC_IMAGE_TAG=$IMAGE_TAG
+      export DC_SERVER_PORT=$TEMPLATE_APP_PORT
+      docker compose down &&
+      docker compose up -d &&
+      docker image prune -a " # delete all unused images"
+  dependencies: [] # don't download any artifacts from previous jobs
+  environment:
+    name: development
+    url: http://$TEMPLATE_SERVER_ENDPOINT:$TEMPLATE_APP_PORT
+
+# deploy dev environment by setting the variables
+deploy_to_dev:
+  stage: deploy_dev
+  # use configuration from the template job
+  extends: .deploy_template
+  # assign values to the variables used for deployment
+  variables:
+    TEMPLATE_DEPLOY_ENV: "dev"
+    # save in Settings ==> CI/CD ==> Variables variable type File with name SSH_PRIVATE_KEY
+    TEMPLATE_SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
+    TEMPLATE_SERVER_HOST: $DEV_SERVER_HOST
+    TEMPLATE_SERVER_ENDPOINT: $DEV_SERVER_ENDPOINT
+    TEMPLATE_APP_PORT: $DEV_PORT
+  when: manual
+
+# simulate testing of dev environment
+run_dev_test:
+  stage: deploy_dev # run on the stame stage with deploy_to_dev job
+  needs:
+    - deploy_to_dev # run only after deploy_to_dev job
+  script:
+    - echo "run tests on dev environment"
+
+# deploy staging only after dev deployed and tested
+deploy_to_staging:
+  stage: deploy_staging
+  # use the template to reduce duplicate code
+  extends: .deploy_template
+  variables:
+    TEMPLATE_DEPLOY_ENV: "staging"
+    # save in Settings ==> CI/CD ==> Variables variable type File with name SSH_PRIVATE_KEY
+    TEMPLATE_SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
+    TEMPLATE_SERVER_HOST: $STAGING_SERVER_HOST
+    TEMPLATE_SERVER_ENDPOINT: $STAGING_SERVER_ENDPOINT
+    TEMPLATE_APP_PORT: $STAGING_PORT
+  tags:
+    - arc-backend-test
+  when: manual

@@ -1,0 +1,57 @@
+# in project under Settings > CI/CD > Variables saved:
+# - 2 project variables $PROJECT_NAME and $IMAGE_NAME
+# - 1 file variable $PROPERTIES_FILE (the value of this variable will be written to a temporary file at runtime. The path to this temporary file will be the value of the environment variable in the pipeline.)
+
+# define global variable
+variables:
+  IMAGE_TAG: "v1.0"
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH !="main" && $CI_PIPELINE_SOURCE != "merge_request_event"
+      when: never
+    - when: always
+stages:
+  - test
+  - build
+  - deploy
+
+run_unit_tests:
+  # predefine job variable
+  variables:
+    JOB_VAR: "Visible only in this job"
+    ANOTHER_JOB_VAR: "Can define few job variables"
+  stage: test
+  script:
+    # use project variable
+    - echo "Running unit test for project $PROJECT_NAME"
+    # use job variable
+    - echo "job variable is $JOB_VAR"
+    - echo "and next job variable is $ANOTHER_JOB_VAR"
+
+run_lint_tests:
+  stage: test
+  script:
+    - echo "Running lint test for project $PROJECT_NAME"
+    # can't use job variable $JOB_VAR here, because it visible only for previous job
+    - echo "I can show global var $IMAGE_TAG but can't show $JOB_VAR"
+
+build_image:
+  stage: build
+  script:
+    # use file variable
+    - echo "Running build image $IMAGE_NAME with next configuration - $PROPERTIES_FILE"
+    # show content of file variable
+    - cat $PROPERTIES_FILE
+
+push_image:
+  stage: build
+  needs:
+    - build_image
+  script:
+    - echo "Running push image $IMAGE_NAME"
+
+deploy_image:
+  stage: deploy
+  script:
+    - echo "Running deploy image $IMAGE_NAME"

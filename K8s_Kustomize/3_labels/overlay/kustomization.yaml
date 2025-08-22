@@ -1,0 +1,10 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../base
+  - namespace.yaml
+namespace: dev
+labels: # apply to the resources specified in the resources section (i.e., ../base and namespace.yaml).
+  - pairs:
+      app.kubernetes.io/env: dev

@@ -1,6 +1,8 @@
 #ignore all keys
 *.pem
 id_rsa*
+*.key
+*.cert
 
 #terraform
 .terraform/*
@@ -9,3 +11,4 @@ id_rsa*
 *.tfvars
 crash.log
 
+tmp*

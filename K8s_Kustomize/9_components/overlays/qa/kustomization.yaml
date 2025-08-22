@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: qa
+labels:
+  - pairs:
+      app.kubernetes.io/env: qa
+buildMetadata:
+  - managedByLabel
+resources:
+  - ../../bases/todo
+  - namespace.yaml
+components: # List of components to include
+  - ../../components/mysql
+  - ../../components/security-context

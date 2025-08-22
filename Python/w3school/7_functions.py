@@ -2,15 +2,18 @@
 # You can pass data, known as parameters, into a function.
 # A function can return data as a result.
 
+
 # In Python a function is defined using the def keyword:
-def my_function():
-    print("Hello from a function")
-
-
 """
 def имя_функции():
     блок кода
 """
+
+
+def my_function():
+    print("Hello from a function")
+
+
 # Первая строка объявления функции называется заголовком функции.
 # Со следующей строки идет блок кода – тело функции. Это набор инструкций, составляющих одно целое и выполняющихся каждый раз, когда вызывается функция.
 # каждая строка в теле функции выделена отступом.
@@ -28,6 +31,7 @@ def print_greeting():
 
 def my_function():
     print("Hello from a function")
+
 
 my_function()
 # Объявление функции должно предшествовать ее вызову.
@@ -64,7 +68,8 @@ my_function("Linus")
 
 def draw_box(height, width):
     for i in range(height):
-        print('*' * width)
+        print("*" * width)
+
 
 # параметрами являются переменные height и width.
 # В момент вызова функции draw_box(height, width) аргументами являются height и 9.
@@ -81,7 +86,7 @@ def draw_box(height, width):
     height = 1
     width = 5
     for i in range(height):
-        print('!' * width)
+        print("!" * width)
 
 
 n = 5
@@ -113,6 +118,7 @@ def my_function(fname, lname):
 
 
 # my_function("Emil") # TypeError: my_function() missing 1 required positional argument: 'lname'
+
 
 # Arbitrary Arguments, *args
 # If you do not know how many arguments that will be passed into your function, add a * before the parameter name in the function definition.
@@ -183,9 +189,9 @@ def my_function(x):
     return 5 * x
 
 
-print(my_function(3))
-print(my_function(5))
-print(my_function(9))  # 15 25 45
+print(my_function(3))  # 15
+print(my_function(5))  # 25
+print(my_function(9))  # 45
 
 # В одной функции может быть сколько угодно инструкций return. Рассмотрим функцию convert_grade(), которая переводит стобалльную оценку в пятибалльную:
 
@@ -205,6 +211,7 @@ def convert_grade_many(grade):
 
 # Функцию convert_grade() можно переписать с помощью одной инструкции return:
 
+
 def convert_grade_one(grade):
     if grade >= 90:
         result = 5
@@ -220,11 +227,11 @@ def convert_grade_one(grade):
     return result
 
 
-print('many returns -', convert_grade_many(86))  # many returns - 4
-print('one return -', convert_grade_one(11))  # one return - 1
+print("many returns -", convert_grade_many(86))  # many returns - 4
+print("one return -", convert_grade_one(11))  # one return - 1
 
 
-#***Return boolean***
+# ***Return boolean***
 # Python позволяет писать булевы функции, возвращающие либо истину (True), либо ложь (False). Булеву функцию можно применять для проверки условия, тогда значения True и False будут сигнализировать о его выполнении.
 def is_even(number):
     if number % 2 == 0:
@@ -232,14 +239,20 @@ def is_even(number):
     else:
         return False
 
-#***Return few results
+
+# ***Return few results
 # функции не ограничены возвратом всего одного значения. После инструкции return можно определить много выражений, разделенных запятыми: return выражение 1, выражение 2, выражение 3 ...
 def solve(a, b, c, d, e, f):
-    x = (d * e - b * f)/(a * d - b * c)
-    y = (a * f - c * e)/(a * d - b * c)
+    x = (d * e - b * f) / (a * d - b * c)
+    y = (a * f - c * e) / (a * d - b * c)
     return x, y
+
+
 xsol, ysol = solve(2, 3, 4, 1, 2, 5)
-print('Решением системы являются числа', 'x =', xsol, 'y =', ysol) # Решением системы являются числа x = 1.3 y = -0.2
+print(
+    "Решением системы являются числа", "x =", xsol, "y =", ysol
+)  # Решением системы являются числа x = 1.3 y = -0.2
+
 
 # ***The pass Statement***
 # function definitions cannot be empty, but if you for some reason have a function definition with no content, put in the pass statement to avoid getting an error.
@@ -254,7 +267,7 @@ def myfunction():
 # The developer should be very careful with recursion as it can be quite easy to slip into writing a function which never terminates, or one that uses excess amounts of memory or processor power. However, when written correctly recursion can be a very efficient and mathematically-elegant approach to programming.
 # In this example, tri_recursion() is a function that we have defined to call itself ("recurse"). We use the k variable as the data, which decrements (-1) every time we recurse. The recursion ends when the condition is not greater than 0 (i.e. when it is 0).
 def tri_recursion(k):
-    if (k > 0):
+    if k > 0:
         result = k + tri_recursion(k - 1)
         print(result)
     else:

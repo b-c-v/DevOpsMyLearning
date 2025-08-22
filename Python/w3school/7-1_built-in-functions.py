@@ -16,7 +16,7 @@ delattr()          Deletes the specified attribute (property or method) from the
 dict()             Returns a dictionary (Array)
 dir()              Returns a list of the specified object's properties and methods
 divmod()           Returns the quotient and the remainder when argument1 is divided by argument2
-enumerate()        Takes a collection (e.g. a tuple) and returns it as an enumerate object
+enumerate()        Takes a collection (e.g. a tuple) and returns it as an enumerate object. Добавляет к каждому элементу последовательности его индекс (порядковый номер), начиная с 0
 eval()             Evaluates and executes an expression
 exec()             Executes the specified code (or object)
 filter()           Use a filter function to exclude items in an iterable object
@@ -31,7 +31,7 @@ help()             Executes the built-in help system
 hex()              Converts a number into a hexadecimal value
 id()               Returns the id of an object
 input()            Allowing user input
-int()              Returns an integer number
+int()              Returns an integer (decimal) number
 isinstance()       Returns True if a specified object is an instance of a specified object
 issubclass()       Returns True if a specified class is a subclass of a specified object
 iter()             Returns an iterator object
@@ -70,18 +70,17 @@ zip()              Returns an iterator, from two or more iterators
 
 # ***sorted()***
 # function returns a sorted list of the specified iterable object.
+# sorted() не меняет оригинальный список, а просто делает отсортированную копию  в отличии от sort()
 # You can specify ascending or descending order. Strings are sorted alphabetically, and numbers are sorted numerically.
 # Note: You cannot sort a list that contains BOTH string values AND numeric values.
 """
-sorted(iterable, key=key, reverse=reverse
+sorted(iterable, key=key, reverse=reverse)
 iterable - Required. The sequence to sort, list, dictionary, tuple etc.
-key      - Optional. A Function to execute to decide the order. Default is None.
-             key задаёт  функцию, которая будет применена к  каждому  элементу  перед  попарным  сравнением (большинство видов сортировок,
-             включая  timsort, основано на попарном  сравнении элементов),  например, key=str задаёт в  качестве ключа  функцию str которая
-             будет переводить числа в строки перед  сравнением. Это может  быть не  только встроенная функция, но и функция объявленная пользователем,
-             включая лямбда-функции. Важно только, чтобы это была функция одного параметра, соответствующего типу элемента, например,
-             key=len  выдаст ошибку для спика чисел,  но сработает  для  списка  строк и вернёт  новый список строк,  отсортированных по их  длине!
-reverse  - Optional. A Boolean. False will sort ascending, True will sort descending. Default is False
+key - Optional. A Function to execute to decide the order. Default is None.
+ key задаёт функцию, которая будет применена к каждому элементу перед попарным сравнением (большинство видов сортировок,
+ включая timsort, основано на попарном сравнении элементов), например, key=str задаёт в качестве ключа функцию str которая
+ будет переводить числа в строки перед сравнением. Это может быть не только встроенная функция, но и функция объявленная пользователем, включая лямбда-функции. Важно только, чтобы это была функция одного параметра, соответствующего типу элемента, например, key=len выдаст ошибку для спика чисел, но сработает для списка строк и вернёт новый список строк, отсортированных по их длине!
+reverse - Optional. A Boolean. False will sort ascending, True will sort descending. Default is False
 """
 
 a = ("b", "g", "a", "d", "f", "c", "h", "e")
@@ -102,10 +101,10 @@ print(x)  # ['h', 'g', 'f', 'e', 'd', 'c', 'b', 'a']
 # Функция ord() позволяет определить код некоторого символа в таблице символов Unicode. Аргументом данной функции является одиночный символ.
 # Если попытаться передать строку, содержащую более одного символа, получим ошибку времени выполнения: TypeError: ord() expected a character, but string of length 3 found
 # Название функции ord происходит от английского слова order — порядок.
-print('===ord()===')
-num1 = ord('A')
-num2 = ord('B')
-num3 = ord('a')
+print("===ord()===")
+num1 = ord("A")
+num2 = ord("B")
+num3 = ord("a")
 print(num1, num2, num3)  # 65 66 97
 
 
@@ -120,7 +119,19 @@ print(chr1, chr2, chr3)  # A B a
 # Вывод всех заглавных букв английского алфавита.
 # Вызов функции ord('A') возвращает код символа «A», который равен 65. Далее на каждой итерации цикла, к данному коду прибавляется значение переменной i = 0, 1, 2, ..., 25, а затем полученный код преобразуется в символ с помощью вызова функции chr.
 for i in range(26):
-    print(chr(ord('A') + i), end='')  # ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    print(chr(ord("A") + i), end="")  # ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 # Функции ord и chr являются взаимнообратными. Для них выполнены равенства:
 # chr(ord('A')) = 'A', ord(chr(65)) = 65.
+
+
+# enumerate() возвращает кортежи вида (индекс, элемент).
+# x - это индекс (начинается с 0)
+# y - это значение из range(2) (т.е. 0, 1)
+for x, y in enumerate(range(2)):
+    print(f"x - {x}; y - {y}")
+    print(f"{chr(ord('A') + x)}")
+
+# Что будет, если оставить только x, то x будет не индексом, а кортежем (индекс, значение).
+for i in enumerate(range(2)):
+    print(f"enumerate(): {i}")  # (0, 0) (1, 1)
