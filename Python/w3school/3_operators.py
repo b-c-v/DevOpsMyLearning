@@ -161,6 +161,26 @@ not   Reverse the result, returns False if the result is true   not(x < 5 and x 
     Если условие слева от оператора or истинное, то условие справа от него не проверяется.
 
 """
+"""
+Другое объяснение:
+Оператор not в логике тоже, что и смена знака в арифметике. And аналог умножения (*). Or аналог сложения (+). Соответственно и приоритеты те же.
+Например, True = 1, а False = 0.
+a = 0 (False)
+b = 1 (True)
+a or  b ==> a + b ==> 0 + 1 = 1 (True)
+a and b ==> a * b ==> 0 * 1 = 0 (False)
+
+a = 0 (False)
+b = 1 (True)
+c = 0 (False)
+
+not a or b and c:
+1) not a              ==> not 0 (False)      ==> 1 (True)
+2) b and c            ==> b * c              ==> 1 * 0 = 0 (False)
+3) not a or (b and c) ==> not a + (b * c)    ==> 1 + 0 = 1 (True)
+
+
+"""
 
 # Identity operators are used to compare the objects, not if they are equal, but if they are actually the same object, with the same memory location:
 """
