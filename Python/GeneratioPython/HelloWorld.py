@@ -335,4 +335,19 @@ def solve(a, b, c):
 x1, x2 = solve(1, 2, 1)
 print(x1, x2)
 """
+"""
+# Программа должна вывести фрагмент таблицы умножения для всех чисел отрезка [n1;n2] на все числа отрезка [n3;n4].
+n = 1
+n2 = 3
+n3 = 2
+n4 = 4
+for i in range(n3, n4+1):
+    print('\t', i, end='')
+print()
+for i in range(n1, n2+1):
+    print(i, end='\t')
+    for j in range (n3, n4+1):
+        print(j * i, end='\t')
+    print()
+"""
 
