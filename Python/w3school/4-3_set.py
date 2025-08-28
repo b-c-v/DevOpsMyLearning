@@ -39,6 +39,7 @@ print("Difference -", set1.difference(set2))  # {5, 7}
 # From Python's perspective, sets are defined as objects with the data type 'set': <class 'set'>
 myset = {"apple", "banana", "cherry"}
 print(type(myset))  # <class 'set'>
+print(isinstance(myset, set))  # True
 
 # The set() Constructor. It is also possible to use the set() constructor to make a set.
 thisset = set(("apple", "banana", "cherry"))  # note the double round-brackets

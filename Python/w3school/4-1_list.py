@@ -17,6 +17,7 @@ Allow Duplicates. Since lists are indexed, lists can have items with the same va
 # From Python's perspective, lists are defined as objects with the data type 'list': <class 'list'>
 thislist = ["apple", "banana", "cherry", "orange", "kiwi", "melon", "mango"]
 print(type(thislist))  # <class 'list'>
+print(isinstance(thislist, list))  # True
 
 """
 Создать пустой список можно двумя способами:

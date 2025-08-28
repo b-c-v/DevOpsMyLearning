@@ -18,6 +18,7 @@ tuple1 = ("abc", 34, True, 40, "male")
 mytuple = ("apple", "banana", "cherry")
 print("tuples are defined as objects with the data type -",
       type(mytuple))  # <class 'tuple'>
+print(isinstance(mytuple, tuple))  # True
 
 # The tuple() Constructor. It is also possible to use the tuple() method to make a tuple.
 # note the double round-brackets
