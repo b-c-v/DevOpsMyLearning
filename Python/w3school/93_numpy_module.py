@@ -19,7 +19,7 @@ print("Двумерный массив:\n", arr2)
 arr3 = np.array([[[3, 8, 6], [4, 9, 7]], [[2, 7, 5], [5, 0, 8]]])
 print("Трёхмерный массив:\n", arr3)
 # Определение количества измерений массива
-print("Число измерений (ndim):", arr3.ndim) # 3
+print("Число измерений (ndim):", arr3.ndim)  # 3
 # Доступ к элементу: первый слой, вторая строка, третий элемент
 print("Элемент [0][1][2]:", arr3[0][1][2])  # 7
 
@@ -44,3 +44,13 @@ mat1 = np.array([[1, 2], [3, 4]])
 mat2 = np.array([[5, 6], [7, 8]])
 product = np.dot(mat1, mat2)  # Матричное произведение
 print("Матричное произведение:\n", product)
+
+
+# The identity array is a square array with ones on the main diagonal.
+"""
+np.identity(n, dtype=None, *, like=None)    Return the identity array.
+n (int) number of rows (and columns) in n x n output.
+dtype (data-type) optional data-type of the output. Defaults to float.
+like (array_like), optional reference object to allow the creation of arrays which are not NumPy arrays. If an array-like passed in as like supports the __array_function__ protocol, the result will be defined by it. In this case, it ensures the creation of an array object compatible with that passed in via this argument.
+"""
+print(f"Identity array:\n {np.identity(2)}")
