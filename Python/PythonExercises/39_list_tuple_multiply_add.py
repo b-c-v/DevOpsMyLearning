@@ -5,17 +5,17 @@ for i in range(5):
 
 
 def additional(any_list):
-    sum = 0
+    total_sum = 0
     for i in any_list:
-        sum += i
-    return sum
+        total_sum += i
+    return total_sum
 
 
 def multiply(any_list):
-    sum = 1
+    total_product = 1
     for i in any_list:
-        sum *= i
-    return sum
+        total_product *= i
+    return total_product
 
 
 print(f"The sum of the numbers in the list is: {additional(my_list)}")

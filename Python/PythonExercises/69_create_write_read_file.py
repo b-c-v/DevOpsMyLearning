@@ -7,10 +7,10 @@ with open("myfile.txt") as f:
 
 number1 = int(input("Enter any number: "))
 number2 = int(input("Enter any number: "))
-sum = number1 + number2
+total_sum = number1 + number2
 
 with open("myfile.txt", "a") as file:
-  file.write(str(sum))
+  file.write(str(total_sum))
 
 with open("myfile.txt") as f:
   print(f.read())
