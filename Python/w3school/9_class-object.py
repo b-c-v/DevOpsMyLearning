@@ -116,12 +116,11 @@ class Person:
         mysillyobject.age = age
 
     def myfunc(abc):
-        # Hello my name is  John I'm 36
-        print("Hello my name is ", abc.name, "I'm", abc.age)
+        print("Hello my name is", abc.name, "I'm", abc.age)
 
 
 p1 = Person("John", 36)
-p1.myfunc()
+p1.myfunc()  # Hello my name is  John I'm 36
 
 # Modify Object Properties.
 # Set the age of p1 to 40:
