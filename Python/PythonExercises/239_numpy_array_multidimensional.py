@@ -1,7 +1,5 @@
 import numpy as np
 
-# NumPy создаёт двумерный массив (матрицу) только если все вложенные списки имеют одинаковую длину.
-# NumPy не может сложить строки разной длины в прямоугольную таблицу и создаст объект dtype=object (список списков), с которым уже нельзя делать математические операции (например, умножение на число).
 
 def create_array(size):
     tmp = []
@@ -26,4 +24,26 @@ size_array = int(input("How many nested lists do you want to enter in the array:
 user_array = create_array(size_array)
 if user_array is not None:
     print(f"Your array:\n {user_array}")
-    print(f"Equal-shaped array with zeros:\n {np.zeros_like(user_array)}")
+    multiply_number = int(input("Please enter any multiplier for the array: "))
+    multiply_array = user_array * multiply_number
+    print(f"Array after multiplication:\n{multiply_array}")
+
+# display only even numbers
+even_array = []
+for i in multiply_array:
+    for j in i:
+        if j % 2 == 0:
+            even_array.append(int(j))
+print(f"Even numbers from array after multiplication: {np.array(even_array)}")
+
+# Use list comprehension
+comprehension_even_array = [int(j) for i in multiply_array for j in i if j % 2 == 0]
+"""
+comprehension_even_array = [
+    int(j)                    # Что добавляем
+    for i in multiply_array   # Внешний цикл
+    for j in i                # Внутренний цикл
+    if j % 2 == 0             # Условие фильтрации
+]
+"""
+print(f"Comprehension: {comprehension_even_array}")
