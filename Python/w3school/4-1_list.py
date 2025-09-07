@@ -325,7 +325,9 @@ while i < len(thislist):
 # Looping Using List Comprehension. List Comprehension offers the shortest syntax for looping through lists:
 """
 Общий вид списочного выражения следующий:
+
 [выражение for переменная in последовательность]
+
 переменная — имя некоторой переменной
 последовательность — последовательность значений, которые она принимает (список, строка или объект, полученный при помощи функции range)
 выражение — некоторое выражение, как правило, зависящее от использованной в списочном выражении переменной, которым будут заполнены элементы списка.
@@ -361,6 +363,23 @@ print("Without list comprehension", newlist)
 newlist = [x for x in fruits if "a" in x]
 print("With list comprehension", newlist)  #  ['apple', 'banana', 'mango']
 
+nested_list = [[1, 2, 3], [4, 5, 6]]
+even_numbers = [j for i in nested_list for j in i if j % 2 == 0]
+"""
+even_array = [
+    j                     # Что добавляем
+    for i in nested_list  # Внешний цикл.Перебираем элементы внешнего списка
+    for j in i            # Внутренний цикл. Для каждого i перебираем его элементы j
+    if j % 2 == 0         # Условие фильтрации. Добавляем только те j, которые четные
+]
+
+even_array = []
+for i in nested_list:             # 2. Все циклы (for) идут слева направо.
+    for j in i:
+        if j % 2 == 0:            # 3. Условие (if) идёт в конце.
+            even_array.append(j)  # 1. append(j) переносится в начало
+"""
+print(f"Condition: iterate multidimensional array: {even_numbers}")
 
 # Condition. The condition is like a filter that only accepts the items that valuate to True.
 # Only accept items that are not "apple". The condition if x != "apple"  will return True for all elements other than "apple", making the new list contain all fruits except "apple".:
@@ -371,6 +390,7 @@ print("Condition !=apple: ", newlist)  # ['banana', 'cherry', 'kiwi', 'mango']
 # With no if statement:
 newlist = [x for x in fruits]
 print("Omitted condition: ", newlist)  # ['apple', 'banana', 'cherry', 'kiwi', 'mango']
+
 
 # Iterable. The iterable can be any iterable object, like a list, tuple, set etc.
 # You can use the range() function to create an iterable:
