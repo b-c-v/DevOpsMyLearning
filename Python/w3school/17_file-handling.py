@@ -8,6 +8,7 @@
 "a" - Append - Opens a file for appending, creates the file if it does not exist. Will append to the end of the file
 "w" - Write - Opens a file for writing, creates the file if it does not exist. Will overwrite any existing content
 "x" - Create - Creates the specified file, returns an error if the file exists
+"+" - open for updating (reading and writing)
 
 In addition you can specify if the file should be handled as binary or text mode
 "t" - Text - Default value. Text mode
@@ -65,28 +66,54 @@ f.close()
 
 # ***Write to an Existing File***
 # To write to an existing file, you must add a parameter ("a" or "w") to the open() function:
-# Open the file "demofile2.txt" and append content to the file:
+# Open the file "demofile.txt" and append content to the file:
 with open("demofile.txt", "a") as f:
-  f.write("Now the file has more content!")
+    f.write("Now the file has more content!")
 
-#open and read the file after the appending:
+# Open and read the file after the appending:
 with open("demofile.txt") as f:
-  print(f.read()) 
+    print(f.read())
+
+# Open the file "demofile.txt" append and read the content of the file:
+# Note:  the "a+" method opens a file for both appending and reading
+with open("demofile.txt", "a+") as file:
+    file.write("appended text")  # Always writes to end
+    file.seek(0)  # return to beginning
+    print(f"a+: {file.read()}")  # read and print the content
+
 
 # Open the file "demofile.txt" and overwrite the content:
 # Note: the "w" method will overwrite the entire file.
 with open("demofile.txt", "w") as f:
-  f.write("Woops! I have deleted the content!")
+    f.write("Woops! I have deleted the content!")
 
-#open and read the file after the overwriting:
+# Open or create a file tmp.txt and then read content
+# Note: the "w+" method allows both writing and reading
+with open("tmp.txt", "w+") as f:
+    f.write("I'm using w+ method")  # write to empty file
+    f.seek(0)  # return to beginning
+    print(f.read())  # read what was just written
+
+# Open existing file tmp.txt and write the content:
+# Note: the "r+" method allows bot reading and writing in existing file
+with open("tmp.txt", "r+") as file:
+    content = file.read()  # Read existing content
+    file.seek(0)  # Return to beginning
+    file.write("Hello")  # Overwrites first 5 characters
+
+# open and read the file after the overwriting:
 with open("demofile.txt") as f:
-  print(f.read()) 
+    print(f.read())
 
 
 # ***Create a New File***
 # To create a new file in Python, use the open() method, with one of the following parameters ("x", "a", "w"):
-# Create a file called "myfile.txt":
+# Create a file called "myfile.txt" only if it doesn't already exists:
 f = open("myfile.txt", "x")
+
+# Create a file for both reading and writing, but only if the file doesn't already exist
+# Note: the "x+" method allows both creating and reading file
+f = open("tmp2.txt", "x+")
 
 # Create a new file if it does not exist:
 f = open("myfile.txt", "w")
@@ -96,5 +123,6 @@ f = open("myfile.txt", "w")
 import os
 
 os.remove("demofile.txt")
-os.remove("demofile2.txt")
+os.remove("tmp.txt")
+os.remove("tmp2.txt")
 os.remove("myfile.txt")

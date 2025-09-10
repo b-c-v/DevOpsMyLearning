@@ -1,3 +1,5 @@
+https://docs.python.org/3/library/functions.html
+
 """
 abs()              Returns the absolute value of a number
 all()              Returns True if all items in an iterable object are true
