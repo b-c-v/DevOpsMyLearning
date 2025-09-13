@@ -26,9 +26,9 @@ def print_greeting():
 рrint('Сегодня мы будем изучать функции.')
     рrint('Это очень важная тема!')
 """
+
+
 # Calling a Function. To call a function, use the function name followed by parenthesis:
-
-
 def my_function():
     print("Hello from a function")
 
@@ -49,9 +49,8 @@ my_function()
 # Arguments are specified after the function name, inside the parentheses. You can add as many arguments as you want, just separate them with a comma.
 # Arguments are often shortened to args in Python documentations.
 
+
 # The following example has a function with one argument (fname). When the function is called, we pass along a first name, which is used inside the function to print the full name:
-
-
 def my_function(fname):
     print(fname + " Refsnes")
 
@@ -60,12 +59,11 @@ my_function("Emil")
 my_function("Tobias")
 my_function("Linus")
 
+
 # The terms parameter and argument can be used for the same thing: information that are passed into a function.
 # From a function's perspective:
 # A parameter is the variable listed inside the parentheses in the function definition.
 # An argument is the value that is sent to the function when it is called.
-
-
 def draw_box(height, width):
     for i in range(height):
         print("*" * width)
@@ -73,15 +71,12 @@ def draw_box(height, width):
 
 # параметрами являются переменные height и width.
 # В момент вызова функции draw_box(height, width) аргументами являются height и 9.
-
-
 height = 1
 draw_box(height, 9)  # *********
 
+
 # Когда аргумент передается в функцию, параметрическая переменная функции будет ссылаться на значение этого аргумента.
 # Однако любые изменения, которые вносятся в параметрическую переменную, не будут влиять на аргумент. (также см. 1_variables.py)
-
-
 def draw_box(height, width):
     height = 1
     width = 5
@@ -100,8 +95,6 @@ print(n, m)  # 5 7
 # ***Number of Arguments***
 # By default, a function must be called with the correct number of arguments. Meaning that if your function expects 2 arguments, you have to call the function with 2 arguments, not more, and not less.
 # This function expects 2 arguments, and gets 2 arguments:
-
-
 def my_function(fname, lname):
     print(fname + " " + lname)
 
@@ -111,8 +104,6 @@ my_function("Emil", "Refsnes")
 
 # If you try to call the function with 1 or 3 arguments, you will get an error:
 # This function expects 2 arguments, but gets only 1:
-
-
 def my_function(fname, lname):
     print(fname + " " + lname)
 
@@ -130,10 +121,9 @@ def my_function(*kids):
 
 my_function("Emil", "Tobias", "Linus")  # The youngest child is Linus
 
+
 # Keyword Arguments. You can also send arguments with the key = value syntax.
 # This way the order of the arguments does not matter.
-
-
 def my_function(child3, child2, child1):
     print("key = value syntax - " + child3)
 
@@ -141,36 +131,53 @@ def my_function(child3, child2, child1):
 # key = value syntax - Linus
 my_function(child1="Emil", child2="Tobias", child3="Linus")
 
+
 # The phrase Keyword Arguments are often shortened to kwargs in Python documentations.
 # Arbitrary Keyword Arguments, **kwargs
 # If you do not know how many keyword arguments that will be passed into your function, add two asterisk: ** before the parameter name in the function definition.
 # This way the function will receive a dictionary of arguments, and can access the items accordingly:
-
-
 def my_function(**kid):
     print("His last name is " + kid["lname"])  # His last name is Refsnes
 
 
 my_function(fname="Tobias", lname="Refsnes")
 
+
 # Default Parameter Value.
 # If we call the function without argument, it uses the default value:
-
-
 def my_function(country="Norway"):
     print("I am from " + country)
 
 
 my_function("Sweden")
-my_function("India")
 my_function()
 my_function("Brazil")
+
+# / ограничивает использование первых аргументов только позиционно (нельзя передать их как a=..., b=...)
+# * означает, что следующие аргументы должны указываться только по имени (c - именованный аргумент, d - именованный аргумент со значением по умолчанию 'default value')
+def myfunc(a, b, /, *, c, d="default value"):
+    if d == "default value":
+        return (a + b + c) / 2
+    elif d == "sum":
+        return a + b + c
+    else:
+        return "Invalid metric"
+
+
+# d берёт значение по умолчанию 'default value'
+print(myfunc(10, 20, c=30))  # 30
+print(myfunc(10, 20, c=30, d="sum"))  # 60
+print(myfunc(10, 20, c=30, d="any value"))  # Invalid metric
+# print(myfunc(a=10, b=20, c=30)) # попытка передать a и b по имени вызовет ошибку
+print(
+    myfunc(10, 20, 30)
+)  # вызовет ошибку, третий аргумент должен быть передан как именованный (c=30)
+
+
 
 # Passing a List as an Argument
 # You can send any data types of argument to a function (string, number, list, dictionary etc.), and it will be treated as the same data type inside the function.
 # E.g. if you send a List as an argument, it will still be a List when it reaches the function:
-
-
 def my_function(food):
     for x in food:
         print(x)
@@ -180,11 +187,10 @@ fruits = ["apple", "banana", "cherry"]
 
 my_function(fruits)  # apple banana cherry
 
+
 # ***Return Values***
 # To let a function return a value, use the return statement:
 # после выполнения инструкции return функция прекращает свою работу
-
-
 def my_function(x):
     return 5 * x
 
@@ -193,9 +199,8 @@ print(my_function(3))  # 15
 print(my_function(5))  # 25
 print(my_function(9))  # 45
 
+
 # В одной функции может быть сколько угодно инструкций return. Рассмотрим функцию convert_grade(), которая переводит стобалльную оценку в пятибалльную:
-
-
 def convert_grade_many(grade):
     if grade >= 90:
         return 5
@@ -210,8 +215,6 @@ def convert_grade_many(grade):
 
 
 # Функцию convert_grade() можно переписать с помощью одной инструкции return:
-
-
 def convert_grade_one(grade):
     if grade >= 90:
         result = 5
