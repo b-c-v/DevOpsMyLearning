@@ -12,3 +12,4 @@ id_rsa*
 crash.log
 
 tmp*
+.tmp/
