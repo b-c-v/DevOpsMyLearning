@@ -10,7 +10,7 @@ def changecase(func):
     return myinner
 
 
-# By placing @changecase directly above the function definition, the function myfunction is being "decorated" with the changecase function.
+# By placing cdchangecase directly above the function definition, the function myfunction is being "decorated" with the changecase function.
 @changecase
 # The function myfunction is the function that gets decorated.
 def myfunction():
