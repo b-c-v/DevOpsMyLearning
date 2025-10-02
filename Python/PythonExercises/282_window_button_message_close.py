@@ -19,7 +19,7 @@ root = tk.Tk()
 # Set window title
 root.title("My Application")
 
-# Set window icon (Windows: .ico file)
+# Set window icon
 icon = tk.PhotoImage(file="favicon.png")
 root.iconphoto(True, icon)
 
@@ -35,10 +35,10 @@ root.configure(bg="orange")
 root.resizable(False, False)
 
 # Add buttons
-button = tk.Button(root, text="Click Me", command=on_button_click)
-button.pack(pady=20)
-button = tk.Button(root, text="Close", command=close)
-button.pack(pady=40)
+button_click = tk.Button(root, text="Click Me", command=on_button_click)
+button_click.pack(pady=20)
+button_close = tk.Button(root, text="Close", command=close)
+button_close.pack(pady=40)
 
 
 # Start the event loop (keeps window open)

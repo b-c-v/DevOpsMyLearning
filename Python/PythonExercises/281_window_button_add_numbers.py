@@ -13,7 +13,7 @@ root = tk.Tk()
 # Set window title
 root.title("My Application")
 
-# Set window icon (Windows: .ico file)
+# Set window icon
 icon = tk.PhotoImage(file="favicon.png")
 root.iconphoto(True, icon)
 
