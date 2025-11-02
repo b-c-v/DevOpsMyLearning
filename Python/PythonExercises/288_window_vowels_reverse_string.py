@@ -8,6 +8,7 @@ def show_data():
     # Get user input
     user_character = entry_character.get()
     user_string = entry_user_string.get()
+    character_type = ""
 
     if user_character in vowels:
         character_type = "vowel"
@@ -21,7 +22,7 @@ def show_data():
 
     # Display the collected information
     tk.Label(
-        new_window, text='Your letter "{user_character}" is a {character_type}'
+        new_window, text=f'Your letter "{user_character}" is a {character_type}'
     ).pack(pady=5)
     tk.Label(new_window, text=f"Your reverse string is: {user_string[::-1]}").pack(
         pady=5
