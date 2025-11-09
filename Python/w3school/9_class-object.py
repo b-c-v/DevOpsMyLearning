@@ -3,7 +3,7 @@
 # A Class is like an object constructor, or a "blueprint" for creating objects.
 
 
-# Create a Class. To create a class, use the keyword class:
+# Create a Class. To create a class, use the keyword "class":
 class MyClass:
     x = 5
 
@@ -14,7 +14,7 @@ p1 = MyClass()
 print(p1.x)  # 5
 
 
-# The __init__() method.
+# The __init__() constructor method.
 # All classes have a method called __init__(), which is always executed when the class is being initiated ()
 # Use the __init__() method to assign values to object properties, or other operations that are necessary to do when the object is being created:
 # Create a class named Person, use the __init__() method to assign values for name and age:
@@ -76,7 +76,7 @@ p1 = Person("John", 36)
 print("__str__() method -", p1)  # John(36)
 
 
-# __del__ method is used to define the actions that should be performed before an object is destroyed. This can include releasing external resources such as files or database connections associated with the object.
+# __del__ is a destructor method is used to define the actions that should be performed before an object is destroyed. This can include releasing external resources such as files or database connections associated with the object.
 # If a class does not implement __del__, Python relies solely on its automatic garbage collector to reclaim memory.
 class SimpleObject:
     def __init__(self, name):
@@ -91,7 +91,7 @@ del obj  # SimpleObject 'A' is being destroyed
 
 # Object Methods. Objects can also contain methods. Methods in objects are methods that belong to the object.
 # Insert a method that prints a greeting, and execute it on the p1 object:
-# Note: The self parameter is a reference to the current instance of the class, and is used to access variables that belong to the class.
+# Note: The "self" parameter is a reference to the current instance of the class, and is used to access variables that belong to the class.
 
 
 class Person:
@@ -107,7 +107,7 @@ p1 = Person("John", 36)
 p1.myfunc()  # Hello my name is John
 
 
-# self Parameter. The self parameter is a reference to the current instance of the class, and is used to access variables that belongs to the class.
+# "self" Parameter. The self parameter is a reference to the current instance of the class, and is used to access variables that belongs to the class.
 # It does not have to be named self , you can call it whatever you like, but it has to be the first parameter of any method in the class:
 # Use the words mysillyobject and abc instead of self:
 class Person:
@@ -135,7 +135,33 @@ del p1.age
 # Delete the p1 object:
 del p1
 
-# The pass Statement
+
+# Class variables, instance variables and local variables
+"""
+Class variables are shared by all instances of a class.
+Instance variables are unique to each object and are usually defined inside methods (commonly inside __init__()).
+Local variables are defined within a method and exist only while that method executes.
+"""
+
+
+class MyClass:
+    var1 = 10  # Class variable (shared among all instances)
+
+    def my_fun(self):
+        var2 = 20  # Local variable (only accessible inside this method)
+        print(f"Local variable inside method: {var2}")
+        self.var3 = 30  # Instance variable (created when this method runs)
+
+
+myobj = MyClass()
+print(f"Class variable: {myobj.var1}")  # 10
+# print(my_obj.var2)  # Error: local variable, exists only during method execution and cannot be accessed outside the method
+# print(myobj.var3)  # Error: instance variable, created only when the method my_fun() is executed
+myobj.my_fun()
+print(f"Instance variable: {myobj.var3}")  # 30 Now exists for this instance
+
+
+# The "pass" Statement
 # class definitions cannot be empty, but if you for some reason have a class definition with no content, put in the pass statement to avoid getting an error.
 
 
