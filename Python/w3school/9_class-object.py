@@ -167,3 +167,74 @@ print(f"Instance variable: {myobj.var3}")  # 30 Now exists for this instance
 
 class Person:
     pass
+
+
+# ***Access modifiers: Public, Protected and Private***
+# Access modifiers control how class attributes and methods can be accessed. Python uses naming conventions based on underscores to signal intended access levels rather than enforce them.
+"""
+Public Members:
+    - no leading underscore in the name
+    - accessible from anywhere.
+    - default access level in Python
+
+Protected Members: 
+    - prefixed with a single underscore (_)
+    - intended for internal use within the class and subclasses
+    - still accessible externally if explicitly referenced
+
+Private Members: 
+    - prefixed with double underscores (__)
+    - accessible only within the defining class
+    - internally renamed to _ClassName__attributeName
+"""
+class Person:
+    def __init__(self):
+        self.public = "public variable"
+        self._protected = "protected variable"
+        self.__private = "private variable"
+
+    def public_function(self):
+        print(f"This is a public function and contains {self.public}!")
+
+    def _protected_function(self):
+        print(f"This is a protected function and contains {self._protected}!")
+
+    def __private_function(self):
+        print(f"This is a private function and contains {self.__private}!")
+
+    # Internal method to access private function safely
+    def access_private_function(self):
+        self.__private_function()
+
+
+class Student(Person):
+    def show_info(self):
+        print(f"Student inherits: {self.public}")
+        print(f"Student inherits: {self._protected}")
+        # print(f"Student inherit: {self.__private}") # Raise an AttributeError
+
+
+# Create an instance of Person
+person = Person()
+print(f"Person: {person.public}")
+print(f"Person: {person._protected}")  # not recommended
+# print(f"Person: {person.__private}") # Raise an AttributeError
+print(f"Person: {person._Person__private}")  # Access via name mangling (not recommended)
+person.public_function()
+person._protected_function()  # not recommended
+# person.__private_function() # Raise an AttributeError
+person._Person__private_function()  # Access via name mangling (not recommended)
+person.access_private_function()
+
+# Create an instance of Student (inherits from Person)
+student = Student()
+print(f"Student: {student.public}")
+print(f"Student: {student._protected}")  # not recommended
+# print(f"Student: {student.__private}") # Raise an AttributeError
+print(f"Student: {student._Person__private}") # Access via name mangling (not recommended)
+student.show_info()
+student.public_function()
+student._protected_function()
+# student.__private_function() # Raise an AttributeError
+student._Person__private_function() # Access via name mangling (not recommended)
+student.access_private_function()
