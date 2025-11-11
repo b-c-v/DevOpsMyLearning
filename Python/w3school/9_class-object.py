@@ -14,7 +14,7 @@ p1 = MyClass()
 print(p1.x)  # 5
 
 
-# The __init__() constructor method.
+# ***The __init__() constructor method.***
 # All classes have a method called __init__(), which is always executed when the class is being initiated ()
 # Use the __init__() method to assign values to object properties, or other operations that are necessary to do when the object is being created:
 # Create a class named Person, use the __init__() method to assign values for name and age:
@@ -32,7 +32,7 @@ p1 = Person("John", 36)
 print("__init__() method -", p1.name, p1.age)  # John 36
 
 
-# The __new__() method
+# ***The __new__() method***
 # __new__ is a special method in Python that is responsible for creating a new instance of a class.
 # __new__() actually returns the object instance. It is a static method by definition and always takes the class (cls) as its first argument.
 #  __new__ method is called first to create an instance of class A and then returns the newly created instance. After that, the __init__ method initializes the instance.
@@ -57,7 +57,7 @@ class B:
 
 B()
 
-# The __str__() method
+# ***The __str__() method***
 # The __str__() method controls what should be returned when the class object is represented as a string.
 # If the __str__() method is not set, the string representation of the object is returned:
 
@@ -76,6 +76,7 @@ p1 = Person("John", 36)
 print("__str__() method -", p1)  # John(36)
 
 
+# ***__del__***
 # __del__ is a destructor method is used to define the actions that should be performed before an object is destroyed. This can include releasing external resources such as files or database connections associated with the object.
 # If a class does not implement __del__, Python relies solely on its automatic garbage collector to reclaim memory.
 class SimpleObject:
@@ -89,7 +90,8 @@ class SimpleObject:
 obj = SimpleObject("A")
 del obj  # SimpleObject 'A' is being destroyed
 
-# Object Methods. Objects can also contain methods. Methods in objects are methods that belong to the object.
+# ***Object Methods.***
+# Objects can also contain methods. Methods in objects are methods that belong to the object.
 # Insert a method that prints a greeting, and execute it on the p1 object:
 # Note: The "self" parameter is a reference to the current instance of the class, and is used to access variables that belong to the class.
 
@@ -107,7 +109,8 @@ p1 = Person("John", 36)
 p1.myfunc()  # Hello my name is John
 
 
-# "self" Parameter. The self parameter is a reference to the current instance of the class, and is used to access variables that belongs to the class.
+# ***"self" parameter***
+# The self parameter is a reference to the current instance of the class, and is used to access variables that belongs to the class.
 # It does not have to be named self , you can call it whatever you like, but it has to be the first parameter of any method in the class:
 # Use the words mysillyobject and abc instead of self:
 class Person:
@@ -122,21 +125,23 @@ class Person:
 p1 = Person("John", 36)
 p1.myfunc()  # Hello my name is  John I'm 36
 
-# Modify Object Properties.
+# ***Modify Object Properties.***
 # Set the age of p1 to 40:
 p1.age = 40
 
 
-# Delete Object Properties. You can delete properties on objects by using the del keyword:
+# ***Delete Object Properties.***
+# You can delete properties on objects by using the del keyword:
 # Delete the age property from the p1 object:
 del p1.age
 
-# Delete Objects. You can delete objects by using the del keyword:
+# ***Delete Objects.***
+# You can delete objects by using the del keyword:
 # Delete the p1 object:
 del p1
 
 
-# Class variables, instance variables and local variables
+# ***Class variables, instance variables and local variables***
 """
 Class variables are shared by all instances of a class.
 Instance variables are unique to each object and are usually defined inside methods (commonly inside __init__()).
@@ -144,24 +149,51 @@ Local variables are defined within a method and exist only while that method exe
 """
 
 
-class MyClass:
-    var1 = 10  # Class variable (shared among all instances)
+class Variables:
+    class_variable = 10  # Class variable: shared among all instances of the class
+
+    def __init__(self):
+        self.instance_variable_init = 20  # Instance variable: unique to each instance
 
     def my_fun(self):
-        var2 = 20  # Local variable (only accessible inside this method)
-        print(f"Local variable inside method: {var2}")
-        self.var3 = 30  # Instance variable (created when this method runs)
+        local_variable = (
+            30  # Local variable: only exists during this method's execution
+        )
+        print(f"Local variable inside method: {local_variable}")
+        # Instance variable created inside a method: only exists after this method is called
+        self.instance_variable_function = 40
 
 
-myobj = MyClass()
-print(f"Class variable: {myobj.var1}")  # 10
-# print(my_obj.var2)  # Error: local variable, exists only during method execution and cannot be accessed outside the method
-# print(myobj.var3)  # Error: instance variable, created only when the method my_fun() is executed
+myobj = Variables()
+print(f"Class variable: {myobj.class_variable}")  # 10
+# print(myobj.local_variable)  # Error: local variable, exists only during method execution and cannot be accessed outside the method
+# print(myobj.instance_variable_function)  # Error: instance variable, created only when the method my_fun() is executed
 myobj.my_fun()
-print(f"Instance variable: {myobj.var3}")  # 30 Now exists for this instance
+print(
+    f"Instance variable in the function: {myobj.instance_variable_function}"
+)  # 40 Now exists for this instance
+
+# Class variables are stored at the class level - all instances reference the same memory location.
+myobj2 = Variables()
+print(f"Before modification myobj.class_variable: {myobj.class_variable}")  # 10
+print(f"Before modification myobj2.class_variable: {myobj2.class_variable}")  # 10
+
+# Class variables can be modified via ClassName.var and changes affect all instances
+Variables.class_variable = 50
+print(f"After modifying myobj.class_variable: {myobj.class_variable}")  # 50
+print(f"After modifying myobj2.class_variable: {myobj2.class_variable}")  # 50
+
+# Instance variables are unique per object; modifying the class attribute with the same name does not affect existing instances
+Variables.instance_variable_init = 60
+print(f"myobj.instance_variable_init: {myobj.instance_variable_init}")  # 20
+print(f"myobj2.instance_variable_init: {myobj2.instance_variable_init}")  # 20
+# Individual instance modification
+myobj.instance_variable_init = 70
+print(f"myobj.instance_variable_init: {myobj.instance_variable_init}")  # 70
+print(f"myobj2.instance_variable_init: {myobj2.instance_variable_init}")  # 20
 
 
-# The "pass" Statement
+# ***The "pass" Statement***
 # class definitions cannot be empty, but if you for some reason have a class definition with no content, put in the pass statement to avoid getting an error.
 
 
@@ -187,6 +219,8 @@ Private Members:
     - accessible only within the defining class
     - internally renamed to _ClassName__attributeName
 """
+
+
 class Person:
     def __init__(self):
         self.public = "public variable"
@@ -219,7 +253,9 @@ person = Person()
 print(f"Person: {person.public}")
 print(f"Person: {person._protected}")  # not recommended
 # print(f"Person: {person.__private}") # Raise an AttributeError
-print(f"Person: {person._Person__private}")  # Access via name mangling (not recommended)
+print(
+    f"Person: {person._Person__private}"
+)  # Access via name mangling (not recommended)
 person.public_function()
 person._protected_function()  # not recommended
 # person.__private_function() # Raise an AttributeError
@@ -231,10 +267,12 @@ student = Student()
 print(f"Student: {student.public}")
 print(f"Student: {student._protected}")  # not recommended
 # print(f"Student: {student.__private}") # Raise an AttributeError
-print(f"Student: {student._Person__private}") # Access via name mangling (not recommended)
+print(
+    f"Student: {student._Person__private}"
+)  # Access via name mangling (not recommended)
 student.show_info()
 student.public_function()
 student._protected_function()
 # student.__private_function() # Raise an AttributeError
-student._Person__private_function() # Access via name mangling (not recommended)
+student._Person__private_function()  # Access via name mangling (not recommended)
 student.access_private_function()
