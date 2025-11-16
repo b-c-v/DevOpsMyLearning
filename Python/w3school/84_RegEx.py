@@ -93,6 +93,14 @@ txt = "The rain in Spain"
 x = re.search("Portugal", txt)
 print("no matches -", x)  # None
 
+# search() function returns a match object if the pattern is found.
+# Two commonly used methods on a match object are:
+# group() - returns the exact substring matched by the pattern.
+# start() - returns the starting index (0-based) of the match within the original string.
+txt = "The rain in Italy"
+x = re.search("Italy", txt)
+print(f"Word {x.group()} found at position of {x.start()}")
+
 # The split() function returns a list where the string has been split at each match:
 # Split at each white-space character:
 txt = "The rain in Spain"
