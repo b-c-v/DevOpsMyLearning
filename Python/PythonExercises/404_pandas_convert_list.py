@@ -1,7 +1,6 @@
 import pandas as pd
 
 user_series = pd.Series(dtype=int)
-print(user_series)
 
 amount_numbers = int(input("How many numbers do you want to enter: "))
 for i in range(amount_numbers):
