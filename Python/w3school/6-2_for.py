@@ -67,4 +67,5 @@ for x in adj:
 for x in [0, 1, 2]:
     pass
 
+# below is list comprehension
 [print(x) for x in ["apple", "banana", "cherry"]]

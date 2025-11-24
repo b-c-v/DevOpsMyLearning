@@ -5,9 +5,20 @@ import platform
 # OS name (e.g., 'posix' for Linux/Mac, 'nt' for Windows)
 print("OS Name:", os.name)
 
+# psutil library provides system monitoring functions
+import psutil
 
-print("System:", platform.system())  # e.g., 'Windows', 'Linux'
-print("Release:", platform.release())  # e.g., '10', '5.15.0-72-generic'
-print("Version:", platform.version())  # Detailed OS version
-print("Machine:", platform.machine())  # e.g., 'x86_64'
-print("Processor:", platform.processor())  # CPU details
+# Get CPU usage as a percentage
+cpu_usage = psutil.cpu_percent(interval=1)  # Measures CPU load over 1 second
+
+# Get memory (RAM) statistics
+memory_info = psutil.virtual_memory()  # Returns an object with RAM details
+ram_total = memory_info.total  # Total RAM in bytes
+ram_used = memory_info.used  # Used RAM in bytes
+ram_percent = memory_info.percent  # Percentage of RAM used
+
+# Print everything
+print(f"CPU Usage: {cpu_usage}%")
+print(f"RAM Total: {ram_total / (1024**3):.2f} GB")
+print(f"RAM Used: {ram_used / (1024**3):.2f} GB")
+print(f"RAM Usage: {ram_percent}%")
