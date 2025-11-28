@@ -153,6 +153,7 @@ my_function("Sweden")
 my_function()
 my_function("Brazil")
 
+
 # / ограничивает использование первых аргументов только позиционно (нельзя передать их как a=..., b=...)
 # * означает, что следующие аргументы должны указываться только по имени (c - именованный аргумент, d - именованный аргумент со значением по умолчанию 'default value')
 def myfunc(a, b, /, *, c, d="default value"):
@@ -174,7 +175,6 @@ print(
 )  # вызовет ошибку, третий аргумент должен быть передан как именованный (c=30)
 
 
-
 # Passing a List as an Argument
 # You can send any data types of argument to a function (string, number, list, dictionary etc.), and it will be treated as the same data type inside the function.
 # E.g. if you send a List as an argument, it will still be a List when it reaches the function:
@@ -189,15 +189,34 @@ my_function(fruits)  # apple banana cherry
 
 
 # ***Return Values***
-# To let a function return a value, use the return statement:
-# после выполнения инструкции return функция прекращает свою работу
+# To let a function return a value, use the return statement
+# Once return is executed, the function terminates immediately, and the returned value becomes the result of the function call
+# A function can return any Python object (e.g., numbers, strings, lists, dictionaries).
 def my_function(x):
     return 5 * x
 
 
-print(my_function(3))  # 15
-print(my_function(5))  # 25
-print(my_function(9))  # 45
+print(f"return statement: {my_function(3)}")  # 15
+print(f"return statement: {my_function(5)}")  # 25
+
+
+# If a function does not explicitly use return, it returns None by default.
+def my_function(x):
+    x += 1
+    print(x)
+
+
+x = my_function(3)
+print(x)  # None
+
+
+# The returned value can be assigned to a variable for later use.
+def multiply_by_five(number):
+    return 5 * number
+
+
+result = multiply_by_five(20)
+print(f"return value assigned to a variable: {result}")  # 100
 
 
 # В одной функции может быть сколько угодно инструкций return. Рассмотрим функцию convert_grade(), которая переводит стобалльную оценку в пятибалльную:
