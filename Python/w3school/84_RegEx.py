@@ -11,6 +11,20 @@ import re
 txt = "The rain in Spain"
 x = re.search("^The.*Spain$", txt)
 
+# r prefix creates a raw string, which means backslashes \ are treated as literal characters rather than escape sequences
+# Always write regex patterns as raw strings
+# r prefix is required when use \b and \\ in regex
+text = "C:\\Users\\Documents"
+pattern1 = r"C:\\Users\\Documents"  # (raw string!) r"\\" is  two backslashes
+pattern2 = "C:\\\\Users\\\\Documents"  # "\\" is one backslash
+print(bool(re.search(pattern1, text)))  # True
+print(bool(re.search(pattern2, text)))  # True
+
+# \d, \w, \s with or without r"" have the same behavior
+# \n, \t, \b have different behavior
+print(bool(re.search("\bworld\b", "Hello world")))  # False
+print(bool(re.search(r"\bworld\b", "Hello world")))  # True
+
 """
 RegEx Functions. The re module offers a set of functions that allows us to search a string for a match:
 Function       Description
