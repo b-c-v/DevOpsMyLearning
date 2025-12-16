@@ -10,10 +10,14 @@ def calculate_cube():
         return
 
     # Calculate the result
-    result = user_number**3
+    result_square = user_number**3
+    result_cube = user_number**3
 
     # Show the result in a message box
-    messagebox.showinfo("Result", f"The cube of {user_number} is {result}")
+    messagebox.showinfo(
+        "Result",
+        f"{user_number}\u00b2 = {result_square}\n{user_number}\u00b3 = {result_cube}",
+    )
 
 
 # Create the MAIN WINDOW

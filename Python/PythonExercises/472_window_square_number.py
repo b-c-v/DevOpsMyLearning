@@ -48,7 +48,7 @@ second_number = tk.Entry(root)
 second_number.pack(pady=5, padx=5)
 
 
-# Button to calculate total and average scores
+# Button to calculate the result
 tk.Button(root, text="Calculate", command=calculate_cube).pack(pady=10)
 
 # Close button
