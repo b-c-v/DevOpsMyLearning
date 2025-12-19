@@ -26,7 +26,7 @@ def space_check():
     # Display the results to the user
     tk.Label(
         result_window,
-        text=f'{message}\nLetters aat odd position: {"".join(odd_index_chars)}',
+        text=f'{message}\nLetters at odd position: {"".join(odd_index_chars)}',
     ).pack(pady=5)
 
 
