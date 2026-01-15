@@ -4,7 +4,7 @@ import paramiko  # Импортируем библиотеку для работ
 # pip install paramiko
 ip_address = "192.168.1.236"  # IP-адрес удалённого сервера
 username = "ser"  # Имя пользователя для SSH
-password = "4840783"  # Пароль для SSH
+password = "changeme"  # Пароль для SSH
 ssh_port = 22  # Порт SSH по умолчанию
 
 # Создаём объект клиента SSH
