@@ -1,6 +1,8 @@
 # Для того чтобы использовать возможности модулей в Python, необходимо их сначала подключить. Это делается с помощью команды import, которая позволяет импортировать весь модуль в программу:
 import random
-
+# - Python loads and executes random.py from the standard library
+# - module object named random is created
+# - all public objects (functions, classes, variables) defined in random module become accessible only through the module name
 # Это позволяет использовать все функции и переменные, определённые в модуле, но с обязательным указанием имени модуля при каждом обращении.
 print(random.randint(1, 10))
 
@@ -21,7 +23,10 @@ print(randint(1, 10))  # вызов функции без указания им�
 
 # Если требуется использовать функции модуля без указания имени модуля, можно импортировать отдельные элементы модуля.
 from random import randint
-
+# - Python loads and execute random.py from the standard library
+# - imports a single named object (randint) directly into the current namespace
+# - the name randint can be used without the random. prefix
+# - randint may be a variable, function, class, or any other object defined in the random module
 # Теперь можно использовать только функцию randint из модуля random, без необходимости обращаться к полному имени модуля:
 print(randint(1, 10))
 
