@@ -276,6 +276,24 @@ print(
 )  # Решением системы являются числа x = 1.3 y = -0.2
 
 
+# -> (аннотация возвращаемого значения)
+# синтаксис для указания типа возвращаемого значения функции. Это не влияет на выполнение функции, но может служить полезной документацией для разработчиков и инструментов статической проверки типов.
+
+
+def is_even(number) -> bool:  # возвращает значение типа bool
+    if number % 2 == 0:
+        return True
+    else:
+        return False
+    
+# : (аннотация параметров)
+def is_even(number: int) -> bool:  # принимает аргумент типа int (хотя на самом деле может принимать и другие типы, так как Python не строго типизированный язык)
+    if number % 2 == 0:
+        return True
+    else:
+        return False
+
+
 # ***The pass Statement***
 # function definitions cannot be empty, but if you for some reason have a function definition with no content, put in the pass statement to avoid getting an error.
 # Пока нет кода, но планируется,
