@@ -48,3 +48,12 @@ print(string1, int1)
 # * это оператор распаковки (unpacking operator) в Python. Он распаковывает элементы и передаёт их как отдельные аргументы в print()
 print(*['a', 'b', 'c']) # a b c
 print(['a', 'b', 'c'])  # ['a', 'b', 'c']
+
+# F-String (f"...") — это форматированная строка позволяет встраивать переменные и выражения прямо в строку
+name = "Alice"
+age = 30
+print(f"My name is {name} and I am {age} years old")  # My name is Alice and I am 30 years old
+
+# Параметр flush=True заставляет print() немедленно выводить содержимое буфера. Полезен для логирования в реальном времени или индикаторов прогресса
+# По умолчанию flush=False, что означает, что вывод может быть буферизирован
+print(f"Progress: {50}%", flush=True)
