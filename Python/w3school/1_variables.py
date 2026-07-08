@@ -101,6 +101,43 @@ x = bytearray(5)                                 # x is of type bytearray
 x = memoryview(bytes(5))                         # x is of type memoryview
 x = None                                         # x is of type NoneType
 
+# TYPE HINTS (Аннотации типов) - это указание на то, какой тип данных должна содержать переменная.
+# Синтаксис: имя_переменной: тип = значение
+"""
+    Python НЕ требует использовать type hints, но они полезны для:
+    - Улучшения читаемости кода
+    - Помощи IDE в автодополнении
+    - Обнаружения ошибок типов на этапе разработки
+"""
+
+# Список строк (list of strings)
+my_list: list[str] = ["apple", "banana", "cherry"]
+# или старый синтаксис для Python < 3.9:
+# from typing import List
+# my_list: List[str] = ["apple", "banana", "cherry"]
+
+# Пустой список, который будет содержать строки
+empty_list: list[str] = []
+
+# Список целых чисел
+numbers: list[int] = [1, 2, 3, 4, 5]
+
+# Список смешанных типов
+mixed_list: list = [1, "hello", 3.14, True]
+
+# Другие типы
+name: str = "John"
+age: int = 25
+height: float = 5.9
+is_student: bool = True
+my_tuple: tuple[str, int, float] = ("John", 25, 5.9)
+my_dict: dict[str, int] = {"apple": 5, "banana": 3}
+my_set: set[int] = {1, 2, 3, 4, 5}
+
+# Type hints НЕ влияют на исполнение программы
+# Python все равно позволит вам присвоить другой тип:
+my_list: list[str] = ["apple", "banana"]
+my_list = [1, 2, 3]  # Ошибка типа НЕ будет при исполнении, но IDE предупредит
 
 # If you want to specify the data type, you can use the following constructor functions:
 x = str("Hello World")                           # x is of type str
