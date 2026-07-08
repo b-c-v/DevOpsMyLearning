@@ -224,8 +224,8 @@ os.confstr_names            Returns a dictionary of the names and integer values
 os.curdir                      
 os.defpath                      
 os.devnull                      
-os.environ                      
-os.environb                      
+os.environ                      Returns a dictionary of the user's environment variables
+os.environb                     Returns a dictionary of the user's environment variables in bytes
 os.extsep                      
 os.linesep                      
 os.name                     Find the name of the current OS
