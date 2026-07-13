@@ -154,9 +154,20 @@ my_function()
 my_function("Brazil")
 
 
-# / ограничивает использование первых аргументов только позиционно (нельзя передать их как a=..., b=...)
-# * означает, что следующие аргументы должны указываться только по имени (c - именованный аргумент, d - именованный аргумент со значением по умолчанию 'default value')
-def myfunc(a, b, /, *, c, d="default value"):
+# / (positional-only arguments)
+# Параметры до символа / можно передавать только позиционно (нельзя передать их как a=..., b=...)
+def positional_only_demo(a, b, /, c):
+    return a + b + c
+
+
+print(positional_only_demo(10, 20, 30))  # 60
+print(positional_only_demo(10, 20, c=30))  # 60
+# print(positional_only_demo(a=10, b=20, c=30))  # TypeError: a и b позиционные
+
+
+# * (keyword-only arguments)
+# Параметры после символа * можно передавать только по имени.
+def keyword_only_demo(a, b, *, c, d="default value"): # c - именованный аргумент, d - именованный аргумент со значением по умолчанию 'default value'
     if d == "default value":
         return (a + b + c) / 2
     elif d == "sum":
@@ -166,13 +177,10 @@ def myfunc(a, b, /, *, c, d="default value"):
 
 
 # d берёт значение по умолчанию 'default value'
-print(myfunc(10, 20, c=30))  # 30
-print(myfunc(10, 20, c=30, d="sum"))  # 60
-print(myfunc(10, 20, c=30, d="any value"))  # Invalid metric
-# print(myfunc(a=10, b=20, c=30)) # попытка передать a и b по имени вызовет ошибку
-print(
-    myfunc(10, 20, 30)
-)  # вызовет ошибку, третий аргумент должен быть передан как именованный (c=30)
+print(keyword_only_demo(10, 20, c=30))  # 30
+print(keyword_only_demo(10, 20, c=30, d="sum"))  # 60
+print(keyword_only_demo(10, 20, c=30, d="any value"))  # Invalid metric
+# print(keyword_only_demo(10, 20, 30))  # TypeError: c должен быть именованным (c=30)
 
 
 # Passing a List as an Argument
