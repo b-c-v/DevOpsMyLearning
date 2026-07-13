@@ -193,6 +193,16 @@ print(y)  # banana
 print(z)  # cherry
 
 
+# Dunder variables
+# Dunder means "double underscore": two underscores before and after the name.
+# Example: __file__ (not __file___).
+# These variables are created by Python automatically.
+print("__name__:", __name__)        # Module name, or "__main__" when run directly
+print("__file__:", __file__)        # Path to this file (for scripts/modules)
+print("__doc__:", __doc__)          # Module docstring, or None if not defined
+print("__package__:", __package__)  # Package name, often None for top-level scripts
+
+
 # ***Global and local variables***
 # Global Variables - variables that are created outside of a function. Global variables can be used by everyone, both inside of functions and outside.
 # The global variable with the same name will remain as it was, global and with the original value.
