@@ -41,6 +41,8 @@ my_variable_name = "John"
 name, surname = 'Vasya', 'Pythonist'
 print('Сразу несколько переменных - Имя:', name, 'Фамилия:', surname)
 
+# Default values during assignment: use or operator with .get() on dicts (see 3_operators.py and 4-4_dictionary.py)
+# my_var = dict.get("key") or default_value
 
 # Поменять значения переменных x и y местами.
 x, y = y, x
